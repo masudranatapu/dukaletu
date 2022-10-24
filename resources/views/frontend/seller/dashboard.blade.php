@@ -162,7 +162,7 @@
         font-size: 16px;
         line-height: 1.5;
         text-transform: capitalize;
-        color: #00AAFF;
+        color: #3db83a;
         position: relative;
     }
 
@@ -174,7 +174,7 @@
         width: 120px;
         height: 2px;
         z-index: 1000;
-        background-color: #00AAFF;
+        background-color: #3db83a;
     }
 
     .main-bar {
@@ -245,7 +245,7 @@
     .dashboard-post__link2.active {
         background-color: transparent !important;
         border-bottom: 2px solid #0af !important;
-        color: #00AAFF;
+        color: #3db83a;
     }
 
     .tab-title {

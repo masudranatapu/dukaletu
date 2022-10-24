@@ -1,5 +1,6 @@
  <!-- counter section start  -->
- <div class="section counter"
+ 
+<!--  <div class="section counter"
      style="background: url({{ $cms->home_counter_background }}) center center/cover no-repeat;">
      <div class="container">
          <div class="row">
@@ -62,5 +63,5 @@
              </div>
          </div>
      </div>
- </div>
+ </div> -->
  <!-- counter section end  -->

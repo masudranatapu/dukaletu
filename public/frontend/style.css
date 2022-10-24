@@ -15214,7 +15214,7 @@ a {
     background-color: #fff;
 }
 .header--two .navigation-bar__top {
-    padding: 26px 0;
+    padding: 12px 0;
     box-shadow: 0 -1px 0 0 #ebeef7 inset;
 }
 @media (max-width: 991px) {
@@ -19826,7 +19826,7 @@ a {
 .categorylist-card:hover .categorylist-card__icon {
     color: #fff;
     background-color: #0af;
-    box-shadow: 0 8px 32px 0 #00aaff66;
+    box-shadow: 0 8px 32px 0 #3db83a66;
     transition: all 0.3s ease-in-out;
 }
 .categorylist-card__top {
@@ -19976,7 +19976,7 @@ a {
 .category-card:hover .category-card__icon {
     color: #fff;
     background-color: #0af;
-    box-shadow: 0 8px 32px 0 #00aaff66;
+    box-shadow: 0 8px 32px 0 #3db83a66;
     transition: all 0.3s ease-in-out;
 }
 .category-card:hover .category-card__view .first {

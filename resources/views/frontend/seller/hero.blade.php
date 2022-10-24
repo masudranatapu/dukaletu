@@ -45,16 +45,16 @@
             <div class=""><svg width="52" height="52" viewBox="0 0 52 52" fill="none"
                     xmlns="http://www.w3.org/2000/svg">
                     <rect width="52" height="52" rx="3" fill="white" />
-                    <path d="M22 29H30" stroke="#00AAFF" stroke-width="1.5" stroke-linecap="round"
+                    <path d="M22 29H30" stroke="#3db83a" stroke-width="1.5" stroke-linecap="round"
                         stroke-linejoin="round" />
-                    <path d="M22 25H30" stroke="#00AAFF" stroke-width="1.5" stroke-linecap="round"
+                    <path d="M22 25H30" stroke="#3db83a" stroke-width="1.5" stroke-linecap="round"
                         stroke-linejoin="round" />
                     <path
                         d="M30.0002 15H35C35.2652 15 35.5196 15.1054 35.7071 15.2929C35.8946 15.4804 36 15.7348 36 16V37C36 37.2652 35.8946 37.5196 35.7071 37.7071C35.5196 37.8946 35.2652 38 35 38H17C16.7348 38 16.4804 37.8946 16.2929 37.7071C16.1054 37.5196 16 37.2652 16 37V16C16 15.7348 16.1054 15.4804 16.2929 15.2929C16.4804 15.1054 16.7348 15 17 15H21.9997"
-                        stroke="#00AAFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                        stroke="#3db83a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                     <path
                         d="M21 19V18C21 16.6739 21.5268 15.4021 22.4645 14.4645C23.4021 13.5268 24.6739 13 26 13C27.3261 13 28.5979 13.5268 29.5355 14.4645C30.4732 15.4021 31 16.6739 31 18V19H21Z"
-                        stroke="#00AAFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                        stroke="#3db83a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                 </svg></div>
         </div>
     </div>
@@ -164,7 +164,7 @@
             align-items: center;
             padding: 0px 20px;
             gap: 8px;
-            background: #00AAFF;
+            background: #3db83a;
             border-radius: 4px;
         }
 

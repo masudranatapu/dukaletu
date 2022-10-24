@@ -31,11 +31,11 @@
 
 @section('content')
     <!-- banner section start  -->
-    <div class="banner banner--two"
+    <div class="banner banner--two text-center"
         style="background: url('{{ $cms->home_main_banner }}') center center/cover no-repeat;">
         <div class="container">
             <div class="row">
-                <div class="col-lg-6">
+                <div class="col-12">
                     <h2 class="text--display-3 banner__title animate__animated animate__bounceInDown">
                         {{ $cms->home_title }}
                     </h2>
@@ -108,7 +108,8 @@
     <!-- recent-post section end -->
 
     <!-- top-category section start  -->
-    <section class="section top-category bgcolor--gray-10">
+
+    <!-- <section class="section top-category bgcolor--gray-10">
         <div class="container">
             <h2 class="text--heading-1 section__title">
                 {{ __('top_category') }}
@@ -165,7 +166,7 @@
                 @endforelse
             </div>
         </div>
-    </section>
+    </section> -->
     <!-- top-category section end  -->
 
     {{-- <!-- popular-loc section start  -->

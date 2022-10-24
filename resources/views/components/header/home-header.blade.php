@@ -18,7 +18,8 @@
                     <div class="navigation-bar__search-field">
                         <input type="text" placeholder="{{ __('ads_title_keyword') }}..." name="keyword" />
                         <button type="submit" class="navigation-bar__search-icon">
-                            <x-svg.search-icon />
+                            <!-- <x-svg.search-icon /> -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
                         </button>
                     </div>
                 </form>
@@ -51,11 +52,18 @@
                             {{ __('post_ads') }}
                         </a>
                     @else
-                        <a href="{{ route('users.login') }}" class="btn btn--bg">{{ __('sign_in') }}</a>
-                        <a href="{{ route('users.login') }}" class="btn login_required">
-                            <span class="icon--left">
+
+                        <div class="signin_btn">
+                            <a href="{{ route('users.login') }}" class="">{{ __('sign_in') }}</a>
+                                <span>|</span>
+                            <a href="{{ route('users.login') }}" class="">{{ __('Register') }}</a>
+                        </div>
+                        
+
+                        <a href="{{ route('users.login') }}" class="ms-3 btn login_required">
+                            <!-- <span class="icon--left">
                                 <x-svg.image-select-icon />
-                            </span>
+                            </span> -->
                             {{ __('post_ads') }}
                         </a>
                     @endif
@@ -65,6 +73,7 @@
             </div>
         </div>
     </div>
+
     <div class="navigation-bar__bottom-wrap">
         <div class="container navigation-bar__bottom justify-content-between">
             <div class="d-flex align-items-center">
