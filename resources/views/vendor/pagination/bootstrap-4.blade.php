@@ -44,7 +44,7 @@
                     <li class="page-item page-navigation__item page-navigation__next">
                         <a class="page-link page-navigation__link" href="{{ $paginator->nextPageUrl() }}" aria-label="Next">
                             <span aria-hidden="true">
-                                 <x-svg.right-arrow-icon stroke="#00AAFF"/>
+                                 <x-svg.right-arrow-icon stroke="#3db83a"/>
                             </span>
                         </a>
                     </li>
@@ -52,7 +52,7 @@
                     <li class="page-item page-navigation__item page-navigation__prev">
                         <a class="page-link page-navigation__link" aria-label="Next">
                             <span aria-hidden="true">
-                                 <x-svg.right-arrow-icon stroke="#00AAFF"/>
+                                 <x-svg.right-arrow-icon stroke="#3db83a"/>
                             </span>
                         </a>
                     </li>

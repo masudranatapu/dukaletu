@@ -1,7 +1,7 @@
 <div>
     <section class="section contact">
         <div class="container">
-            <div class="contact-form">
+            <div class="contact-form mt-4">
                 <div class="contact-form__left">
                     <h2 class="contact-form__title text--heading-2">{{ __('contact_info') }}</h2>
 

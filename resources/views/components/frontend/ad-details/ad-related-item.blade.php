@@ -1,14 +1,14 @@
-<section class="section related-post pt-0">
+<section class="section related-post pt-0 mb-3 mt-5">
     <div class="container px-0">
         <div class="related-post__header">
             <h2 class="text--heading-1">{{ __('related_ads') }}</h2>
             @if ($lists->count() > 4)
                 <div class="slider-btn">
                     <button class="slider-btn--prev">
-                        <x-svg.left-arrow-icon stroke="#00AAFF" />
+                        <x-svg.left-arrow-icon stroke="#3db83a" />
                     </button>
                     <button class="slider-btn--next">
-                        <x-svg.right-arrow-icon stroke="#00AAFF" />
+                        <x-svg.right-arrow-icon stroke="#3db83a" />
                     </button>
                 </div>
             @endif

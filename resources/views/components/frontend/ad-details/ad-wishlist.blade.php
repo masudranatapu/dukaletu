@@ -8,7 +8,7 @@
             <input type="hidden" name="user_id" value="{{ auth('user')->user()->id }}">
             <button class="btn--fav" type="submit">
                 @if (isWishlisted($id))
-                    <x-svg.heart-icon fill="#00AAFF" stroke="#00AAFF" stroke-width="0.5" />
+                    <x-svg.heart-icon fill="#3db83a" stroke="#3db83a" stroke-width="0.5" />
                 @else
                     <x-svg.heart-icon />
                 @endif

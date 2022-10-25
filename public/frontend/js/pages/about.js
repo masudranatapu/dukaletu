@@ -68,6 +68,6 @@ $('.support-brand__slider').slick({
 $(document).ready(function () {
     $('.yplayer').venobox({
         spinner: 'wave',
-        spinColor: '#00aaff',
+        spinColor: '#3db83a',
     });
 });

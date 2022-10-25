@@ -22,7 +22,7 @@
     <!-- breedcrumb section end  -->
 
     <!-- dashboard section start  -->
-    <section class="section dashboard">
+    <section class="section dashboard mb-5">
         <div class="container">
             @include('frontend.dashboard-alert')
             <div class="row">
@@ -64,7 +64,7 @@
                                         <ul>
                                             <li class="dashboard__benefits-item">
                                                 <span class="icon">
-                                                    <x-svg.check-icon width="12" height="12" stroke="#00AAFF" />
+                                                    <x-svg.check-icon width="12" height="12" stroke="#3db83a" />
                                                 </span>
                                                 <p class="text--body-4">{{ __('ads_remaining') }}
                                                     <span
@@ -77,7 +77,7 @@
                                         <ul>
                                             <li class="dashboard__benefits-item">
                                                 <span class="icon">
-                                                    <x-svg.check-icon width="12" height="12" stroke="#00AAFF" />
+                                                    <x-svg.check-icon width="12" height="12" stroke="#3db83a" />
                                                 </span>
                                                 <p class="text--body-4">{{ __('featured_ads_remaining') }}
                                                     <span
@@ -87,7 +87,7 @@
                                             @if ($plan_info->badge)
                                                 <li class="dashboard__benefits-item">
                                                     <span class="icon">
-                                                        <x-svg.check-icon width="12" height="12" stroke="#00AAFF" />
+                                                        <x-svg.check-icon width="12" height="12" stroke="#3db83a" />
                                                     </span>
                                                     <p class="text--body-4">{{ __('special_membership_badge') }}</p>
                                                 </li>

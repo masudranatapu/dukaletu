@@ -221,7 +221,7 @@
             gap: 8px;
             width: 124px;
             height: 50px;
-            background: #00AAFF;
+            background: #3db83a;
             border-radius: 4px;
             flex: none;
             order: 1;

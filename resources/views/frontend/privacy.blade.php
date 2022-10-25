@@ -15,7 +15,7 @@
     <!-- breedcrumb section end  -->
 
     <!-- faq section start  -->
-    <section class="faq section">
+    <section class="faq section mt-4 mb-5">
         <div class="container">
             <div class="row justify-content-center">
                 {!! $cms->privacy_body ?? __('no_privacy_policy_found') !!}

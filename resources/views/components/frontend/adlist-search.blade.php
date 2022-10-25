@@ -1,5 +1,5 @@
 <form action="{{ route('frontend.adlist.search') }}" method="GET">
-    <div class="ad-list__search-box">
+    <div class="ad-list__search-box d-none d-xl-block">
         <div class="container">
             <!-- Search Box -->
             <div class="search {{ $dark ? 'search-no-borders border-0' : '' }}">
@@ -89,9 +89,9 @@
                             xmlns="http://www.w3.org/2000/svg">
                             <path
                                 d="M9.16667 15.8333C12.8486 15.8333 15.8333 12.8486 15.8333 9.16667C15.8333 5.48477 12.8486 2.5 9.16667 2.5C5.48477 2.5 2.5 5.48477 2.5 9.16667C2.5 12.8486 5.48477 15.8333 9.16667 15.8333Z"
-                                stroke="#00AAFF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                                stroke="#3db83a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
                             </path>
-                            <path d="M17.5 17.5L13.875 13.875" stroke="#00AAFF" stroke-width="1.6"
+                            <path d="M17.5 17.5L13.875 13.875" stroke="#3db83a" stroke-width="1.6"
                                 stroke-linecap="round" stroke-linejoin="round"></path>
                         </svg>
                     </span>

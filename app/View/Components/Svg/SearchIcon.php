@@ -12,7 +12,7 @@ class SearchIcon extends Component
      *
      * @return void
      */
-    public function __construct($stroke = '#00AAFF')
+    public function __construct($stroke = '#3db83a')
     {
         $this->stroke = $stroke;
     }

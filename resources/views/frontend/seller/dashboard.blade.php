@@ -141,9 +141,6 @@
         }
     }
 
-    .dashboard-post2 {
-        box-shadow: 0px 12px 48px rgba(0, 34, 51, 0.06) !important;
-    }
 
     .dashboard-post__content {
         padding: 24px !important;
@@ -162,7 +159,7 @@
         font-size: 16px;
         line-height: 1.5;
         text-transform: capitalize;
-        color: #00AAFF;
+        color: #3db83a;
         position: relative;
     }
 
@@ -174,7 +171,7 @@
         width: 120px;
         height: 2px;
         z-index: 1000;
-        background-color: #00AAFF;
+        background-color: #3db83a;
     }
 
     .main-bar {
@@ -192,8 +189,7 @@
     }
 
     .dashboard-post2 {
-        border-radius: 12px;
-        border: 1px solid #ebeef7;
+        border-radius: 3px;
         background-color: #fff;
     }
 
@@ -244,8 +240,8 @@
 
     .dashboard-post__link2.active {
         background-color: transparent !important;
-        border-bottom: 2px solid #0af !important;
-        color: #00AAFF;
+        border-bottom: 2px solid #3db83a !important;
+        color: #3db83a;
     }
 
     .tab-title {

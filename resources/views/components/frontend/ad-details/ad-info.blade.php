@@ -1,5 +1,10 @@
 <div class="product-item__ads-info">
-    <h2 class="text--heading-2 title">{{ $ad->title }}</h2>
+    <h2 class="text--heading-2 title">
+        {{ $ad->title }}  
+        @if($ad->featured)
+            <span class="featured_ad float-end">Featured</span>
+        @endif  
+    </h2>
 
     <ul class="post-details">
         <li class="post-details__item">

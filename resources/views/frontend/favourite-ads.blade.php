@@ -22,7 +22,7 @@
     <!-- breedcrumb section end  -->
 
     <!-- dashboard section start  -->
-    <section class="section dashboard">
+    <section class="section dashboard mb-5">
         <div class="container">
             @include('frontend.dashboard-alert')
             <div class="row">
@@ -74,7 +74,7 @@
                                         @endif
                                         <button type="submit" class="btn btn--bg btn--fav">
                                             <span class="icon">
-                                                <x-svg.heart-icon fill="#00AAFF" strokeWidth="0.5" />
+                                                <x-svg.heart-icon fill="#3db83a" strokeWidth="0.5" />
                                             </span>
                                         </button>
                                     </form>
@@ -88,7 +88,7 @@
                                         @endif
                                         <button type="submit" class="btn btn--bg btn--fav">
                                             <span class="icon">
-                                                <x-svg.heart-icon fill="#00AAFF" strokeWidth="0.5" />
+                                                <x-svg.heart-icon fill="#3db83a" strokeWidth="0.5" />
                                             </span>
                                         </button>
                                     </form>

@@ -14,7 +14,7 @@ class ListIcon extends Component
      *
      * @return void
      */
-    public function __construct($width = '40', $height = '40', $stroke = '#00AAFF')
+    public function __construct($width = '40', $height = '40', $stroke = '#3db83a')
     {
         $this->width = $width;
         $this->height = $height;

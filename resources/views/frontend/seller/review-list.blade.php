@@ -78,7 +78,7 @@
     }
 
     .btn-load-more span {
-        color: #00AAFF;
+        color: #3db83a;
     }
 
     @media (max-width:767px) {

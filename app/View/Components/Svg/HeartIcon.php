@@ -14,7 +14,7 @@ class HeartIcon extends Component
      *
      * @return void
      */
-    public function __construct($fill = 'none', $stroke = '#00AAFF', $strokeWidth = '1.6')
+    public function __construct($fill = 'none', $stroke = '#3db83a', $strokeWidth = '1.6')
     {
         $this->fill = $fill;
         $this->stroke = $stroke;

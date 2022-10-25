@@ -110,7 +110,7 @@
     @endif
 
     <!-- suppor-brand section start  -->
-    <section class="section support-brand pt-0">
+    <section class="section support-brand pt-0 pb-5">
         <div class="container">
             <h2 class="section__title text--body-2-600">{{ __('supported_by') }}</h2>
 

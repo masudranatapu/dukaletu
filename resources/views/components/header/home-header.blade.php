@@ -18,7 +18,8 @@
                     <div class="navigation-bar__search-field">
                         <input type="text" placeholder="{{ __('ads_title_keyword') }}..." name="keyword" />
                         <button type="submit" class="navigation-bar__search-icon">
-                            <x-svg.search-icon />
+                            <!-- <x-svg.search-icon /> -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
                         </button>
                     </div>
                 </form>
@@ -32,6 +33,19 @@
                                 ->count();
                         @endphp
 
+
+                        <div class="navigation_icon d-none d-sm-block">
+                            <a href="{{ route('frontend.favourites') }}">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>
+                            </a>
+
+                            <a href="{{ route('frontend.message') }}">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 17H2a3 3 0 0 0 3-3V9a7 7 0 0 1 14 0v5a3 3 0 0 0 3 3zm-8.27 4a2 2 0 0 1-3.46 0"></path></svg>
+                            </a>
+                        </div>
+
+                        
+
                         <a href="{{ route('frontend.dashboard') }}" class="user position-relative">
                             <div class="user__img-wrapper">
                                 <img src="{{ auth('user')->user()->image_url }}"
@@ -44,18 +58,25 @@
                                 {{ $unread_messages }}
                             </span>
                         </a>
-                        <a href="{{ route('frontend.post') }}" class="btn">
-                            <span class="icon--left">
+                        <a href="{{ route('frontend.post') }}" class="btn login_required">
+                            <!-- <span class="icon--left">
                                 <x-svg.image-select-icon />
-                            </span>
+                            </span> -->
                             {{ __('post_ads') }}
                         </a>
                     @else
-                        <a href="{{ route('users.login') }}" class="btn btn--bg">{{ __('sign_in') }}</a>
-                        <a href="{{ route('users.login') }}" class="btn login_required">
-                            <span class="icon--left">
+
+                        <div class="signin_btn d-none d-sm-block">
+                            <a href="{{ route('users.login') }}" class="">{{ __('sign_in') }}</a>
+                                <span>|</span>
+                            <a href="{{ route('frontend.signup') }}" class="">{{ __('Register') }}</a>
+                        </div>
+                        
+
+                        <a href="{{ route('users.login') }}" class="ms-3 btn login_required">
+                            <!-- <span class="icon--left">
                                 <x-svg.image-select-icon />
-                            </span>
+                            </span> -->
                             {{ __('post_ads') }}
                         </a>
                     @endif
@@ -65,10 +86,11 @@
             </div>
         </div>
     </div>
+
+   <!--
     <div class="navigation-bar__bottom-wrap">
         <div class="container navigation-bar__bottom justify-content-between">
             <div class="d-flex align-items-center">
-                <!-- category menu -->
                 <ul class="category-menu">
                     <li class="category-menu__item">
                         <a href="#" class="category-menu__link">
@@ -122,21 +144,14 @@
                         </ul>
                     </li>
                 </ul>
-                <!-- Category Item -->
-                <ul class="categories">
-                    @foreach ($top_categories as $category)
-                        <li class="categories__item">
-                            <a href="javascript:void(0)" onclick="adFilterFunctionTwo('{{ $category->slug }}')"
-                                class="categories__link {{ request()->routeIs('frontend.index') ? 'active' : '' }} ">
-                                {{ $category->name }}
-                            </a>
-                        </li>
-                    @endforeach
-                </ul>
-            </div>
+            </div> 
 
-            <x-frontend.language-switcher />
+           <x-frontend.language-switcher /> 
+
 
         </div>
     </div>
+-->
 </header>
+
+

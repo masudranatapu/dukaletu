@@ -1,4 +1,4 @@
-<section class="section work bgcolor--gray-10">
+<section class="section work bgcolor--gray-10 pb-5">
     <div class="container">
         <h2 class="text--heading-1 section__title">
             {{ __('how_it_work') }}
