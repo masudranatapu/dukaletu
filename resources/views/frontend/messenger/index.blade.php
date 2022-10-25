@@ -22,7 +22,7 @@
     <!-- breedcrumb section end  -->
 
     <!-- dashboard section start  -->
-    <section class="section dashboard" id="app">
+    <section class="section dashboard mb-5" id="app">
         <div class="container">
             <div class="row">
                 <div class="col-xl-3">

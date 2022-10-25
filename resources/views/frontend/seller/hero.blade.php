@@ -5,7 +5,7 @@
                 <div class="total-star">
                     <span class="total-star-text">{{ $rating_details['average'] }}</span>
                 </div>
-                <div class="ml--16 d-flex align-items-start flex-column">
+                <div class="ml--16 d-flex align-items-center">
                     <div class="mb-auto">
                         @for ($i = 0; $i < $rating_details['average']; $i++)
                             <svg width="20" height="20" viewBox="0 0 20 19" fill="none"
@@ -188,7 +188,7 @@
             gap: 24px;
             width: 214px;
             height: 84px;
-            background: #E8F7FF;
+            background: #3db83a;
             border-radius: 6px;
         }
 
@@ -199,7 +199,7 @@
             gap: 24px;
             width: 214px;
             height: 84px;
-            background: #E8F7FF;
+            background: #3db83a;
             border-radius: 6px;
         }
 
@@ -225,7 +225,7 @@
             line-height: 24px;
             display: flex;
             align-items: center;
-            color: #191F33;
+            color: #fff;
         }
 
         .active-ads-text {
@@ -234,7 +234,7 @@
             font-style: normal;
             font-weight: 400;
             font-size: 14px;
-            color: #464D61;
+            color: #fff;
         }
 
         .mb--24 {

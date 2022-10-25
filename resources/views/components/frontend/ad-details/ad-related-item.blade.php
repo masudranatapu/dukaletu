@@ -1,4 +1,4 @@
-<section class="section related-post pt-0">
+<section class="section related-post pt-0 mb-3 mt-5">
     <div class="container px-0">
         <div class="related-post__header">
             <h2 class="text--heading-1">{{ __('related_ads') }}</h2>

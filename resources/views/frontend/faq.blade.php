@@ -41,7 +41,7 @@ $data = metaData('faq');
 @php
 $cat_count = $categories->count();
 @endphp
-<section class="faq section">
+<section class="faq section mt-4 mb-5">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-xl-{{ $cat_count <= 3 ? 6 : 8 }}">

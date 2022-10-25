@@ -150,7 +150,7 @@
                 <div class="col-xl-9">
                     <div class="ad-list__content row">
                         @forelse ($adlistings as $ad)
-                            <x-frontend.single-ad :ad="$ad" :adfields="$ad->productCustomFields" className="col-lg-4 col-md-6" />
+                            <x-frontend.shop-ad :ad="$ad" :adfields="$ad->productCustomFields" className="col-xl-3 col-md-4 col-sm-6" />
                         @empty
                             <x-not-found2 message="{{ __('no_ads_found') }}" />
                         @endforelse

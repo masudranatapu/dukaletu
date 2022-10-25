@@ -41,18 +41,24 @@
         <div class="container">
             <div class="row">
                 <div class="col-xl-8">
-                    {{-- ad badge --}}
-                    <x-frontend.ad-details.ad-badge :featured="$ad->featured" :customerid="$ad->user_id" :verifiedseller="$verified_seller"
-                        :status="$ad->status" />
+                    <div class="single_ads">
+                        {{-- ad badge 
+                        <x-frontend.ad-details.ad-badge :featured="$ad->featured" :customerid="$ad->user_id" :verifiedseller="$verified_seller"
+                            :status="$ad->status" />
+                     --}}       
 
-                    {{-- ad info --}}
-                    <x-frontend.ad-details.ad-info :ad="$ad" />
+                        {{-- ad info --}}
+                        <div class="ad_info">
+                            <x-frontend.ad-details.ad-info :ad="$ad" />
+                        </div>
 
-                    {{-- ad gallery --}}
-                    <x-frontend.ad-details.ad-gallery :galleries="$ad->galleries" :thumbnail="$ad->image_url" :slug="$ad->slug" />
 
-                    {{-- ad description --}}
-                    <x-frontend.ad-details.ad-description :description="$ad->description" :features="$ad->adFeatures" />
+                        {{-- ad gallery --}}
+                        <x-frontend.ad-details.ad-gallery :galleries="$ad->galleries" :thumbnail="$ad->image_url" :slug="$ad->slug" />
+
+                        {{-- ad description --}}
+                        <x-frontend.ad-details.ad-description :description="$ad->description" :features="$ad->adFeatures" />
+                    </div>
                 </div>
                 <div class="col-xl-4">
                     <div class="product-item__sidebar">
@@ -75,7 +81,7 @@
                             <div class="product-item__sidebar-item overview">
                                 <div>
                                     <div class="location-text">{{ __('location') }}</div>
-                                    <div class="p-half rounded">
+                                    <div class="p-half rounded p-3">
                                         @php
                                             $map = setting('default_map');
                                         @endphp

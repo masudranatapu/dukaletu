@@ -81,8 +81,8 @@
     @else
         <x-header.home-header />
         {{--
-         <x-header.main-header />
-           --}}
+            <x-header.main-header />
+        --}}
     @endif
 
     @yield('content')
@@ -116,6 +116,13 @@
             "hideEasing": "linear",
             "hideMethod": "fadeOut"
         }
+    </script>
+    <!-- Tooltip -->
+    <script>
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+          return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
     </script>
 </body>
 

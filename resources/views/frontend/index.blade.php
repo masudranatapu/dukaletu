@@ -31,8 +31,7 @@
 
 @section('content')
     <!-- banner section start  -->
-    <div class="banner banner--two text-center"
-        style="background: url('{{ $cms->home_main_banner }}') center center/cover no-repeat;">
+    <div class="banner banner--two text-center" style="background-image:url('{{ asset($cms->home_main_banner) }}') center center;">
         <div class="container">
             <div class="row">
                 <div class="col-12">
@@ -48,63 +47,240 @@
     </div>
     <!-- banner section end   -->
 
-    <!-- recent-post section start  -->
-    @if ($settings->featured_ads_homepage)
-        <section class="section recent-post">
-            <div class="container">
-                <h2 class="text--heading-1 section__title">
-                    {{ __('featured_ads') }}
-                </h2>
-                <div class="row">
-
-                    @forelse ($recommendedAds as $ad)
-                        <x-frontend.single-ad :ad="$ad" :adfields="$ad->productCustomFields" className="col-xl-3 col-md-6" />
-                    @empty
-                        <x-no-data-found />
-                    @endforelse
-                </div>
-                @if (count($recommendedAds) > 0)
-                    <div class="recent-post__btn">
-                        <a href="{{ route('frontend.adlist') }}" class="btn">
-                            {{ __('view_all') }}
-                            <span class="icon--right">
-                                <x-svg.right-arrow-icon />
-                            </span>
-                        </a>
+    <div class="main_content mb-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-3 d-none d-lg-block">
+                    <div class="sidebar_left position-sticky" style="top:5rem;">
+                        <div class="category_wrapper">
+                            <ul class="category-menu">
+                                <li class="category-menu__dropdown__item">
+                                    <a href="javascript:void(0)"
+                                        class="category-menu__dropdown__link">
+                                        <i class="category-icon fa fa-list" style="color: #b0b0b0"></i>
+                                        Fashion <span>(100)</span>
+                                    </a>
+                                </li>
+                                <li class="category-menu__dropdown__item">
+                                    <a href="javascript:void(0)"
+                                        class="category-menu__dropdown__link">
+                                        <i class="category-icon fa fa-list" style="color: #b0b0b0"></i>
+                                        Electronices  <span>(75)</span>
+                                    </a>
+                                </li>
+                                <li class="category-menu__dropdown__item">
+                                    <a href="javascript:void(0)"
+                                        class="category-menu__dropdown__link">
+                                        <i class="category-icon fa fa-list" style="color: #b0b0b0"></i>
+                                        Services  <span>(58)</span>
+                                        <span class="drop-icon">
+                                            <x-svg.category-right-icon />
+                                        </span>
+                                    </a>
+                                    <ul class="category-menu__subdropdown">
+                                        <li class="category-menu__subdropdown__item">
+                                            <a href="javascript:void(0)" class="category-menu__subdropdown__link">
+                                                Subcategory Menu
+                                            </a>
+                                        </li>
+                                        <li class="category-menu__subdropdown__item">
+                                            <a href="javascript:void(0)" class="category-menu__subdropdown__link">
+                                                Subcategory Menu
+                                            </a>
+                                        </li>
+                                        <li class="category-menu__subdropdown__item">
+                                            <a href="javascript:void(0)" class="category-menu__subdropdown__link">
+                                                Subcategory Menu
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="category-menu__dropdown__item">
+                                    <a href="javascript:void(0)"
+                                        class="category-menu__dropdown__link">
+                                        <i class="category-icon fa fa-list" style="color: #b0b0b0"></i>
+                                        Collectables  <span>(01)</span>
+                                    </a>
+                                </li>
+                                <li class="category-menu__dropdown__item">
+                                    <a href="javascript:void(0)"
+                                        class="category-menu__dropdown__link">
+                                        <i class="category-icon fa fa-list" style="color: #b0b0b0"></i>
+                                        Music, Films  <span>(08)</span>
+                                    </a>
+                                </li>
+                                <li class="category-menu__dropdown__item">
+                                    <a href="javascript:void(0)"
+                                        class="category-menu__dropdown__link">
+                                        <i class="category-icon fa fa-list" style="color: #b0b0b0"></i>
+                                        Home & Garden  <span>(22)</span>
+                                    </a>
+                                </li>
+                                <li class="category-menu__dropdown__item">
+                                    <a href="javascript:void(0)"
+                                        class="category-menu__dropdown__link">
+                                        <i class="category-icon fa fa-list" style="color: #b0b0b0"></i>
+                                        Agriculture  <span>(16)</span>
+                                    </a>
+                                </li>
+                                 <li class="category-menu__dropdown__item">
+                                    <a href="javascript:void(0)"
+                                        class="category-menu__dropdown__link">
+                                        <i class="category-icon fa fa-list" style="color: #b0b0b0"></i>
+                                        Health & Beauty  <span>(01)</span>
+                                    </a>
+                                </li>
+                                <li class="category-menu__dropdown__item">
+                                    <a href="javascript:void(0)"
+                                        class="category-menu__dropdown__link">
+                                        <i class="category-icon fa fa-list" style="color: #b0b0b0"></i>
+                                        Diy, Prep, Tools  <span>(08)</span>
+                                    </a>
+                                </li>
+                                <li class="category-menu__dropdown__item">
+                                    <a href="javascript:void(0)"
+                                        class="category-menu__dropdown__link">
+                                        <i class="category-icon fa fa-list" style="color: #b0b0b0"></i>
+                                        Sports  <span>(22)</span>
+                                    </a>
+                                </li>
+                                <li class="category-menu__dropdown__item">
+                                    <a href="javascript:void(0)"
+                                        class="category-menu__dropdown__link">
+                                        <i class="category-icon fa fa-list" style="color: #b0b0b0"></i>
+                                        Vehicles  <span>(16)</span>
+                                    </a>
+                                </li>
+                                 <li class="category-menu__dropdown__item">
+                                    <a href="javascript:void(0)"
+                                        class="category-menu__dropdown__link">
+                                        <i class="category-icon fa fa-list" style="color: #b0b0b0"></i>
+                                        Property  <span>(01)</span>
+                                    </a>
+                                </li>
+                                <li class="category-menu__dropdown__item">
+                                    <a href="javascript:void(0)"
+                                        class="category-menu__dropdown__link">
+                                        <i class="category-icon fa fa-list" style="color: #b0b0b0"></i>
+                                        Category  <span>(08)</span>
+                                    </a>
+                                </li>
+                                <li class="category-menu__dropdown__item">
+                                    <a href="javascript:void(0)"
+                                        class="category-menu__dropdown__link">
+                                        <i class="category-icon fa fa-list" style="color: #b0b0b0"></i>
+                                        Category  <span>(22)</span>
+                                    </a>
+                                </li>
+                                <li class="category-menu__dropdown__item">
+                                    <a href="javascript:void(0)"
+                                        class="category-menu__dropdown__link">
+                                        <i class="category-icon fa fa-list" style="color: #b0b0b0"></i>
+                                        Category  <span>(16)</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                @endif
-            </div>
-        </section>
-    @endif
-    <!-- recent-post section end -->
-
-    <!-- recent-post section start  -->
-    @if ($settings->regular_ads_homepage)
-        <section class="section recent-post">
-            <div class="container">
-                <h2 class="text--heading-1 section__title">
-                    {{ __('regular_ads') }}
-                </h2>
-                <div class="row">
-                    @forelse ($latestAds as $ad)
-                        <x-frontend.single-ad :ad="$ad" :adfields="$ad->productCustomFields" className="col-xl-3 col-md-6" />
-                    @empty
-                        <x-no-data-found />
-                    @endforelse
                 </div>
-                @if (count($latestAds) > 0)
-                    <div class="recent-post__btn">
-                        <a href="{{ route('frontend.adlist') }}" class="btn">
-                            {{ __('view_all') }}
-                            <span class="icon--right">
-                                <x-svg.right-arrow-icon />
-                            </span>
-                        </a>
+                <div class="col-lg-9">
+                    <div class="sidebar_right">
+
+                     <!-- Slider banner -->
+                     <div class="banner_carousel mb-4">
+                         <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                              <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <div class="banner_img">
+                                        <img src="{{ asset('1.jpg') }}" class="d-block w-100" alt="image">
+                                    </div>
+                                </div>
+                                <div class="carousel-item">
+                                    <div class="banner_img">
+                                        <img src="{{ asset('2.jpg') }}" class="d-block w-100" alt="image">
+                                    </div>
+                                </div>
+                                <div class="carousel-item">
+                                    <div class="banner_img">
+                                        <img src="{{ asset('3.jpg') }}" class="d-block w-100" alt="image">
+                                    </div>
+                                </div>
+                              </div>
+                              <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+                              </button>
+                              <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+                              </button>
+                        </div>
+                     </div>
+                     <!-- Slider banner -->
+
+
+
+                        <!-- recent-post section start  -->
+                        @if ($settings->featured_ads_homepage)
+                            <section class="section recent-post">
+                                    <h2 class="text--heading-1 section__title">
+                                        {{ __('featured_ads') }}
+                                    </h2>
+                                    <div class="row">
+                                        @forelse ($recommendedAds as $ad)
+                                            <x-frontend.single-ad :ad="$ad" :adfields="$ad->productCustomFields" className="col-xl-3 col-md-4 col-sm-6" />
+                                        @empty
+                                            <x-no-data-found />
+                                        @endforelse
+                                    </div>
+                                    {{--  
+                                        @if (count($recommendedAds) > 0)
+                                            <div class="recent-post__btn">
+                                                <a href="{{ route('frontend.adlist') }}" class="btn">
+                                                    {{ __('view_all') }}
+                                                    <span class="icon--right">
+                                                        <x-svg.right-arrow-icon />
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        @endif
+                                    --}}
+                            </section>
+                        @endif
+                        <!-- recent-post section end -->
+
+                        <!-- recent-post section start  -->
+                        @if ($settings->regular_ads_homepage)
+                            <section class="section recent-post">
+                                    <h2 class="text--heading-1 section__title">
+                                        {{ __('regular_ads') }}
+                                    </h2>
+                                    <div class="row">
+                                        @forelse ($latestAds as $ad)
+                                             <x-frontend.single-ad :ad="$ad" :adfields="$ad->productCustomFields ?? ''" className="col-xl-3 col-md-4" />
+                                        @empty
+                                            <x-no-data-found />
+                                        @endforelse
+                                    </div>
+                                    {{-- 
+                                        @if (count($latestAds) > 0)
+                                            <div class="recent-post__btn">
+                                                <a href="{{ route('frontend.adlist') }}" class="btn">
+                                                    {{ __('view_all') }}
+                                                    <span class="icon--right">
+                                                        <x-svg.right-arrow-icon />
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        @endif
+                                     --}}
+                            </section>
+                        @endif
                     </div>
-                @endif
+                </div>
             </div>
-        </section>
-    @endif
+        </div>
+    </div>
+
+    
     <!-- recent-post section end -->
 
     <!-- top-category section start  -->
@@ -170,7 +346,7 @@
     <!-- top-category section end  -->
 
     {{-- <!-- popular-loc section start  -->
-    <section class="section popular-location">
+   <!--  <section class="section popular-location">
         <div class="container">
             <h2 class="text--heading-1 section__title">
                 {{ __('popular_location') }}
@@ -186,7 +362,7 @@
                 @endforelse
             </div>
         </div>
-    </section>
+    </section> -->
     <!-- popular-loc section end --> --}}
 
     <x-frontend.counter :totalAds="$totalAds" :verifiedUser="$verified_users" :proMember="$pro_members_count" :country="$country_location"></x-frontend.counter>
@@ -265,5 +441,7 @@
             $('#adFilterForm3').submit();
         }
     </script>
+
+    
 
 @endsection

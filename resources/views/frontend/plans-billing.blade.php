@@ -22,7 +22,7 @@
     <!-- breedcrumb section end  -->
 
     <!-- dashboard section start  -->
-    <section class="section dashboard">
+    <section class="section dashboard mb-5">
         <div class="container">
             @include('frontend.dashboard-alert')
             <div class="row">

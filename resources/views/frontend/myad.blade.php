@@ -21,7 +21,7 @@
     </x-frontend.breedcrumb-component>
     <!-- breedcrumb section end  -->
     <!-- dashboard section start  -->
-    <section class="section dashboard">
+    <section class="section dashboard mb-5">
         <div class="container">
             @include('frontend.dashboard-alert')
             <div class="row">
@@ -163,14 +163,12 @@
         }
 
         .dashboard__myads .header-table {
-            display: -webkit-box;
-            display: -ms-flexbox;
-            display: flex;
-            margin-top: 32px;
-            background-color: #fff;
-            -webkit-box-shadow: 0px -1px 0px 0px #ebeef7 inset;
-            box-shadow: 0px -1px 0px 0px #ebeef7 inset;
-        }
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    background-color: #fff;
+    padding: 13px 17px;
+}
     </style>
 
 @endsection

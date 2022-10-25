@@ -213,9 +213,7 @@
 <style>
     .seller-dashboard__navigation {
         background: #FFFFFF;
-        border: 1px solid #EBEEF7;
-        box-shadow: 0px 12px 48px rgba(0, 34, 51, 0.06);
-        border-radius: 12px;
+        border-radius: 3px;
         padding: 32px 0px;
     }
 

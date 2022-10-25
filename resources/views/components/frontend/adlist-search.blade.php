@@ -1,5 +1,5 @@
 <form action="{{ route('frontend.adlist.search') }}" method="GET">
-    <div class="ad-list__search-box">
+    <div class="ad-list__search-box d-none d-xl-block">
         <div class="container">
             <!-- Search Box -->
             <div class="search {{ $dark ? 'search-no-borders border-0' : '' }}">

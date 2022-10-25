@@ -141,9 +141,6 @@
         }
     }
 
-    .dashboard-post2 {
-        box-shadow: 0px 12px 48px rgba(0, 34, 51, 0.06) !important;
-    }
 
     .dashboard-post__content {
         padding: 24px !important;
@@ -192,8 +189,7 @@
     }
 
     .dashboard-post2 {
-        border-radius: 12px;
-        border: 1px solid #ebeef7;
+        border-radius: 3px;
         background-color: #fff;
     }
 
@@ -244,7 +240,7 @@
 
     .dashboard-post__link2.active {
         background-color: transparent !important;
-        border-bottom: 2px solid #0af !important;
+        border-bottom: 2px solid #3db83a !important;
         color: #3db83a;
     }
 

@@ -1,7 +1,7 @@
 <div>
-    <section class="breedcrumb" style="background: url('{{ asset($background) }}') center center/cover no-repeat;">
+    <section class="breedcrumb">
         <div class="container">
-            <h2 class="breedcrumb__title text--heading-2">{{ $slot }}</h2>
+            <!-- <h2 class="breedcrumb__title text--heading-2">{{ $slot }}</h2> -->
             <ul class="breedcrumb__page">
                 <li class="breedcrumb__page-item">
                     <a href="{{ route('frontend.index') }}" class="breedcrumb__page-link text--body-3">{{ __('home') }}</a>

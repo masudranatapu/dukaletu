@@ -16957,14 +16957,14 @@ a {
 .contact-info__icon .icon {
     margin-right: 6px;
 }
-.breedcrumb {
+/*.breedcrumb {
     position: relative;
     padding: 60px 0;
     overflow: hidden;
     z-index: 1;
     text-align: center;
-}
-.breedcrumb::after {
+}*/
+/*.breedcrumb::after {
     content: "";
     position: absolute;
     top: 0;
@@ -16973,7 +16973,7 @@ a {
     height: 100%;
     background: rgba(25, 31, 51, 0.8);
     z-index: -1;
-}
+}*/
 .breedcrumb__title {
     color: #fff;
     text-transform: capitalize;
@@ -16982,7 +16982,6 @@ a {
 .breedcrumb__page {
     display: flex;
     align-items: center;
-    justify-content: center;
 }
 .breedcrumb__page-item {
     margin-right: 8px;
@@ -18144,9 +18143,9 @@ a {
 .dashboard-post.post-publish .btns-group .btn:nth-last-child(1) {
     margin-right: 0;
 }
-.dashboard__myads {
+/*.dashboard__myads {
     margin-left: 16px;
-}
+}*/
 @media (max-width: 767px) {
     .dashboard__myads {
         margin-left: 0;
