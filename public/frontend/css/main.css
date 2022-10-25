@@ -12543,6 +12543,10 @@ a {
     margin-bottom: 24px;
 }
 
+.body-item.body-item--lg {
+  background: #fff;
+}
+
 @media (max-width: 767px) {
     @media -sass-debug-info {
         filename {
