@@ -44,7 +44,7 @@
                             </a>
                         </div>
 
-                        
+
 
                         <a href="{{ route('frontend.dashboard') }}" class="user position-relative">
                             <div class="user__img-wrapper">
@@ -71,7 +71,7 @@
                                 <span>|</span>
                             <a href="{{ route('frontend.signup') }}" class="">{{ __('Register') }}</a>
                         </div>
-                        
+
 
                         <a href="{{ route('users.login') }}" class="ms-3 btn login_required">
                             <!-- <span class="icon--left">
@@ -87,8 +87,8 @@
         </div>
     </div>
 
-   <!--
-    <div class="navigation-bar__bottom-wrap">
+
+    {{-- <div class="navigation-bar__bottom-wrap">
         <div class="container navigation-bar__bottom justify-content-between">
             <div class="d-flex align-items-center">
                 <ul class="category-menu">
@@ -101,7 +101,7 @@
                         </a>
                         <ul class="category-menu__dropdown">
                             @foreach ($categories as $category)
-                                {{-- Filter Form-2 --}}
+
                                 <form method="GET" action="{{ route('frontend.adlist.search') }}"
                                     id="adFilterForm2" class="d-none">
                                     <input type="hidden" name="category" value="" id="adFilterInput2">
@@ -122,7 +122,7 @@
                                     @if ($category->subcategories->count() > 0)
                                         <ul class="category-menu__subdropdown">
                                             @foreach ($category->subcategories as $subcategory)
-                                                {{-- Filter Form-3 --}}
+
                                                 <form method="GET" action="{{ route('frontend.adlist.search') }}"
                                                     id="adFilterForm3" class="d-none">
                                                     <input type="hidden" name="subcategory[]" value=""
@@ -144,14 +144,14 @@
                         </ul>
                     </li>
                 </ul>
-            </div> 
+            </div>
 
-           <x-frontend.language-switcher /> 
+           <x-frontend.language-switcher />
 
 
         </div>
-    </div>
--->
+    </div> --}}
+
 </header>
 
 

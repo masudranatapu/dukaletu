@@ -31,7 +31,7 @@
 
 @section('content')
     <!-- banner section start  -->
-    <div class="banner banner--two text-center" style="background-image:url('{{ asset($cms->home_main_banner) }}') center center;">
+    <div class="banner banner--two text-center" style="background-image:url('{{ $cms->home_main_banner }}');">
         <div class="container">
             <div class="row">
                 <div class="col-12">
@@ -54,13 +54,17 @@
                     <div class="sidebar_left position-sticky" style="top:5rem;">
                         <div class="category_wrapper">
                             <ul class="category-menu">
+
+                                @foreach ($categories as $categorie)
+
                                 <li class="category-menu__dropdown__item">
                                     <a href="javascript:void(0)"
-                                        class="category-menu__dropdown__link">
-                                        <i class="category-icon fa fa-list" style="color: #b0b0b0"></i>
-                                        Fashion <span>(100)</span>
-                                    </a>
-                                </li>
+                                    class="category-menu__dropdown__link">
+                                    <i class="category-icon fa fa-list" style="color: #b0b0b0"></i>
+                                    {{$categorie->name}} <span>(100)</span>
+                                </a>
+                            </li>
+                            @endforeach
                                 <li class="category-menu__dropdown__item">
                                     <a href="javascript:void(0)"
                                         class="category-menu__dropdown__link">
@@ -77,6 +81,7 @@
                                             <x-svg.category-right-icon />
                                         </span>
                                     </a>
+
                                     <ul class="category-menu__subdropdown">
                                         <li class="category-menu__subdropdown__item">
                                             <a href="javascript:void(0)" class="category-menu__subdropdown__link">
@@ -95,90 +100,7 @@
                                         </li>
                                     </ul>
                                 </li>
-                                <li class="category-menu__dropdown__item">
-                                    <a href="javascript:void(0)"
-                                        class="category-menu__dropdown__link">
-                                        <i class="category-icon fa fa-list" style="color: #b0b0b0"></i>
-                                        Collectables  <span>(01)</span>
-                                    </a>
-                                </li>
-                                <li class="category-menu__dropdown__item">
-                                    <a href="javascript:void(0)"
-                                        class="category-menu__dropdown__link">
-                                        <i class="category-icon fa fa-list" style="color: #b0b0b0"></i>
-                                        Music, Films  <span>(08)</span>
-                                    </a>
-                                </li>
-                                <li class="category-menu__dropdown__item">
-                                    <a href="javascript:void(0)"
-                                        class="category-menu__dropdown__link">
-                                        <i class="category-icon fa fa-list" style="color: #b0b0b0"></i>
-                                        Home & Garden  <span>(22)</span>
-                                    </a>
-                                </li>
-                                <li class="category-menu__dropdown__item">
-                                    <a href="javascript:void(0)"
-                                        class="category-menu__dropdown__link">
-                                        <i class="category-icon fa fa-list" style="color: #b0b0b0"></i>
-                                        Agriculture  <span>(16)</span>
-                                    </a>
-                                </li>
-                                 <li class="category-menu__dropdown__item">
-                                    <a href="javascript:void(0)"
-                                        class="category-menu__dropdown__link">
-                                        <i class="category-icon fa fa-list" style="color: #b0b0b0"></i>
-                                        Health & Beauty  <span>(01)</span>
-                                    </a>
-                                </li>
-                                <li class="category-menu__dropdown__item">
-                                    <a href="javascript:void(0)"
-                                        class="category-menu__dropdown__link">
-                                        <i class="category-icon fa fa-list" style="color: #b0b0b0"></i>
-                                        Diy, Prep, Tools  <span>(08)</span>
-                                    </a>
-                                </li>
-                                <li class="category-menu__dropdown__item">
-                                    <a href="javascript:void(0)"
-                                        class="category-menu__dropdown__link">
-                                        <i class="category-icon fa fa-list" style="color: #b0b0b0"></i>
-                                        Sports  <span>(22)</span>
-                                    </a>
-                                </li>
-                                <li class="category-menu__dropdown__item">
-                                    <a href="javascript:void(0)"
-                                        class="category-menu__dropdown__link">
-                                        <i class="category-icon fa fa-list" style="color: #b0b0b0"></i>
-                                        Vehicles  <span>(16)</span>
-                                    </a>
-                                </li>
-                                 <li class="category-menu__dropdown__item">
-                                    <a href="javascript:void(0)"
-                                        class="category-menu__dropdown__link">
-                                        <i class="category-icon fa fa-list" style="color: #b0b0b0"></i>
-                                        Property  <span>(01)</span>
-                                    </a>
-                                </li>
-                                <li class="category-menu__dropdown__item">
-                                    <a href="javascript:void(0)"
-                                        class="category-menu__dropdown__link">
-                                        <i class="category-icon fa fa-list" style="color: #b0b0b0"></i>
-                                        Category  <span>(08)</span>
-                                    </a>
-                                </li>
-                                <li class="category-menu__dropdown__item">
-                                    <a href="javascript:void(0)"
-                                        class="category-menu__dropdown__link">
-                                        <i class="category-icon fa fa-list" style="color: #b0b0b0"></i>
-                                        Category  <span>(22)</span>
-                                    </a>
-                                </li>
-                                <li class="category-menu__dropdown__item">
-                                    <a href="javascript:void(0)"
-                                        class="category-menu__dropdown__link">
-                                        <i class="category-icon fa fa-list" style="color: #b0b0b0"></i>
-                                        Category  <span>(16)</span>
-                                    </a>
-                                </li>
+
                             </ul>
                         </div>
                     </div>
@@ -231,7 +153,7 @@
                                             <x-no-data-found />
                                         @endforelse
                                     </div>
-                                    {{--  
+                                    {{--
                                         @if (count($recommendedAds) > 0)
                                             <div class="recent-post__btn">
                                                 <a href="{{ route('frontend.adlist') }}" class="btn">
@@ -260,7 +182,7 @@
                                             <x-no-data-found />
                                         @endforelse
                                     </div>
-                                    {{-- 
+                                    {{--
                                         @if (count($latestAds) > 0)
                                             <div class="recent-post__btn">
                                                 <a href="{{ route('frontend.adlist') }}" class="btn">
@@ -280,7 +202,7 @@
         </div>
     </div>
 
-    
+
     <!-- recent-post section end -->
 
     <!-- top-category section start  -->
@@ -442,6 +364,6 @@
         }
     </script>
 
-    
+
 
 @endsection
