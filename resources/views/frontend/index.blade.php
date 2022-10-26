@@ -31,7 +31,7 @@
 
 @section('content')
     <!-- banner section start  -->
-    <div class="banner banner--two text-center" style="background-image:url('{{ asset($cms->home_main_banner) }}');">
+    <div class="banner banner--two text-center" style="background-image:url('{{ $cms->home_main_banner }}');">
         <div class="container">
             <div class="row">
                 <div class="col-12">
@@ -54,131 +54,49 @@
                     <div class="sidebar_left position-sticky" style="top:5rem;">
                         <div class="category_wrapper">
                             <ul class="category-menu">
-                                <li class="category-menu__dropdown__item">
-                                    <a href="javascript:void(0)"
-                                        class="category-menu__dropdown__link">
-                                        <i class="category-icon fa fa-list" style="color: #b0b0b0"></i>
-                                        Fashion <span>(100)</span>
-                                    </a>
-                                </li>
-                                <li class="category-menu__dropdown__item">
-                                    <a href="javascript:void(0)"
-                                        class="category-menu__dropdown__link">
-                                        <i class="category-icon fa fa-list" style="color: #b0b0b0"></i>
-                                        Electronices  <span>(75)</span>
-                                    </a>
-                                </li>
-                                <li class="category-menu__dropdown__item">
-                                    <a href="javascript:void(0)"
-                                        class="category-menu__dropdown__link">
-                                        <i class="category-icon fa fa-list" style="color: #b0b0b0"></i>
-                                        Services  <span>(58)</span>
-                                        <span class="drop-icon">
-                                            <x-svg.category-right-icon />
-                                        </span>
-                                    </a>
-                                    <ul class="category-menu__subdropdown">
-                                        <li class="category-menu__subdropdown__item">
-                                            <a href="javascript:void(0)" class="category-menu__subdropdown__link">
-                                                Subcategory Menu
-                                            </a>
-                                        </li>
-                                        <li class="category-menu__subdropdown__item">
-                                            <a href="javascript:void(0)" class="category-menu__subdropdown__link">
-                                                Subcategory Menu
-                                            </a>
-                                        </li>
-                                        <li class="category-menu__subdropdown__item">
-                                            <a href="javascript:void(0)" class="category-menu__subdropdown__link">
-                                                Subcategory Menu
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="category-menu__dropdown__item">
-                                    <a href="javascript:void(0)"
-                                        class="category-menu__dropdown__link">
-                                        <i class="category-icon fa fa-list" style="color: #b0b0b0"></i>
-                                        Collectables  <span>(01)</span>
-                                    </a>
-                                </li>
-                                <li class="category-menu__dropdown__item">
-                                    <a href="javascript:void(0)"
-                                        class="category-menu__dropdown__link">
-                                        <i class="category-icon fa fa-list" style="color: #b0b0b0"></i>
-                                        Music, Films  <span>(08)</span>
-                                    </a>
-                                </li>
-                                <li class="category-menu__dropdown__item">
-                                    <a href="javascript:void(0)"
-                                        class="category-menu__dropdown__link">
-                                        <i class="category-icon fa fa-list" style="color: #b0b0b0"></i>
-                                        Home & Garden  <span>(22)</span>
-                                    </a>
-                                </li>
-                                <li class="category-menu__dropdown__item">
-                                    <a href="javascript:void(0)"
-                                        class="category-menu__dropdown__link">
-                                        <i class="category-icon fa fa-list" style="color: #b0b0b0"></i>
-                                        Agriculture  <span>(16)</span>
-                                    </a>
-                                </li>
-                                 <li class="category-menu__dropdown__item">
-                                    <a href="javascript:void(0)"
-                                        class="category-menu__dropdown__link">
-                                        <i class="category-icon fa fa-list" style="color: #b0b0b0"></i>
-                                        Health & Beauty  <span>(01)</span>
-                                    </a>
-                                </li>
-                                <li class="category-menu__dropdown__item">
-                                    <a href="javascript:void(0)"
-                                        class="category-menu__dropdown__link">
-                                        <i class="category-icon fa fa-list" style="color: #b0b0b0"></i>
-                                        Diy, Prep, Tools  <span>(08)</span>
-                                    </a>
-                                </li>
-                                <li class="category-menu__dropdown__item">
-                                    <a href="javascript:void(0)"
-                                        class="category-menu__dropdown__link">
-                                        <i class="category-icon fa fa-list" style="color: #b0b0b0"></i>
-                                        Sports  <span>(22)</span>
-                                    </a>
-                                </li>
-                                <li class="category-menu__dropdown__item">
-                                    <a href="javascript:void(0)"
-                                        class="category-menu__dropdown__link">
-                                        <i class="category-icon fa fa-list" style="color: #b0b0b0"></i>
-                                        Vehicles  <span>(16)</span>
-                                    </a>
-                                </li>
-                                 <li class="category-menu__dropdown__item">
-                                    <a href="javascript:void(0)"
-                                        class="category-menu__dropdown__link">
-                                        <i class="category-icon fa fa-list" style="color: #b0b0b0"></i>
-                                        Property  <span>(01)</span>
-                                    </a>
-                                </li>
-                                <li class="category-menu__dropdown__item">
-                                    <a href="javascript:void(0)"
-                                        class="category-menu__dropdown__link">
-                                        <i class="category-icon fa fa-list" style="color: #b0b0b0"></i>
-                                        Category  <span>(08)</span>
-                                    </a>
-                                </li>
-                                <li class="category-menu__dropdown__item">
-                                    <a href="javascript:void(0)"
-                                        class="category-menu__dropdown__link">
-                                        <i class="category-icon fa fa-list" style="color: #b0b0b0"></i>
-                                        Category  <span>(22)</span>
-                                    </a>
-                                </li>
-                                <li class="category-menu__dropdown__item">
-                                    <a href="javascript:void(0)"
-                                        class="category-menu__dropdown__link">
-                                        <i class="category-icon fa fa-list" style="color: #b0b0b0"></i>
-                                        Category  <span>(16)</span>
-                                    </a>
-                                </li>
+                                @foreach ($categories as $category)
+                                    <form method="GET" action="{{ route('frontend.adlist.search') }}"
+                                        id="adFilterForm2" class="d-none">
+                                        <input type="hidden" name="category" value="" id="adFilterInput2">
+                                    </form>
+
+                                    <li class="category-menu__dropdown__item">
+                                        <a href="javascript:void(0)"
+                                        onclick="adFilterFunctionTwo('{{ $category->slug }}')"
+                                            class="category-menu__dropdown__link">
+                                            <i class="category-icon {{ $category->icon }}" style="color: #b0b0b0"></i>
+                                            {{ $category->name }}
+
+                                            <span class="drop-icon">
+                                                <x-svg.category-right-icon />
+                                            </span>
+                                            
+                                        </a>
+
+                                        @if (isset($category->subcategories))
+                                            <ul class="category-menu__subdropdown">
+                                                @foreach ($category->subcategories as $subcategory)
+
+                                                    <form method="GET" action="{{ route('frontend.adlist.search') }}"
+                                                        id="adFilterForm3" class="d-none">
+                                                        <input type="hidden" name="subcategory[]" value=""
+                                                            id="adFilterInput3">
+                                                    </form>
+
+                                                    <li class="category-menu__subdropdown__item">
+                                                        <a href="javascript:void(0)"
+                                                            onclick="adFilterFunctionThree('{{ $subcategory->slug }}')"
+                                                            class="category-menu__subdropdown__link">
+                                                            {{ $subcategory->name }}
+                                                        </a>
+                                                    </li>
+
+                                                @endforeach
+                                            </ul>
+                                        @endif
+                                    </li>
+                                 @endforeach
+
                             </ul>
                         </div>
                     </div>
@@ -231,7 +149,7 @@
                                             <x-no-data-found />
                                         @endforelse
                                     </div>
-                                    {{--  
+                                    {{--
                                         @if (count($recommendedAds) > 0)
                                             <div class="recent-post__btn">
                                                 <a href="{{ route('frontend.adlist') }}" class="btn">
@@ -260,7 +178,7 @@
                                             <x-no-data-found />
                                         @endforelse
                                     </div>
-                                    {{-- 
+                                    {{--
                                         @if (count($latestAds) > 0)
                                             <div class="recent-post__btn">
                                                 <a href="{{ route('frontend.adlist') }}" class="btn">
@@ -280,7 +198,7 @@
         </div>
     </div>
 
-    
+
     <!-- recent-post section end -->
 
     <!-- top-category section start  -->
@@ -368,6 +286,7 @@
     <x-frontend.counter :totalAds="$totalAds" :verifiedUser="$verified_users" :proMember="$pro_members_count" :country="$country_location"></x-frontend.counter>
 
     <!-- download section start  -->
+    {{--  
     @if ($mobile_setting->ios_download_url || $mobile_setting->android_download_url)
         <section class="download section pb-lg-0">
             <div class="container">
@@ -414,6 +333,8 @@
             </div>
         </section>
     @endif
+    --}}
+
     @if ($newsletter_enable)
         @include('layouts.frontend.partials.newsletter')
     @endif
@@ -442,6 +363,6 @@
         }
     </script>
 
-    
+
 
 @endsection
