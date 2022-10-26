@@ -3164,6 +3164,7 @@ a {
 .header--two .navigation-bar__top {
     padding: 7px 0px;
     background: #3db83a !important;
+    box-shadow: 1px 1px 4px rgb(80 114 125 / 40%);
 }
 
 @media (max-width: 991px) {
@@ -5931,7 +5932,7 @@ a {
 }
 
 .banner--two {
-    padding: 154px 0 99px;
+    padding: 200px 0 99px;
     margin-bottom: 50px;
     background-size: cover;
     background-repeat: no-repeat;
@@ -6002,7 +6003,7 @@ a {
 }
 
 .banner--two .banner__title {
-    color: #191f33;
+    color: #ffffff;
     text-transform: capitalize;
     margin-bottom: 2px;
     font-size: 32px;
@@ -6036,7 +6037,7 @@ a {
 }
 
 .banner--two .banner__brief {
-    color: #464d61;
+    color: #ffffff;
 }
 
 @media (max-width: 767px) {
