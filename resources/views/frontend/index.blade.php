@@ -54,52 +54,48 @@
                     <div class="sidebar_left position-sticky" style="top:5rem;">
                         <div class="category_wrapper">
                             <ul class="category-menu">
+                                @foreach ($categories as $category)
+                                    <form method="GET" action="{{ route('frontend.adlist.search') }}"
+                                        id="adFilterForm2" class="d-none">
+                                        <input type="hidden" name="category" value="" id="adFilterInput2">
+                                    </form>
 
-                                @foreach ($categories as $categorie)
+                                    <li class="category-menu__dropdown__item">
+                                        <a href="javascript:void(0)"
+                                        onclick="adFilterFunctionTwo('{{ $category->slug }}')"
+                                            class="category-menu__dropdown__link">
+                                            <i class="category-icon {{ $category->icon }}" style="color: #b0b0b0"></i>
+                                            {{ $category->name }}
 
-                                <li class="category-menu__dropdown__item">
-                                    <a href="javascript:void(0)"
-                                    class="category-menu__dropdown__link">
-                                    <i class="category-icon fa fa-list" style="color: #b0b0b0"></i>
-                                    {{$categorie->name}} <span>(100)</span>
-                                </a>
-                            </li>
-                            @endforeach
-                                <li class="category-menu__dropdown__item">
-                                    <a href="javascript:void(0)"
-                                        class="category-menu__dropdown__link">
-                                        <i class="category-icon fa fa-list" style="color: #b0b0b0"></i>
-                                        Electronices  <span>(75)</span>
-                                    </a>
-                                </li>
-                                <li class="category-menu__dropdown__item">
-                                    <a href="javascript:void(0)"
-                                        class="category-menu__dropdown__link">
-                                        <i class="category-icon fa fa-list" style="color: #b0b0b0"></i>
-                                        Services  <span>(58)</span>
-                                        <span class="drop-icon">
-                                            <x-svg.category-right-icon />
-                                        </span>
-                                    </a>
+                                            <span class="drop-icon">
+                                                <x-svg.category-right-icon />
+                                            </span>
+                                            
+                                        </a>
 
-                                    <ul class="category-menu__subdropdown">
-                                        <li class="category-menu__subdropdown__item">
-                                            <a href="javascript:void(0)" class="category-menu__subdropdown__link">
-                                                Subcategory Menu
-                                            </a>
-                                        </li>
-                                        <li class="category-menu__subdropdown__item">
-                                            <a href="javascript:void(0)" class="category-menu__subdropdown__link">
-                                                Subcategory Menu
-                                            </a>
-                                        </li>
-                                        <li class="category-menu__subdropdown__item">
-                                            <a href="javascript:void(0)" class="category-menu__subdropdown__link">
-                                                Subcategory Menu
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
+                                        @if (isset($category->subcategories))
+                                            <ul class="category-menu__subdropdown">
+                                                @foreach ($category->subcategories as $subcategory)
+
+                                                    <form method="GET" action="{{ route('frontend.adlist.search') }}"
+                                                        id="adFilterForm3" class="d-none">
+                                                        <input type="hidden" name="subcategory[]" value=""
+                                                            id="adFilterInput3">
+                                                    </form>
+
+                                                    <li class="category-menu__subdropdown__item">
+                                                        <a href="javascript:void(0)"
+                                                            onclick="adFilterFunctionThree('{{ $subcategory->slug }}')"
+                                                            class="category-menu__subdropdown__link">
+                                                            {{ $subcategory->name }}
+                                                        </a>
+                                                    </li>
+
+                                                @endforeach
+                                            </ul>
+                                        @endif
+                                    </li>
+                                 @endforeach
 
                             </ul>
                         </div>
