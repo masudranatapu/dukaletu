@@ -37,7 +37,7 @@ class CmsSettingController extends Controller
         $cms =  Cms::first();
         if ($request->hasFile('posting_rules_background') && $request->file('posting_rules_background')->isValid()) {
             deleteImage($cms->posting_rules_background);
-            $url = $request->posting_rules_background->move('uploads/banners', $request->posting_rules_background->hashName());
+            $url = uploadImage($request->posting_rules_background,'bannerImage');
             $cms->update($request->only('posting_rules_body') + ['posting_rules_background' => $url]);
         } else {
             $request->validate([
