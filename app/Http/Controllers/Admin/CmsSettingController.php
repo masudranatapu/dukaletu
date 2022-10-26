@@ -158,7 +158,7 @@ class CmsSettingController extends Controller
 
         if ($request->hasFile('home_main_banner') && $request->file('home_main_banner')->isValid()) {
             deleteImage($cms->home_main_banner);
-            $data['home_main_banner'] =  $request->home_main_banner->move('uploads/banners', $request->home_main_banner->hashName());
+            $data['home_main_banner'] =  $request->home_main_banner->move('uploads/banners/', $request->home_main_banner->hashName());
         }
         if ($request->hasFile('home_counter_background') && $request->file('home_counter_background')->isValid()) {
             deleteImage($cms->home_counter_background);

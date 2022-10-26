@@ -31,7 +31,7 @@
 
 @section('content')
     <!-- banner section start  -->
-    <div class="banner banner--two text-center" style="background-image:url('{{ asset($cms->home_main_banner) }}') center center;">
+    <div class="banner banner--two text-center" style="background-image:url('{{ asset($cms->home_main_banner) }}');">
         <div class="container">
             <div class="row">
                 <div class="col-12">
