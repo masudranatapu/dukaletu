@@ -38,12 +38,14 @@
     <!-- breedcrumb section end  -->
 
     <!-- registration section start   -->
-    <section class="section registration">
+    <section class="section registration mt-5 mb-5">
         <div class="container">
-            <div class="row">
+            <div class="row d-flex justify-content-center">
 
-                {{-- Signup Content --}}
+                {{-- 
+                Signup Content 
                 <x-auth.content :verifiedusers="$verified_users" />
+                --}}
 
                 {{-- Signing Form --}}
                 <x-auth.signin-form />

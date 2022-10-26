@@ -2453,9 +2453,9 @@ a {
         }
     }
 
-    .section {
+    /*.section {
         padding: 60px 0px;
-    }
+    }*/
 }
 
 @media -sass-debug-info {
@@ -3162,7 +3162,7 @@ a {
 }
 
 .header--two .navigation-bar__top {
-    padding: 7px 0px;
+    padding:5px 0px;
     background: #3db83a !important;
 }
 
@@ -5571,7 +5571,7 @@ a {
     border-radius: 4px;
     margin: 2px 0px;
     display: inline-block;
-    background-color: #191f33;
+    background-color: #fff;
     -webkit-transition: all 0.3s ease-in-out;
     transition: all 0.3s ease-in-out;
 }
@@ -9678,10 +9678,8 @@ a {
 .registration-form {
     position: relative;
     padding: 50px;
-    border-radius: 20px;
+    border-radius: 3px;
     background-color: #fff;
-    -webkit-box-shadow: 0px 24px 100px 0px #001d491f;
-    box-shadow: 0px 24px 100px 0px #001d491f;
     overflow: hidden;
 }
 
@@ -9716,6 +9714,7 @@ a {
     text-transform: capitalize;
     font-family: "Nunito Sans", sans-serif;
     margin-bottom: 24px;
+    font-size: 20px;
 }
 
 @media -sass-debug-info {
@@ -17193,7 +17192,7 @@ a {
     align-items: center;
     -ms-flex-negative: 0;
     flex-shrink: 0;
-    padding: 14px 16px;
+    padding: 10px 16px;
     border-radius: 8px;
     border: 1px solid #ebeef7;
     background-color: #fff;

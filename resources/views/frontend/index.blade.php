@@ -368,6 +368,7 @@
     <x-frontend.counter :totalAds="$totalAds" :verifiedUser="$verified_users" :proMember="$pro_members_count" :country="$country_location"></x-frontend.counter>
 
     <!-- download section start  -->
+    {{--  
     @if ($mobile_setting->ios_download_url || $mobile_setting->android_download_url)
         <section class="download section pb-lg-0">
             <div class="container">
@@ -414,6 +415,8 @@
             </div>
         </section>
     @endif
+    --}}
+
     @if ($newsletter_enable)
         @include('layouts.frontend.partials.newsletter')
     @endif
