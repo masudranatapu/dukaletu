@@ -309,3 +309,18 @@ function checkSetup($type)
 
     return $status ? 1 : 0;
 }
+
+
+function getPhoto($path){
+    if($path){
+        $ppath = public_path($path);
+        if(file_exists($ppath)){
+          return asset($path);
+        } else {
+            return asset('uploads/no_image.png');
+       }
+    }else{
+        return asset('uploads/no_image.png');
+    }
+
+}
