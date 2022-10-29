@@ -1038,5 +1038,6 @@
     "measurement_id": "Measurement Id",
     "firebase_push_notification_configuration" : "Firebase Push Notification Configuration",
     "linkdin":"linkdin",
-    "Whatsapp":"Whatsapp"
+    "Whatsapp":"Whatsapp",
+    "popular_categories": "Popular Categories"
 }

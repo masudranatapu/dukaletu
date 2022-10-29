@@ -15591,7 +15591,7 @@ a {
 }
 
 .footer--dark .footer__copyright p a {
-    color: #fff;
+    color: #000;
 }
 
 @media -sass-debug-info {

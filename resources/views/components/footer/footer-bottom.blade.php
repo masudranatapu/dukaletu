@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row footer__copyright">
             <div class="col-md-6">
-                <p class="text--body-3">{{ env('APP_NAME') }} © {{ date('Y') }}. {{ __('design_by') }} <a href="https://templatecookie.com"><b>Templatecookie</b></a>
+                <p class="text--body-3">{{ env('APP_NAME') }} © {{ date('Y') }}. {{ __('design_by') }} <a href="https://arobiloutsourcing.com"><b>arobiloutsourcing</b></a>
                 </p>
             </div>
             <div class="col-md-6">
