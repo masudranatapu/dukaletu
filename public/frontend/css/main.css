@@ -2439,7 +2439,7 @@ a {
 
 .section {
     position: relative;
-    padding: 0px 0px;
+    padding: 50px 0px;
 }
 
 @media (max-width: 767px) {
@@ -26285,6 +26285,7 @@ a {
 
 .ad-list {
     padding-top: 25px;
+    padding-bottom: 50px;
 }
 
 @media -sass-debug-info {
@@ -29155,7 +29156,6 @@ a {
 
 .section.recent-post {
     padding: 0px 0px 0px 0px;
-    margin-bottom: 17px;
 }
 
 
