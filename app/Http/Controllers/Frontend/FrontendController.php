@@ -50,7 +50,7 @@ class FrontendController extends Controller
             ->select('country', DB::raw('count(*) as total'))
             ->orderBy('total', 'desc')
             ->groupBy('country')
-            ->limit(4)
+            ->limit(6)
             ->get();
 
         $data['totalAds'] = Ad::activeCategory()->active()->count();
