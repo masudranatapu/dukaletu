@@ -87,7 +87,7 @@
         </div>
     </div>
 
-
+    {{--  
     <div class="navigation-bar__bottom-wrap">
         <div class="container navigation-bar__bottom justify-content-between">
             <div class="d-flex align-items-center">
@@ -151,7 +151,7 @@
 
         </div>
     </div> 
-
+    --}}
 </header>
 
 
