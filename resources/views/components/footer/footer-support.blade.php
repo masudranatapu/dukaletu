@@ -15,5 +15,8 @@
         <li class="footer-menu__item">
             <a href="{{ route('frontend.terms') }}" class="footer-menu__link text--body-3">{{ __('terms_condition') }}</a>
         </li>
+        <li class="footer-menu__item">
+            <a href="{{ route('frontend.privacy') }}" class="footer-menu__link text--body-3">{{ __('privacy_policy') }}</a>
+        </li>
     </ul>
 </div>
