@@ -15,10 +15,10 @@
     <!-- breedcrumb section end  -->
 
     <!-- registration section start   -->
-    <section class="section">
+    <section class="section mt-5 mb-5">
         <div class="container">
             <div class="row justify-content-center">
-                <div class="col-lg-6 order-1 order-lg-0">
+                <div class="col-md-8 col-lg-6 col-xl-5">
                     <div class="registration-form">
                         <h2 class="text-center text--heading-1 registration-form__title">{{ __('forget_password') }}</h2>
                         <div class="registration-form__wrapper">
@@ -41,9 +41,9 @@
                                 </div>
                                 <button class="btn btn--lg w-100 registration-form__btns" type="submit">
                                     {{ __('send_password_reset_link') }}
-                                    <span class="icon--right">
+                                    <!-- <span class="icon--right">
                                         <x-svg.right-arrow-icon stroke="#fff" />
-                                    </span>
+                                    </span> -->
                                 </button>
                             </form>
                         </div>

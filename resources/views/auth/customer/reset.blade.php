@@ -15,7 +15,7 @@
     <!-- breedcrumb section end  -->
 
     <!-- registration section start   -->
-    <section class="section">
+    <section class="section mt-5 mb-5">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-6 order-1 order-lg-0">
