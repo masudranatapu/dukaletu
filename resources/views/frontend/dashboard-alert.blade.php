@@ -1,4 +1,4 @@
-@if (auth('user')->check() &&
+{{--@if (auth('user')->check() &&
     !auth()->user()->hasVerifiedEmail() &&
     $settings->customer_email_verification)
     <div class="row">
@@ -19,4 +19,4 @@
             href="{{ route('frontend.priceplan') }}"
             class="text-dark text-decoration-underline">{{ __('go_to_details') }}</a>
     </div>
-@endif
+@endif  --}}
