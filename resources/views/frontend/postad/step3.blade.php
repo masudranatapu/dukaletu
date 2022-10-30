@@ -53,7 +53,7 @@
                     </div>
                     <div class="dashboard-post__action-btns">
                         <a onclick="return confirm('Do you really want to go previous page? If you go then your step 3 data wont save!')"
-                            href="{{ route('frontend.post.step2.back') }}" class="btn btn--lg btn--outline">
+                            href="{{ route('frontend.post.step2.back') }}" class="btn btn--lg btn--outline text-white">
                             {{ __('previous') }}
                         </a>
                         <button type="submit" class="btn btn--lg">

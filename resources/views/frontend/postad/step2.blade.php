@@ -253,7 +253,7 @@
                     @endforeach
                 </div>
                 <div class="dashboard-post__action-btns">
-                    <a href="{{ route('frontend.post.step1.back') }}" class="btn btn--lg btn--outline">
+                    <a href="{{ route('frontend.post.step1.back') }}" class="btn btn--lg btn--outline text-white">
                         {{ __('previous') }}
                     </a>
                     <button type="submit" class="btn btn--lg">

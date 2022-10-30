@@ -274,7 +274,7 @@
                     @endforeach
                 </div>
                 <div class="dashboard-post__action-btns">
-                    <a href="{{ route('frontend.post.step1.back', $ad->slug) }}" class="btn btn--lg btn--outline">
+                    <a href="{{ route('frontend.post.step1.back', $ad->slug) }}" class="btn btn--lg btn--outline text-white">
                         {{ __('previous') }}
                     </a>
                     <button type="button" onclick="updateCancelEdit()" class="btn btn--lg bg-warning text-light">
