@@ -42,13 +42,13 @@
     <section class="section about-us">
         <div class="container">
             <div class="row align-items-center">
-                <div class="col-xl-6 order-xl-0 order-2">
+                <div class="col-xl-12 order-xl-0 order-2">
                     <h2 class="about-us__title text--heading-1">{{ __('know_more_about_adlisting') }}</h2>
                     <p class="text--body-3 about-us__brief">
                         {!! $cms->about_body ?? __('no_about_us_found') !!}
                     </p>
                 </div>
-                <div class="col-xl-6 order-xl-0 order-1">
+                {{--<div class="col-xl-6 order-xl-0 order-1">
                     <div class="about-us__img-wrapper">
                         <img src="{{ $cms->about_background }}" alt="about" class="img-fluid" />
                         <a href="https://youtu.be/vPhg6sc1Mk4" class="icon yplayer" data-autoplay="true"
@@ -56,7 +56,7 @@
                             <x-svg.play-icon />
                         </a>
                     </div>
-                </div>
+                </div>--}}
             </div>
         </div>
     </section>
@@ -110,7 +110,7 @@
     @endif
 
     <!-- suppor-brand section start  -->
-    <section class="section support-brand pt-0 pb-5">
+   {{--  <section class="section support-brand pt-0 pb-5">
         <div class="container">
             <h2 class="section__title text--body-2-600">{{ __('supported_by') }}</h2>
 
@@ -144,7 +144,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section>--}}
     <!-- suppor-brand section end  -->
 @endsection
 
