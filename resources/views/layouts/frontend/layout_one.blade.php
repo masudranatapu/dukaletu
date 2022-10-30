@@ -55,7 +55,7 @@
 </head>
 
 <body
-    class="{{ auth('user')->check() && isset(session('user_plan')->ad_limit) && session('user_plan')->ad_limit < $settings->free_ad_limit ? 'wraning-show_hide' : '' }}"
+    class="{{ auth('user')->check() && isset(session('user_plan')->ad_limit) && session('user_plan')->ad_limit < $settings->free_ad_limit ? '' : '' }}"
     dir="{{ langDirection() }}">
     @php
         $current_route_name = request()->route()->getName(); // <!-- for pusher global -->

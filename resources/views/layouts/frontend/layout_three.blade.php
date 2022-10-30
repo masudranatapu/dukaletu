@@ -40,7 +40,7 @@
     <link rel="stylesheet" href="{{ asset('frontend/css') }}/main.css">
 </head>
 
-<body class="{{ auth('user')->check() && isset(session('user_plan')->ad_limit) && session('user_plan')->ad_limit < $settings->free_ad_limit ? 'wraning-show_hide':'' }}" dir="{{ langDirection() }}">
+<body class="{{ auth('user')->check() && isset(session('user_plan')->ad_limit) && session('user_plan')->ad_limit < $settings->free_ad_limit ? '':'' }}" dir="{{ langDirection() }}">
     <!-- Top bar start  -->
     @if (auth('user')->check() && isset(session('user_plan')->ad_limit) && session('user_plan')->ad_limit < $settings->free_ad_limit)
         @include('layouts.frontend.partials.top-bar')
