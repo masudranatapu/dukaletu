@@ -17,14 +17,14 @@
             </div>
             @if (auth('user')->check())
                 <a href="{{ route('frontend.priceplanDetails', $plan->label) }}"
-                    class="plan-card__select-pack btn btn--bg w-100">
+                    class="plan-card__select-pack btn btn--bg w-100 text-white">
                     {{ __('choose_plan') }}
                     <span class="icon--right">
                         <x-svg.right-arrow-icon />
                     </span>
                 </a>
             @else
-                <a href="{{ route('users.login') }}" class="plan-card__select-pack btn btn--bg w-100 login_required">
+                <a href="{{ route('users.login') }}" class="plan-card__select-pack btn btn--bg w-100 login_required text-white">
                     {{ __('choose_plan') }}
                     <span class="icon--right">
                         <x-svg.right-arrow-icon />
