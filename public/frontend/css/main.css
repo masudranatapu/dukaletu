@@ -28434,7 +28434,6 @@ a {
     background-color: #f5f7fa;
     margin-bottom: 16px;
     height: 100%;
-    min-height: 104px;
 }
 
 @media -sass-debug-info {
@@ -29346,6 +29345,9 @@ a {
     background: #fff;
     padding: 15px 2px;
     border-radius: 3px;
+}.post-ads {
+    background: #ffa010 !important;
+    color: #fff;
 }
 
 

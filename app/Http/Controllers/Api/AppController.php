@@ -75,7 +75,7 @@ class AppController extends Controller
         if ($contact) {
             return response()->json([
                 'success' => true,
-                'message' => 'Message Send Successfully',
+                'message' => 'Message Sent Successfully',
                 'data' => $contact
             ], Response::HTTP_CREATED);
         } else {

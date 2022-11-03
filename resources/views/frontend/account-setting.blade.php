@@ -46,7 +46,7 @@
                                             onchange="document.getElementById('image').src = window.URL.createObjectURL(this.files[0])"
                                             id="hiddenImgInput" type="file" hidden
                                             accept="image/png, image/jpg, image/jpeg" />
-                                        <button onclick="$('#hiddenImgInput').click()" class="btn btn--bg"
+                                        <button onclick="$('#hiddenImgInput').click()" class="btn btn--bg text-white"
                                             type="button">{{ __('choose_image') }}</button>
                                     </div>
                                 </div>

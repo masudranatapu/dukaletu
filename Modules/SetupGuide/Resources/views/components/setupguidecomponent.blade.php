@@ -1,4 +1,4 @@
-<div class="mb-4 py-3">
+{{--<div class="mb-4 py-3">
     <div class="card rounded shadow-none border" style="max-width: 100%; width: 1000px; margin: 0 auto">
         <div class="text-left py-2 px-4 alert alert-warning mb-0">
             <h5>Warning</h5>
@@ -8,7 +8,7 @@
             @foreach ($data as $item)
                 <li class="list-group-item">
                     <div class="p-2">
-                        {{-- {{ $item->task_name }} --}}
+                       {{ $item->task_name }} 
                         <div class="d-flex align-items-center flex-wrap justify-content-between">
                             <div class="d-flex align-items-center">
                                 @if ($item->status)
@@ -46,7 +46,7 @@
                         </div>
                     </div>
                 </li>
-            @endforeach
+            @endforeach 
         </ul>
     </div>
-</div>
+</div>--}}

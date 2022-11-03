@@ -27,7 +27,7 @@ class ContactComponent extends Component
         ]);
 
         $this->reset();
-        $this->success = "Message Send Successfully";
+        $this->success = "Message Sent Successfully";
     }
 
     public function render()

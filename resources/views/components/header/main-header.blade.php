@@ -59,7 +59,7 @@
                 </a>
             @else
                 <a href="{{ route('users.login') }}" class="btn btn--bg">{{ __('sign_in') }}</a>
-                <a href="{{ route('users.login') }}" class="btn login_required">
+                <a href="{{ route('users.login') }}" class="btn login_required post-ads">
                     <span class="icon--left">
                         <x-svg.image-select-icon />
                     </span>
