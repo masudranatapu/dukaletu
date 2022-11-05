@@ -23,7 +23,7 @@
                         class="@error('description') border-danger @enderror"></textarea>
                 </div>
                 <div class="input-field--textarea">
-                    <x-forms.label name="feature" for="feature" />
+                    <label for="">Features</label>
                     <div id="multiple_feature_part">
                         <div class="row">
                             <div class="col-lg-10">

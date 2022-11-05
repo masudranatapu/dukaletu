@@ -30,6 +30,9 @@
 @endsection
 
 @section('content')
+    @php
+        $sliders = DB::table('sliders')->where('status', 1)->get();
+    @endphp
     <!-- banner section start  -->
     <div class="banner banner--two text-center" style="background-image:url('{{ $cms->home_main_banner }}');">
         <div class="container">
@@ -46,7 +49,6 @@
         </div>
     </div>
     <!-- banner section end   -->
-
     <div class="main_content mb-5">
         <div class="container">
             <div class="row g-4">
@@ -66,13 +68,12 @@
                                             class="category-menu__dropdown__link">
                                             <i class="category-icon {{ $category->icon }}" style="color: #b0b0b0"></i>
                                             {{ $category->name }}
-
-                                            <span class="drop-icon">
-                                                <x-svg.category-right-icon />
-                                            </span>
-                                            
+                                            @if(count($category->subcategories) > 0)
+                                                <span class="drop-icon">
+                                                    <x-svg.category-right-icon />
+                                                </span>
+                                            @endif
                                         </a>
-
                                         @if (isset($category->subcategories))
                                             <ul class="category-menu__subdropdown">
                                                 @foreach ($category->subcategories as $subcategory)
@@ -108,21 +109,15 @@
                      <div class="banner_carousel mb-4">
                          <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
                               <div class="carousel-inner">
-                                <div class="carousel-item active">
-                                    <div class="banner_img">
-                                        <img src="{{ asset('1.jpg') }}" class="d-block w-100" alt="image">
+                                @foreach($sliders as $slider)
+                                    <div class="carousel-item active">
+                                        <a href="{{$slider->url}}">
+                                            <div class="banner_img">
+                                                <img src="{{ asset($slider->image) }}" class="d-block w-100" alt="{{$slider->name}}">
+                                            </div>
+                                        </a>
                                     </div>
-                                </div>
-                                <div class="carousel-item">
-                                    <div class="banner_img">
-                                        <img src="{{ asset('2.jpg') }}" class="d-block w-100" alt="image">
-                                    </div>
-                                </div>
-                                <div class="carousel-item">
-                                    <div class="banner_img">
-                                        <img src="{{ asset('3.jpg') }}" class="d-block w-100" alt="image">
-                                    </div>
-                                </div>
+                                @endforeach
                               </div>
                               <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>

@@ -52,6 +52,11 @@
                             {{ __('custom_field') }}
                         </x-admin.sidebar-list>
                     @endif
+
+                    <x-admin.sidebar-list :linkActive="Route::is('admin.slider.index') || Route::is('admin.slider.create') ? true : false" route="admin.slider.index" icon="fas fa-tachometer-alt">
+                        {{ __('Slider') }}
+                    </x-admin.sidebar-list>
+
                     @if (Module::collections()->has('Location'))
                         @if (userCan('city.view') || userCan('town.view'))
                             <x-sidebar-dropdown :linkActive="Route::is('module.city.*') || Route::is('module.town.*') ? true : false" :subLinkActive="Route::is('module.city.*') || Route::is('module.town.*') ? true : false" icon="fas fa-location-arrow">
@@ -90,6 +95,8 @@
                             {{ __('map') }}
                         </x-admin.sidebar-list>
                     @endif
+                    
+
 
                     <li class="nav-header">{{ __('others') }}</li>
                     @if ($user->can('admin.view'))

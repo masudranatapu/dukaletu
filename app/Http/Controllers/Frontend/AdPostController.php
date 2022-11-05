@@ -80,7 +80,6 @@ class AdPostController extends Controller
         $validatedData = $request->validate([
             'title' => 'required|unique:ads,title',
             'price' => 'required|numeric',
-            'featured' => 'sometimes',
             'category_id' => 'required',
             'subcategory_id' => 'sometimes',
             'brand_id' => 'required',
