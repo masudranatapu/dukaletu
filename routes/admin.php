@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\SocialiteController;
 use App\Http\Controllers\Admin\CmsSettingController;
+use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\Auth\ResetPasswordController;
 use App\Http\Controllers\Admin\Auth\ForgotPasswordController;
 
@@ -44,6 +45,13 @@ Route::prefix('admin')->group(function () {
 
         //Roles Route
         Route::resource('role', RolesController::class);
+        // slider
+        Route::get('slider', [SliderController::class, 'index'])->name('admin.slider.index');
+        Route::get('slider/create', [SliderController::class, 'create'])->name('admin.slider.create');
+        Route::post('slider-store', [SliderController::class, 'store'])->name('admin.slider.store');
+        Route::get('slider-edit/{id}', [SliderController::class, 'edit'])->name('admin.slider.edit');
+        Route::post('slider-update/{id}', [SliderController::class, 'update'])->name('admin.slider.update');
+        Route::get('slider-delete/{id}', [SliderController::class, 'destroy'])->name('admin.slider.destroy');
 
         //Users Route
         Route::resource('user', UserController::class);

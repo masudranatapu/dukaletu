@@ -18,7 +18,7 @@
 
 @section('content')
     @php
-    $auth = Auth::user();
+        $auth = Auth::user();
     @endphp
     <div class="card">
         <div class="card-body">
@@ -26,7 +26,7 @@
                 <div class="col-md-6">
                     <div class="tab-pane active" id="gen_settings">
                         <div class="text-center mb-4">
-                            <img id="image" class="img-circle" src="{{ $auth->image_url }}" alt="{{ __('user_profile_picture') }}"
+                            <img id="image" class="img-circle" src="{{ asset($auth->image) }}" alt="{{ __('user_profile_picture') }}"
                                 style="border: 3px solid #adb5bd;margin: 0 auto;padding: 3px;height:150px;width:150px">
 
                         </div>
@@ -60,8 +60,7 @@
                                 <x-forms.label name="Change Image" for="change_image" class="col-sm-3" />
                                 <div class="col-sm-9">
                                     <div class="custom-file">
-                                        <input name="image" autocomplete="image"
-                                            onchange="document.getElementById('image').src = window.URL.createObjectURL(this.files[0])"
+                                        <input name="image" onchange="document.getElementById('image').src = window.URL.createObjectURL(this.files[0])"
                                             type="file" class="custom-file-input" id="customFile">
                                         <label class="custom-file-label" for="customFile">{{ __('choose_file') }}</label>
                                     </div>

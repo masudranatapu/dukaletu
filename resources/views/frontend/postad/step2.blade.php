@@ -77,10 +77,12 @@
                     </div>
 
                 </div>
-                <h5 class="mt-3">
-                    {{ __('custom_fields') }}
-                </h5>
-                <hr>
+                @if($category->customFields->count() > 0)
+                    <h5 class="mt-3">
+                        {{ __('custom_fields') }}
+                    </h5>
+                    <hr>
+                @endif
                 <div class="row dashboard-post__information-form">
                     @foreach ($category->customFields as $field)
                         @if ($field->type == 'text')
