@@ -109,13 +109,11 @@
                      <div class="banner_carousel mb-4">
                          <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
                               <div class="carousel-inner">
-                                @foreach($sliders as $slider)
-                                    <div class="carousel-item active">
-                                        <a href="{{$slider->url}}">
-                                            <div class="banner_img">
-                                                <img src="{{ asset($slider->image) }}" class="d-block w-100" alt="{{$slider->name}}">
-                                            </div>
-                                        </a>
+                                @foreach($sliders as $key => $slider)
+                                    <div class="carousel-item @if($key == 0) active @endif">
+                                        <div class="banner_img">
+                                            <img src="{{ asset($slider->image) }}" class="d-block w-100" alt="{{$slider->name}}">
+                                        </div>
                                     </div>
                                 @endforeach
                               </div>
