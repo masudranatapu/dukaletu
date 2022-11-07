@@ -1039,5 +1039,6 @@
     "firebase_push_notification_configuration" : "Firebase Push Notification Configuration",
     "linkdin":"linkdin",
     "Whatsapp":"Whatsapp",
-    "popular_categories": "Popular Categories"
+    "popular_categories": "Popular Categories",
+    "verify":"Verify"
 }

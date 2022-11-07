@@ -17,6 +17,7 @@ use Modules\Plan\Entities\Plan;
 use Illuminate\Support\Facades\DB;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Http\Controllers\Controller;
+use App\Models\MobileValidation;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use Modules\Faq\Entities\FaqCategory;
@@ -306,7 +307,6 @@ class FrontendController extends Controller
     public function signUp()
     {
         $verified_users = User::where('email_verified_at', '!=', null)->count();
-
         return view('frontend.sign-up', compact('verified_users'));
     }
 
@@ -325,13 +325,26 @@ class FrontendController extends Controller
             'username' => "required|unique:users,username",
             'email' => "required|email|unique:users,email",
             'password' => "required|confirmed|min:8|max:50",
+            'phone' => "required",
+            'otp'=>'accepted'
+
+        ],[
+            'otp.accepted'=>"Phone number not verified"
         ]);
+
+
+
+
+
+
+
 
         $created = User::create([
             'name' => $request->name,
             'username' => $request->username,
             'email' => $request->email,
             'password' => bcrypt($request->password),
+            'phone' => $request->phone,
         ]);
 
         if ($created) {

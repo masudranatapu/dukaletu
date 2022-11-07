@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\PhoneVerifyController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FilterController;
 use App\Http\Controllers\MessangerController;
@@ -106,3 +107,6 @@ Route::controller(VerificationController::class)->middleware('auth:user', 'set_l
     Route::get('/email/verify/{id}/{hash}', 'verify')->name('verification.verify')->middleware(['signed']);
     Route::post('/email/resend', 'resend')->name('verification.resend');
 });
+
+Route::post('/get-otp',[PhoneVerifyController::class,'getOtp'])->name('getOtp');
+Route::post('/verify-otp',[PhoneVerifyController::class,'verifyOtp'])->name('verifyOtp');
