@@ -136,6 +136,7 @@
         $('document').ready(function() {
             $('#otpSection').hide();
         })
+        var timerId = null;
 
         function verifyPhone() {
             let phone = $('input[name="phone"]').val();
@@ -159,11 +160,13 @@
                         phone: phone
                     })
                     .then(function(response) {
+                        $('#otpSection').show();
+
                         console.log(response.data);
 
                         if (response.data.status == "success") {
                             $('#otpSection').show();
-                            var timerId = setInterval(countdown, 1000);
+                            timerId = setInterval(countdown, 1000);
                             var timeLeft = 30;
                             var elem = document.getElementById('coundown');
 
@@ -251,18 +254,20 @@
                     phone: phone
                 })
                 .then(function(response) {
-                    console.log(response.data);
                     if (response.data == "success") {
+                        console.log(response.data);
                         clearTimeout(timerId);
                         $('#otpSection').html('<input type="hidden" name="otp" value="true">');
                         $('input[name="phone"]').attr('readonly', true);
                         $('#button-addon2').html("Verified");
+                        $('#otpSection').hide();
+
 
 
                     } else {
                         toastr.error(response.data);
 
-                        $('#otpSection').html('<input type="hidden" name="otp" value="false">');
+
                         $('input[name="phone"]').attr('readonly', false);
 
                     }
