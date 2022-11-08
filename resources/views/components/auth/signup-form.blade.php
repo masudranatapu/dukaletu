@@ -58,12 +58,12 @@
                                 maxlength="1" name="otp[]" />
                             <input class="m-2 text-center form-control rounded w-25" type="text" id="second"
                                 maxlength="1" name="otp[]" />
-                            <input class="m-2 text-center form-control rounded w-25"
-                                type="text" id="third" maxlength="1" name="otp[]" />
+                            <input class="m-2 text-center form-control rounded w-25" type="text" id="third"
+                                maxlength="1" name="otp[]" />
                             <input class="m-2 text-center form-control rounded w-25" type="text" id="fourth"
                                 maxlength="1" name="otp[]" />
-                            <input class="m-2 text-center form-control rounded w-25"
-                                type="text" id="fifth" maxlength="1" name="otp[]" />
+                            <input class="m-2 text-center form-control rounded w-25" type="text" id="fifth"
+                                maxlength="1" name="otp[]" />
                             <input class="m-2 text-center form-control rounded w-25" type="text" id="sixth"
                                 maxlength="1" name="otp[]" />
                         </div>
@@ -196,8 +196,9 @@
                             }
 
                         } else if (response.data.status == "faild") {
-
-                            $('#otpSection').html(response.data.message);
+                            $('#button-addon2').attr('disabled', false);
+                            $('#phone').attr('disabled', false);
+                            toastr.error(response.data.message);
 
                         }
 
@@ -229,7 +230,7 @@
                                 inputs[i].value = event.key;
                                 if (i !== inputs.length - 1) inputs[i + 1].focus();
                                 event.preventDefault();
-                            } else if (event.keyCode > 64 && event.keyCode < 91) {
+                            } else if (event.keyCode > 95 && event.keyCode < 106) {
                                 inputs[i].value = String.fromCharCode(event.keyCode);
                                 if (i !== inputs.length - 1) inputs[i + 1].focus();
                                 event.preventDefault();
@@ -244,32 +245,34 @@
         });
 
 
-        $('.validate').click(function(event){
+        $('.validate').click(function(event) {
             event.preventDefault();
 
-            let otp=$("input[name='otp[]']").map(function(){return $(this).val();}).get();
+            let otp = $("input[name='otp[]']").map(function() {
+                return $(this).val();
+            }).get();
             let phone = $('input[name="phone"]').val();
 
 
             axios.post("{{ route('verifyOtp') }}", {
-                        otp: otp,
-                        phone:phone
-                    })
-                    .then(function(response) {
-                        console.log(response.data);
-                        if(response.data == "success"){
+                    otp: otp,
+                    phone: phone
+                })
+                .then(function(response) {
+                    console.log(response.data);
+                    if (response.data == "success") {
 
-                            $('#otpSection').html('<input type="hidden" name="otp" value="true">');
-                            $('input[name="phone"]').attr('disabled', true);
+                        $('#otpSection').html('<input type="hidden" name="otp" value="true">');
+                        $('input[name="phone"]').attr('disabled', true);
 
-                        }
-                        // else{
-                        //     $('#otpSection').html('<input type="hidden" name="otp" value="false">');
-                        // }
+                    }
+                    // else{
+                    //     $('#otpSection').html('<input type="hidden" name="otp" value="false">');
+                    // }
 
-                    }).catch(function(error){
+                }).catch(function(error) {
 
-                    })
+                })
 
         })
     </script>
