@@ -53,24 +53,12 @@
 
                     <div class="input-group">
 
-                        <div id="otp" class=" inputs d-flex flex-row justify-content-center mt-2">
-                            <input class="m-2 text-center form-control rounded w-25" type="text" id="first"
-                                maxlength="1" name="otp[]" />
-                            <input class="m-2 text-center form-control rounded w-25" type="text" id="second"
-                                maxlength="1" name="otp[]" />
-                            <input class="m-2 text-center form-control rounded w-25" type="text" id="third"
-                                maxlength="1" name="otp[]" />
-                            <input class="m-2 text-center form-control rounded w-25" type="text" id="fourth"
-                                maxlength="1" name="otp[]" />
-                            <input class="m-2 text-center form-control rounded w-25" type="text" id="fifth"
-                                maxlength="1" name="otp[]" />
-                            <input class="m-2 text-center form-control rounded w-25" type="text" id="sixth"
-                                maxlength="1" name="otp[]" />
-                        </div>
-                        <div class="mt-4 text-center">
-                            <button class="btn px-4 validate">Validate</button>
-                            <span class="fw-bold text-center" id="coundown"></span>
-                        </div>
+
+                        <input type="text" class="form-control" placeholder="OTP Number" aria-label="otp"
+                            id="otp" aria-describedby="validate" name="otp">
+                        <button class="btn btn--lg validate" type="button" id="validate">{{ __('verify') }}</button>
+
+
                     </div>
                     @error('phone')
                         <span class="text-danger">{{ $message }}</span>
@@ -160,8 +148,11 @@
 
                 $('#invalidPhone').html("");
 
+                $('#button-addon2').html(
+                    '<div class="d-flex justify-content-center"><div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div</div>'
+                );
                 $('#button-addon2').attr('disabled', true);
-                $('#phone').attr('disabled', true);
+                $('#phone').attr('readonly', true);
 
 
                 axios.post("{{ route('getOtp') }}", {
@@ -180,16 +171,18 @@
                                 if (timeLeft == -1) {
                                     clearTimeout(timerId);
                                     $('#button-addon2').attr('disabled', false);
-                                    $('#phone').attr('disabled', false);
+                                    $('#phone').attr('readonly', false);
                                     $('#otpSection').hide();
+                                    $('#button-addon2').html("Verify");
+
 
 
 
                                 } else {
-                                    elem.innerHTML = timeLeft + ' seconds remaining';
+                                    $('#button-addon2').html(timeLeft);
                                     timeLeft--;
                                     $('#button-addon2').attr('disabled', true);
-                                    $('#phone').attr('disabled', true);
+                                    $('#phone').attr('readonly', true);
 
 
                                 }
@@ -197,7 +190,7 @@
 
                         } else if (response.data.status == "faild") {
                             $('#button-addon2').attr('disabled', false);
-                            $('#phone').attr('disabled', false);
+                            $('#phone').attr('readonly', false);
                             toastr.error(response.data.message);
 
                         }
@@ -248,9 +241,8 @@
         $('.validate').click(function(event) {
             event.preventDefault();
 
-            let otp = $("input[name='otp[]']").map(function() {
-                return $(this).val();
-            }).get();
+            let otp = $("input[name='otp']").val();
+
             let phone = $('input[name="phone"]').val();
 
 
@@ -261,14 +253,19 @@
                 .then(function(response) {
                     console.log(response.data);
                     if (response.data == "success") {
-
+                        clearTimeout(timerId);
                         $('#otpSection').html('<input type="hidden" name="otp" value="true">');
-                        $('input[name="phone"]').attr('disabled', true);
+                        $('input[name="phone"]').attr('readonly', true);
+                        $('#button-addon2').html("Verified");
+
+
+                    } else {
+                        toastr.error(response.data);
+
+                        $('#otpSection').html('<input type="hidden" name="otp" value="false">');
+                        $('input[name="phone"]').attr('readonly', false);
 
                     }
-                    // else{
-                    //     $('#otpSection').html('<input type="hidden" name="otp" value="false">');
-                    // }
 
                 }).catch(function(error) {
 

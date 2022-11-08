@@ -10,6 +10,110 @@
             <div class="card">
                 <div class="card-header">
                     <div class="d-flex justify-content-between">
+                        <h3 class="card-title" style="line-height: 36px;">{{ __('pesapal_settings') }}</h3>
+                        <div class="form-group row">
+                            <input {{ env('PESAPAL_ACTIVE') ? 'checked' : '' }} type="checkbox" name="pesapal"
+                                data-bootstrap-switch value="1">
+                        </div>
+                    </div>
+                </div>
+                @if (env('PESAPAL_ACTIVE'))
+                    <div class="card-body">
+                        <form class="form-horizontal" action="{{ route('settings.payment.update') }}" method="POST"
+                            enctype="multipart/form-data">
+                            @method('PUT')
+                            @csrf
+                            <input type="hidden" value="pesapal" name="type">
+                            <div class="form-group row">
+                                <x-forms.label name="{{ __('live_mode') }}" class="col-sm-3" />
+                                <div class="col-sm-9">
+                                    <input id="paylive" {{ env('PESAPAL_MODE') == 'live' ? 'checked' : '' }}
+                                        type="checkbox" name="pesapal_live_mode" button="button1"
+                                        oldvalue="{{ env('PESAPAL_MODE') }}" data-bootstrap-switch value="1">
+                                </div>
+                            </div>
+                            @if (env('PESAPAL_MODE') == 'sandbox')
+                                <div class="form-group row">
+                                    <x-forms.label name="{{ __('client_id') }}" class="col-sm-3" />
+                                    <div class="col-sm-9">
+                                        <input
+                                            onkeyup="ButtonDisabled('button1', 'pesapal_customer_key' , '{{ env('PESAPAL_CONSUMER_KEY') }}')"
+                                            value="{{ env('PESAPAL_CONSUMER_KEY') }}" name="pesapal_client_id"
+                                            type="text"
+                                            class="form-control @error('pesapal_customer_key') is-invalid @enderror"
+                                            autocomplete="off">
+                                        @error('pesapal_customer_key')
+                                            <span class="invalid-feedback"
+                                                role="alert"><span>{{ $message }}</span></span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <x-forms.label name="{{ __('client_secret') }}" class="col-sm-3" />
+                                    <div class="col-sm-9">
+                                        <input
+                                            onkeyup="ButtonDisabled('button1', 'pesapal_customer_secret' , '{{ env('PESAPAL_CONSUMER_SECRET') }}')"
+                                            value="{{ env('PESAPAL_CONSUMER_SECRET') }}" name="pesapal_customer_secret"
+                                            type="text"
+                                            class="form-control @error('pesapal_customer_secret') is-invalid @enderror"
+                                            autocomplete="off">
+                                        @error('pesapal_customer_secret')
+                                            <span class="invalid-feedback"
+                                                role="alert"><span>{{ $message }}</span></span>
+                                        @enderror
+                                    </div>
+                                </div>
+                            @else
+                                <div class="form-group row">
+                                    <x-forms.label name="{{ __('client_id') }}" class="col-sm-3" />
+                                    <div class="col-sm-9">
+                                        <input
+                                            onkeyup="ButtonDisabled('button1', 'pesapal_customer_key' , '{{ env('PESAPAL_CONSUMER_KEY') }}')"
+                                            value="{{ env('PESAPAL_CONSUMER_KEY') }}" name="pesapal_customer_key"
+                                            type="text"
+                                            class="form-control @error('pesapal_customer_key') is-invalid @enderror"
+                                            autocomplete="off">
+                                        @error('pesapal_customer_key')
+                                            <span class="invalid-feedback"
+                                                role="alert"><span>{{ $message }}</span></span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <x-forms.label name="{{ __('client_secret') }}" class="col-sm-3" />
+                                    <div class="col-sm-9">
+                                        <input
+                                            onkeyup="ButtonDisabled('button1', 'pesapal_customer_secret' , '{{ env('PESAPAL_CONSUMER_SECRET') }}')"
+                                            value="{{ env('PESAPAL_CONSUMER_SECRET') }}" name="pesapal_customer_secret"
+                                            type="text"
+                                            class="form-control @error('pesapal_customer_secret') is-invalid @enderror"
+                                            autocomplete="off">
+                                        @error('pesapal_customer_secret')
+                                            <span class="invalid-feedback"
+                                                role="alert"><span>{{ $message }}</span></span>
+                                        @enderror
+                                    </div>
+                                </div>
+                            @endif
+                            @if (userCan('setting.update'))
+                                <div class="form-group row">
+                                    <div class="offset-sm-3 col-sm-9">
+                                        <button id="button1" type="submit" class="btn btn-success"><i
+                                                class="fas fa-sync"></i>
+                                            {{ __('update') }}</button>
+                                    </div>
+                                </div>
+                            @endif
+                        </form>
+                    </div>
+                @endif
+            </div>
+        </div>
+        <div class="col-sm-6">
+            {{-- paypal settings --}}
+            <div class="card">
+                <div class="card-header">
+                    <div class="d-flex justify-content-between">
                         <h3 class="card-title" style="line-height: 36px;">{{ __('paypal_settings') }}</h3>
                         <div class="form-group row">
                             <input {{ env('PAYPAL_ACTIVE') ? 'checked' : '' }} type="checkbox" name="paypal"

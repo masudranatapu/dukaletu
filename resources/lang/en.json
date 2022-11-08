@@ -387,6 +387,7 @@
     "change_mail_password": "Change mail password",
     "enter_email": "Enter Email",
     "paypal_settings": "Paypal Settings",
+    "pesapal_settings": "Pesapal Settings",
     "paystack_settings": "Paystack Settings",
     "stripe_settings": "Stripe Settings",
     "midtrans_setting": "Midtrans Setting",
@@ -1040,5 +1041,7 @@
     "linkdin":"linkdin",
     "Whatsapp":"Whatsapp",
     "popular_categories": "Popular Categories",
-    "verify":"Verify"
+    "verify":"Verify",
+    "sms_merketing":"Sms Marketin",
+    "pesapal_payment":"Pesapal payment"
 }

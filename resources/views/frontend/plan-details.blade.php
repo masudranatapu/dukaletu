@@ -6,7 +6,7 @@
 
 @section('meta')
     @php
-    $data = metaData('pricing');
+        $data = metaData('pricing');
     @endphp
 
     <meta name="title" content="{{ $data->title }}">
@@ -120,6 +120,25 @@
                         </div>
                     @endif
                 @endif
+                {{-- Paypal payment --}}
+
+
+                @if (config('pesapal.active'))
+                    <div class="col-xl-6">
+                        <div class="membership-card">
+                            <div class="membership-card__icon" style="background-color: #e8f7ff">
+                                {{-- <x-svg.paypal-icon /> --}}
+                            </div>
+                            <div class="membership-card__info">
+                                <h2 class="membership-card__title text--body-1">{{ __('pesapal_payment') }}</h2>
+                                <button id="pesapal_btn" class="mt-3 btn btn--lg price-plan__checkout-btn">
+                                    {{ __('pay_now') }}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+
 
                 {{-- Stripe payment --}}
                 @if (config('zakirsoft.stripe_active') && config('zakirsoft.stripe_key') && config('zakirsoft.stripe_secret'))
@@ -285,6 +304,9 @@
         <form action="{{ route('paypal.post') }}" method="POST" class="d-none" id="paypal-form">
             @csrf
         </form>
+        <form action="{{ route('paymentsuccess') }}" method="GET" class="d-none" id="pesapal-payment-form">
+            @csrf
+        </form>
 
         {{-- Stripe Form --}}
         <form action="{{ route('stripe.post') }}" method="POST" class="d-none">
@@ -345,6 +367,10 @@
         $('#paypal_btn').on('click', function(e) {
             e.preventDefault();
             $('#paypal-form').submit();
+        });
+        $('#pesapal_btn').on('click', function(e) {
+            e.preventDefault();
+            $('#pesapal-payment-form').submit();
         });
 
         $('#stripe_btn').on('click', function(e) {

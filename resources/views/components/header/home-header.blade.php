@@ -58,7 +58,7 @@
                                 {{ $unread_messages }}
                             </span>
                         </a>
-                        <a href="{{ route('frontend.post') }}" class="btn login_required post-ads">
+                        <a href="{{ route('frontend.post') }}" class="btn post-ads">
                             <!-- <span class="icon--left">
                                 <x-svg.image-select-icon />
                             </span> -->
@@ -87,7 +87,7 @@
         </div>
     </div>
 
-    {{--  
+    {{--
     <div class="navigation-bar__bottom-wrap">
         <div class="container navigation-bar__bottom justify-content-between">
             <div class="d-flex align-items-center">
@@ -150,7 +150,7 @@
 
 
         </div>
-    </div> 
+    </div>
     --}}
 </header>
 

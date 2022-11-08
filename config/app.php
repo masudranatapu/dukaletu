@@ -179,6 +179,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\BladeServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        Knox\Pesapal\PesapalServiceProvider::class,
 
     ],
 
@@ -234,6 +235,7 @@ return [
         'PayPal' => Srmklive\PayPal\Facades\PayPal::class,
         'Rave' => KingFlamez\Rave\Facades\Rave::class,
         'Image' => Intervention\Image\Facades\Image::class,
+        'Pesapal' => Knox\Pesapal\Facades\Pesapal::class,
     ],
 
 ];
