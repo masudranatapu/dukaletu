@@ -18,42 +18,42 @@ function uploadImage(?object $file, string $path, $watermark = false): string
         File::makeDirectory($pathCreate, 0777, true, true);
     }
 
-    if ($watermark && setting('watermark_status')) {
+    // if ($watermark && setting('watermark_status')) {
 
-        $watermark_image = Image::make(setting('watermark_image'));
-        $type = setting('watermark_type');
-        $text = setting('watermark_text');
+    //     $watermark_image = Image::make(setting('watermark_image'));
+    //     $type = setting('watermark_type');
+    //     $text = setting('watermark_text');
 
-        $fileName = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
-        $updated_img = Image::make($file);
+    //     $fileName = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+    //     $updated_img = Image::make($file);
 
-        if ($type == 'text') {
+    //     if ($type == 'text') {
 
-            $updated_img->text($text, 100, 100, function ($font) {
-                $font->file(public_path('RobotoMono-Bold.ttf'));
-                $font->size(30);
-                $font->color('#e1e1e1');
-                $font->valign('center');
-                $font->align('center');
-            });
-        } else {
+    //         $updated_img->text($text, 100, 100, function ($font) {
+    //             $font->file(public_path('RobotoMono-Bold.ttf'));
+    //             $font->size(30);
+    //             $font->color('#e1e1e1');
+    //             $font->valign('center');
+    //             $font->align('center');
+    //         });
+    //     } else {
 
-            $imageWidth = $updated_img->width();
-            $watermarkSize = round(10 * $imageWidth / 50);
-            $watermark_image->resize($watermarkSize, null, function ($constraint) {
-                $constraint->aspectRatio();
-            });
-            $updated_img->insert($watermark_image, 'bottom-right', 10, 10);
-        }
+    //         $imageWidth = $updated_img->width();
+    //         $watermarkSize = round(10 * $imageWidth / 50);
+    //         $watermark_image->resize($watermarkSize, null, function ($constraint) {
+    //             $constraint->aspectRatio();
+    //         });
+    //         $updated_img->insert($watermark_image, 'bottom-right', 10, 10);
+    //     }
 
-        $updated_img->save(public_path('/uploads/' . $path . '/') . $fileName);
-        return "uploads/$path/" . $fileName;
-    } else {
+    //     $updated_img->save(public_path('/uploads/' . $path . '/') . $fileName);
+    //     return "uploads/$path/" . $fileName;
+    // } else {
 
         $fileName = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
         $file->move(public_path('/uploads/' . $path . '/'), $fileName);
         return "uploads/$path/" . $fileName;
-    }
+    // }
 }
 
 /**

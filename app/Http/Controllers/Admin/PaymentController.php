@@ -27,6 +27,8 @@ class PaymentController extends Controller
     public function update(Request $request)
     {
         switch ($request->type) {
+            case 'pesapal';
+                $this->pesapalUpdate($request);
             case 'paypal':
                 $this->paypalUpdate($request);
                 break;
@@ -76,6 +78,26 @@ class PaymentController extends Controller
         setEnv('PAYPAL_MODE', $request->paypal_live_mode ? 'live' : 'sandbox');
 
         flashSuccess('Paypal Setting Updated Successfully');
+        return redirect()->route('settings.payment')->send();
+    }
+    public function pesapalUpdate(Request $request)
+    {
+        $request->validate([
+            'pesapal_client_id' => 'required',
+            'pesapal_client_secret' => 'required',
+        ]);
+
+        if ($request->paypal_live_mode) {
+            checkSetEnv('PESAPAL_LIVE_CLIENT_ID', $request->pesapal_client_id);
+            checkSetEnv('PESAPAL_LIVE_CLIENT_SECRET', $request->pesapal_client_secret);
+        } else {
+            checkSetEnv('PESAPAL_SANDBOX_CLIENT_ID', $request->pesapal_client_id);
+            checkSetEnv('PESAPAL_SANDBOX_CLIENT_SECRET', $request->pesapal_client_secret);
+        }
+
+        setEnv('PESAPAL_MODE', $request->paypal_live_mode ? 'live' : 'sandbox');
+
+        flashSuccess('Pesapal Setting Updated Successfully');
         return redirect()->route('settings.payment')->send();
     }
 

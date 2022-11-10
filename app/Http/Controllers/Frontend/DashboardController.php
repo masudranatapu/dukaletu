@@ -382,4 +382,22 @@ class DashboardController extends Controller
     {
         return view('frontend.posting-rules')->withSetting(Setting::first());
     }
+
+
+
+    public function marketing()
+    {
+
+
+        $data['user_plan'] = session('user_plan');
+
+        if ($data['user_plan']->subscription_type == 'recurring' && $data['user_plan']->current_plan_id) {
+            $data['user_plan'] = $data['user_plan'];
+            $data['current_plan'] = Plan::find($data['user_plan']->current_plan_id);
+        }
+
+
+        $data['plan_info'] = UserPlan::customerData()->firstOrFail();
+        return view('frontend.sms-merketing', $data);
+    }
 }

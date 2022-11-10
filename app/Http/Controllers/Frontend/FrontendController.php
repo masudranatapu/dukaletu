@@ -17,6 +17,7 @@ use Modules\Plan\Entities\Plan;
 use Illuminate\Support\Facades\DB;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Http\Controllers\Controller;
+use App\Models\MobileValidation;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use Modules\Faq\Entities\FaqCategory;
@@ -26,6 +27,7 @@ use Modules\Category\Entities\Category;
 use App\Notifications\LogoutNotification;
 use Modules\Testimonial\Entities\Testimonial;
 use App\Services\Midtrans\CreateSnapTokenService;
+use Illuminate\Support\Carbon;
 use Modules\Category\Transformers\CategoryResource;
 use Modules\CustomField\Entities\ProductCustomField;
 
@@ -305,8 +307,9 @@ class FrontendController extends Controller
      */
     public function signUp()
     {
-        $verified_users = User::where('email_verified_at', '!=', null)->count();
 
+
+        $verified_users = User::where('email_verified_at', '!=', null)->count();
         return view('frontend.sign-up', compact('verified_users'));
     }
 
@@ -325,13 +328,26 @@ class FrontendController extends Controller
             'username' => "required|unique:users,username",
             'email' => "required|email|unique:users,email",
             'password' => "required|confirmed|min:8|max:50",
+            'phone' => "required|unique:users,phone",
+            'otp' => 'accepted'
+
+        ], [
+            'otp.accepted' => "Phone number not verified"
         ]);
+
+
+
+
+
+
+
 
         $created = User::create([
             'name' => $request->name,
             'username' => $request->username,
             'email' => $request->email,
             'password' => bcrypt($request->password),
+            'phone' => $request->phone,
         ]);
 
         if ($created) {

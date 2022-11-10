@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\PhoneVerifyController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FilterController;
 use App\Http\Controllers\MessangerController;
@@ -8,6 +9,7 @@ use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\Frontend\DashboardController;
 use App\Http\Controllers\Frontend\SellerDashboardController;
 use App\Http\Controllers\Frontend\FrontendController;
+use App\Http\Controllers\PaymentsController;
 
 // show website pages
 Route::group(['as' => 'frontend.'], function () {
@@ -89,6 +91,7 @@ Route::group(['as' => 'frontend.'], function () {
             Route::put('active-ad/{ad}', 'markActive')->name('myad.active');
             Route::get('favourites', 'favourites')->name('favourites');
             Route::get('plans-billing', 'plansBilling')->name('plans-billing');
+            Route::get('sms-marketing', 'marketing')->name('sms-marketing');
             Route::get('cancel/plan', 'cancelPlan')->name('cancel-plan');
             Route::get('account-setting', 'accountSetting')->name('account-setting');
             Route::put('profile', 'profileUpdate')->name('profile');
@@ -105,4 +108,15 @@ Route::controller(VerificationController::class)->middleware('auth:user', 'set_l
     Route::get('/email/verify', 'show')->name('verification.notice');
     Route::get('/email/verify/{id}/{hash}', 'verify')->name('verification.verify')->middleware(['signed']);
     Route::post('/email/resend', 'resend')->name('verification.resend');
+});
+
+Route::post('/get-otp', [PhoneVerifyController::class, 'getOtp'])->name('getOtp');
+Route::post('/verify-otp', [PhoneVerifyController::class, 'verifyOtp'])->name('verifyOtp');
+
+
+
+Route::group(['prefix' => '/webhooks'], function () {
+    //PESAPAL
+    Route::get('donepayment', [PaymentsController::class, 'payment'])->name('paymentsuccess');
+    Route::get('paymentconfirmation', 'PaymentsController@paymentconfirmation');
 });
