@@ -92,7 +92,8 @@
                 </a>
             </li>
             <li class="dashboard__nav-item">
-                <a href="{{ route('frontend.sms-marketing') }}"
+                {{-- <a href="{{ route('frontend.sms-marketing') }}" --}}
+                <a onclick="return confirm('Coming...')" href="#"
                     class="dashboard__nav-link  {{ request()->routeIs('frontend.sms-marketing') ? 'active' : '' }}">
                     <span class="icon">
                         <x-svg.message-icon width="24" height="24" stroke="currentColor" />
