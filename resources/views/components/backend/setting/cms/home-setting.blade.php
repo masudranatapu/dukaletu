@@ -2,7 +2,7 @@
     @method('PUT')
     @csrf
     <div class="row justify-content-between">
-        <div class="col-md-3">
+        <div class="col-md-6">
             <div class="form-group">
                 <x-forms.label name="home_main_banner" />
                 <div class="row">
@@ -12,7 +12,16 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-6">
+            <div class="form-group">
+                <x-forms.label name="home_title" />
+                <textarea class="form-control" name="home_title" rows="4">{{ $cms->home_title }}</textarea>
+                @error('home_title')
+                    <span class="text-danger" style="font-size: 13px;">{{ $message }}</span>
+                @enderror
+            </div>
+        </div>
+        <!-- <div class="col-md-3">
             <div class="form-group">
                 <x-forms.label name="home_counter_background" />
                 <div class="row">
@@ -33,18 +42,9 @@
                         accept="image/png, image/jpg, image/jpeg">
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
     <div class="row">
-        <div class="col-md-6">
-            <div class="form-group">
-                <x-forms.label name="home_title" />
-                <textarea class="form-control" name="home_title" rows="4">{{ $cms->home_title }}</textarea>
-                @error('home_title')
-                    <span class="text-danger" style="font-size: 13px;">{{ $message }}</span>
-                @enderror
-            </div>
-        </div>
         <div class="col-md-6">
             <div class="form-group">
                 <x-forms.label name="home_description" />
@@ -56,7 +56,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
+        <!-- <div class="col-md-6">
             <div class="form-group">
                 <x-forms.label name="download_app_content" />
                 <textarea class="form-control" name="download_app" rows="4">{{ $cms->download_app }}</textarea>
@@ -109,7 +109,7 @@
                     <span class="text-danger" style="font-size: 13px;">{{ $message }}</span>
                 @enderror
             </div>
-        </div>
+        </div> -->
     </div>
 
     <div class="row mt-3">

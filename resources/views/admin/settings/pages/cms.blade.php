@@ -38,7 +38,7 @@
                         aria-selected="false">{{ __('posting_rules') }}
                     </a>
                 </li>
-                <li class="nav-item" role="presentation">
+                <!-- <li class="nav-item" role="presentation">
                     <a class="nav-link {{ $cms_tab == 'membership' ? 'active' : '' }}" id="membership-tab"
                         data-toggle="pill" href="#cms-membership" role="tab" aria-controls="membership"
                         aria-selected="false">{{ __('membership') }}</a>
@@ -56,7 +56,7 @@
                 <li class="nav-item" role="presentation">
                     <a class="nav-link {{ $cms_tab == 'ads' ? 'active' : '' }}" id="ads-tab" data-toggle="pill"
                         href="#cms-ads" role="tab" aria-controls="ads" aria-selected="false">{{ __('ads') }}</a>
-                </li>
+                </li> -->
                 <li class="nav-item" role="presentation">
                     <a class="nav-link {{ $cms_tab == 'contact' ? 'active' : '' }} " id="contact-tab" data-toggle="pill"
                         href="#cms-contact" role="tab" aria-controls="contact"
@@ -68,7 +68,7 @@
                         aria-selected="false">{{ __('faqs') }}</a>
                 </li>
 
-                <li class="nav-item" role="presentation">
+               <!--  <li class="nav-item" role="presentation">
                     <a class="nav-link {{ $cms_tab == 'dashboard' ? 'active' : '' }}" id="dashboard-tab"
                         data-toggle="pill" href="#cms-dashboards" role="tab" aria-controls="dashboard"
                         aria-selected="false">{{ __('dashboards') }}</a>
@@ -77,7 +77,7 @@
                     <a class="nav-link {{ $cms_tab == 'auth' ? 'active' : '' }}" id="auth-tab" data-toggle="pill"
                         href="#cms-auth" role="tab" aria-controls="auth"
                         aria-selected="false">{{ __('login_or_register') }}</a>
-                </li>
+                </li> -->
                 <li class="nav-item" role="presentation">
                     <a class="nav-link {{ $cms_tab == 'c_soon' ? 'active' : '' }}" id="c_soon-tab" data-toggle="pill"
                         href="#cms-c_soon" role="tab" aria-controls="c_soon"

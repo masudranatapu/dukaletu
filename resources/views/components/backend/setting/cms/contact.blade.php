@@ -15,12 +15,12 @@
                 <x-forms.label name="contact_address" :required="false"/>
                 <input type="text" name="contact_address" class="form-control" value="{{ $cms->contact_address }}">
             </div>
-            <div class="form-group">
+            <!-- <div class="form-group">
                 <x-forms.label name="contact_background" />
                     <input type="file" class="form-control dropify" data-default-file="{{ $cms->contact_background }}"
                         name="contact_background" autocomplete="image" data-allowed-file-extensions="jpg png jpeg"
                         accept="image/png, image/jpg, image/jpeg">
-            </div>
+            </div> -->
         </div>
     </div>
     <div class="row mt-3">

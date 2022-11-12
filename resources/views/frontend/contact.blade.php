@@ -41,9 +41,11 @@
     @livewire('contact-component')
     <!-- Contact section end -->
 
+{{--  
     <div class="map">
         {!! $settings->map_address !!}
     </div>
+--}}
 @endsection
 
 @section('adlisting_style') @livewireStyles @endsection

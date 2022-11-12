@@ -1,7 +1,8 @@
 <script src="{{ asset('frontend') }}/js/plugins/jquery.min.js"></script>
-<script src="{{ asset('frontend') }}/js/plugins/bootstrap.bundle.min.js"></script>
 {{-- toastr notificaiton --}}
 <script src="{{ asset('backend') }}/plugins/toastr/toastr.min.js"></script>
+<script src="{{ asset('frontend') }}/js/plugins/bootstrap.bundle.min.js"></script>
+
 <script src="{{ asset('frontend/js/sweet-alert.min.js') }}"></script>
 <script src="{{ asset('frontend/') }}/js/plugins/lan.js"></script>
  <script src="{{ asset('frontend/js/chat.js') }}"></script> <!-- for pusher js in realtime chat -->
@@ -34,8 +35,8 @@
     $('.login_required').click(function(event) {
         event.preventDefault();
         swal({
-                title: `Do you want to login?`,
-                text: "If you do this action, you need to login your account first.",
+                title: `Please login first!`,
+                // text: "If you do this action, you need to login your account first.",
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonColor: '#e64942',

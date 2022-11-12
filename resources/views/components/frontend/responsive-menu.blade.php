@@ -35,7 +35,7 @@
                     <a href="{{ route('frontend.index') }}" class="menu--sm__link">{{ __('home') }}</a>
                 </li>
                 <li class="menu--sm__item">
-                    <a href="#" class="menu--sm__link">
+                   <!--  <a href="#" class="menu--sm__link">
                         {{ __('all_categories') }}
                         <span class="icon">
                             <x-svg.category-arrow-icon />
@@ -53,8 +53,30 @@
                                 </li>
                             @endforeach
                         </ul>
+                    @endif -->
 
-                    @endif
+                     <div class="accordion sidebar_category" id="accordionExample">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingThree">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree"> {{ __('all_category') }}</button>
+                            </h2>
+                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <ul>
+                                        @foreach ($footer_categories as $category)
+                                        <li class="menu--sm-dropdown__item">
+                                            <a href="javascript:void(0)" onclick="adFilterFunctionTwo('{{$category->slug}}')" class="menu--sm-dropdown__link">
+                                                {{ $category->name }}
+                                            </a>
+                                        </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
                 </li>
                 <li class="menu--sm__item">
                     <a href="{{ route('frontend.adlist') }}" class="menu--sm__link">{{ __('ads') }}</a>
@@ -78,13 +100,18 @@
             <div class="mobile-menu__footer ">
                 <div class="mobile-menu-user-wrap">
                     <div class="mobile-menu-user-left">
-                        <div class="mobile-menu-user">
-                            <img src="{{ auth('user')->user()->image_url }}" alt="">
-                        </div>
-                        <div class="mobile-menu-user-data">
-                            <h5>{{ auth('user')->user()->name }}</h5>
-                            <p>{{ auth('user')->user()->username }}</p>
-                        </div>
+                        <a href="{{ route('frontend.dashboard') }}">
+                            <div class="mobile-menu-user">
+                                <img src="{{ auth('user')->user()->image_url }}" alt="">
+                            </div>
+                         </a>   
+                         <a href="{{ route('frontend.dashboard') }}">
+                            <div class="mobile-menu-user-data">
+                                <h5>{{ auth('user')->user()->name }}</h5>
+                                <p>{{ auth('user')->user()->username }}</p>
+                            </div>
+                      </a>         
+                        
                     </div>
                     <div class="mobile-menu-user-right">
                         <a class="sign-out" href="#"
