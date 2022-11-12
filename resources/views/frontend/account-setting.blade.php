@@ -246,7 +246,7 @@
                                 onclick="return confirm('{{ __('are_you_sure') }}?')">
                                 @csrf
                                 @method('delete')
-                                <button type="submit" class="btn">
+                                <button type="submit" class="btn btn-danger" style="background: #dc3545 !important;">
                                     <span class="icon--left">
                                         <x-svg.delete-icon />
                                     </span>

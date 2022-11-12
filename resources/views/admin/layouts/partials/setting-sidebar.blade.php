@@ -30,9 +30,10 @@
                     </x-admin.sidebar-list>
                     <x-admin.sidebar-list :linkActive="Route::is('settings.seo.*') ? true : false" route="settings.seo.index" icon="fas fa-award">
                         {{ __('seo') }} {{ __('settings') }}
-                    </x-admin.sidebar-list>
+                    <!-- </x-admin.sidebar-list>
                     <x-admin.sidebar-list :linkActive="Route::is('settings.custom') ? true : false" route="settings.custom" icon="fas fa-tools">
-                        {{ __('custom_css_and_JS') }}
+                        {{ __('custom_css_and_JS') }} -->
+                        
                     </x-admin.sidebar-list>
                     <x-admin.sidebar-list :linkActive="Route::is('settings.cms') ? true : false" route="settings.cms" icon="fas fa-paragraph">
                         {{ __('cms') }}

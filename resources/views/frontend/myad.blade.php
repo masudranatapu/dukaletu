@@ -3,6 +3,7 @@
 @section('title', __('my_ads'))
 
 @section('content')
+<link rel="stylesheet" href="{{ asset('backend') }}/plugins/toastr/toastr.min.css" />
     <!-- breedcrumb section start  -->
     <x-frontend.breedcrumb-component :background="$cms->dashboard_my_ads_background">
         {{ __('overview') }}
@@ -149,6 +150,7 @@
 
 @section('adlisting_style')
     <link rel="stylesheet" href="{{ asset('frontend/style.css') }}">
+    <script src="{{ asset('backend') }}/plugins/toastr/toastr.min.js"></script>
     <style>
         .card-edit__item {
             text-align: center;

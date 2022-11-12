@@ -14,6 +14,7 @@
                         <div class="form-group row">
                             <input {{ env('PESAPAL_ACTIVE') ? 'checked' : '' }} type="checkbox" name="pesapal"
                                 data-bootstrap-switch value="1">
+                                
                         </div>
                     </div>
                 </div>
@@ -109,7 +110,8 @@
                 @endif
             </div>
         </div>
-        <div class="col-sm-6">
+
+        <!-- <div class="col-sm-6">
             {{-- paypal settings --}}
             <div class="card">
                 <div class="card-header">
@@ -212,7 +214,7 @@
                     </div>
                 @endif
             </div>
-        </div>
+        </div> -->
     </div>
 @endsection
 

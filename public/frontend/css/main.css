@@ -9222,9 +9222,8 @@ a {
         font-family: \000031;
     }
 }
-
 .breedcrumb {
-     
+    background: #f5f7fa;
 }
 
 @media -sass-debug-info {
@@ -10940,7 +10939,7 @@ a {
     }
 
     .contact-form__left {
-        padding-bottom: 0px;
+        padding:30px;
     }
 }
 
@@ -10988,7 +10987,7 @@ a {
     }
 
     .contact-form__right {
-        padding-top: 0px;
+        padding:30px;
     }
 }
 
@@ -16460,7 +16459,7 @@ a {
 }
 
 .btn--outline {
-    color: #3db83a;
+    color: #fff;
     background-color: transparent;
     border: 1px solid #cceeff;
 }
@@ -17295,6 +17294,7 @@ a {
     background-color: #fff;
     -webkit-transition: all 0.3s ease-in-out;
     transition: all 0.3s ease-in-out;
+    height: 100%;
 }
 
 @media -sass-debug-info {
@@ -21885,7 +21885,7 @@ a {
     -ms-flex-align: center;
     align-items: center;
     margin-right: 12px;
-    color: #464d61;
+    color: #fff;
     background-color: #f5f7fa;
     -ms-flex-negative: 0;
     flex-shrink: 0;
@@ -27613,7 +27613,7 @@ a {
 
 .product-item__description p {
     color: #767e94;
-    margin-bottom: 24px;
+    padding-bottom: 24px;
 }
 
 @media -sass-debug-info {
@@ -28364,9 +28364,9 @@ a {
         }
     }
 
-    .related-post__header h2 {
+   /* .related-post__header h2 {
         margin-bottom: 24px;
-    }
+    }*/
 }
 
 @media -sass-debug-info {
@@ -29121,11 +29121,11 @@ a {
 
 
 .btn.login_required {
-    padding: 0px 38px;
-    line-height: 40px;
+/*    padding: 0px 38px;*/
+/*    line-height: 40px;*/
     text-transform: uppercase;
     background: #0f840c;
-    border-radius: 2px;
+/*    border-radius: 2px;*/
 }
 
 .btn.login_required:hover {
@@ -29171,6 +29171,7 @@ a {
     position: relative;
     overflow: hidden;
     margin-bottom: 14px;
+    direction: ltr;
 }
 
 .product_item:hover {
@@ -29338,14 +29339,41 @@ a {
     background: #EEF2F4 !important;
 }
 
+.sidebar_category .accordion-button {
+    border: none;
+    padding: 0;
+}
+
+.sidebar_category .accordion-item {
+    border: none;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.sidebar_category .accordion-button:not(.collapsed) {
+    background: #fff !important;
+    box-shadow: none !important;
+    color: #222 !important;
+}
+
+.sidebar_category .accordion-button:focus {
+    border-color: #fff !important;
+    outline: 0;
+    box-shadow: none !important;
+}
+
+.sidebar_category .accordion-body {
+    padding: 10px 0px;
+}
 
 
 
-.dashboard__count-card.row {
+.dashboard__count-card {
     background: #fff;
-    padding: 15px 2px;
+    padding: 18px 17px;
     border-radius: 3px;
-}.post-ads {
+}
+.post-ads {
     background: #ffa010 !important;
     color: #fff;
 }

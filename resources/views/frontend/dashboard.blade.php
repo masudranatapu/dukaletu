@@ -30,49 +30,52 @@
                     @include('layouts.frontend.partials.dashboard-sidebar')
                 </div>
                 <div class="col-xl-9">
-                    <div class="dashboard__count-card row">
-                        <div class="col-lg-4">
-                            <div class="dashboard-card dashboard-card--count bgcolor--primary-9">
-                                <div class="dashboard-card--count__info">
-                                    <span class="counter-number text--heading-2"> {{ $posted_ads_count }} </span>
+                    <div class="dashboard__count-card">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="dashboard-card dashboard-card--count bgcolor--primary-9">
+                                    <div class="dashboard-card--count__info">
+                                        <span class="counter-number text--heading-2"> {{ $posted_ads_count }} </span>
 
-                                    <h2 class="counter-title text--body-3">{{ __('posted_ads') }}</h2>
+                                        <h2 class="counter-title text--body-3">{{ __('posted_ads') }}</h2>
+                                    </div>
+                                    <div class="dashboard-card--count__icon">
+                                        <span class="icon">
+                                            <x-svg.list-icon />
+                                        </span>
+                                    </div>
                                 </div>
-                                <div class="dashboard-card--count__icon">
-                                    <span class="icon">
-                                        <x-svg.list-icon />
-                                    </span>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="dashboard-card dashboard-card--count bgcolor--success-9">
+                                    <div class="dashboard-card--count__info">
+                                        <span class="counter-number text--heading-2"> {{ $favouriteadcount }} </span>
+                                        <h2 class="counter-title text--body-3">{{ __('favorite_ads') }}</h2>
+                                    </div>
+                                    <div class="dashboard-card--count__icon">
+                                        <span class="icon">
+                                            <x-svg.favourite-icon />
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="dashboard-card dashboard-card--count bgcolor--danger-9">
+                                    <div class="dashboard-card--count__info">
+                                        <span class="counter-number text--heading-2"> {{ $expire_ads_count }} </span>
+                                        <h2 class="counter-title text--body-3">{{ __('expire_ads') }}</h2>
+                                    </div>
+                                    <div class="dashboard-card--count__icon">
+                                        <span class="icon">
+                                            <x-svg.cube-icon />
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-4">
-                            <div class="dashboard-card dashboard-card--count bgcolor--success-9">
-                                <div class="dashboard-card--count__info">
-                                    <span class="counter-number text--heading-2"> {{ $favouriteadcount }} </span>
-                                    <h2 class="counter-title text--body-3">{{ __('favorite_ads') }}</h2>
-                                </div>
-                                <div class="dashboard-card--count__icon">
-                                    <span class="icon">
-                                        <x-svg.favourite-icon />
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="dashboard-card dashboard-card--count bgcolor--danger-9">
-                                <div class="dashboard-card--count__info">
-                                    <span class="counter-number text--heading-2"> {{ $expire_ads_count }} </span>
-                                    <h2 class="counter-title text--body-3">{{ __('expire_ads') }}</h2>
-                                </div>
-                                <div class="dashboard-card--count__icon">
-                                    <span class="icon">
-                                        <x-svg.cube-icon />
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="dashboard__count-card row mt-3">
+                     </div>
+                     <div class="mt-3">
+                         <div class="dashboard__count-card">
                         <h4 class="my-2">@lang('current_plan_expirations_and_benefits')</h4>
                         @if ($user_plan->subscription_type == 'recurring' && $user_plan->expired_date && $user_plan->expired_date > now()->format('Y-m-d'))
                             <div class="col-lg-4">
@@ -106,6 +109,8 @@
                             </div>
                         </div>
                     </div>
+                     </div>
+                    
 
                     <div class="row dashboard__ads-activity">
                         <div class="col-lg-6">

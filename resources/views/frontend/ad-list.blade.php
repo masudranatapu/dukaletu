@@ -69,6 +69,7 @@
                                         <div class="accordion-body list-sidebar__accordion-body">
                                             <div class="accordion list-sidebar__accordion-inner" id="subcategoryGroup">
                                                 @foreach ($categories as $category)
+                                                    @if ($category->subcategories->count() > 1)
                                                     <div class="accordion-item list-sidebar__accordion-inner-item">
                                                         <h2 class="accordion-header"
                                                             id="{{ Str::slug($category->slug) }}">
@@ -81,11 +82,11 @@
                                                                     <i class="{{ $category->icon }}"></i>
                                                                 </span>
                                                                 {{ $category->name }}
-                                                                @if ($category->subcategories->count() > 1)
+                                                               
                                                                     <span class="icon icon--plus">
                                                                         <x-svg.plus-light-icon />
                                                                     </span>
-                                                                @endif
+                                                               
                                                                 <span class="icon icon--minus">
                                                                     <x-svg.minus-icon />
                                                                 </span>
@@ -116,6 +117,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
+                                                     @endif
                                                 @endforeach
                                             </div>
                                         </div>

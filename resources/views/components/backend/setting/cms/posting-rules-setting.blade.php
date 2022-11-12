@@ -4,14 +4,14 @@
     @csrf
     <div class="row justify-content-between">
         <div class="offset-1 col-md-6">
-            <div class="form-group">
+            <!-- <div class="form-group">
                 <x-forms.label name="posting_rules_background" />
                 <div class="row">
                     <input type="file" class="form-control dropify"
                         data-default-file="{{ $postingRulesBackground }}" name="posting_rules_background"
                         autocomplete="image" data-allowed-file-extensions="jpg png jpeg" accept="image/png, image/jpg, image/jpeg">
                 </div>
-            </div>
+            </div> -->
             <div class="form-group">
                 <x-forms.label name="posting_rules_body" />
                 <div class="row">

@@ -1,7 +1,7 @@
 @props(['ad'])
-
+@if ($ad->show_phone && $ad->phone !== null)
 <div class="product-item__sidebar-item">
-    @if ($ad->show_phone && $ad->phone !== null)
+    
         <div class="card-number">
             <div class="number number--hide text--body-2">
                 <span class="icon">
@@ -18,9 +18,13 @@
 
             <span class="text--body-4 message">{{ __('reveal_phone_number') }}</span>
         </div>
-    @endif
+   
+</div>
+ @endif
+
 
     @if (auth('user')->check() && auth('user')->user()->username !== $ad->customer->username)
+    <div class="product-item__sidebar-item">
         <form action="{{ route('frontend.message.store', $ad->customer->username) }}" method="POST"
             id="sendMessageForm">
             @csrf
@@ -48,8 +52,13 @@
                 {{ __('send_message_via_email') }}
             </a>
         @endif
+        </div>
     @endif
-    @if (!auth('user')->check())
+
+
+  @if (!auth('user')->check())
+<div class="product-item__sidebar-item">
+  
         <a href="{{ route('users.login') }}" class="btn w-100 login_required">
             <span class="icon--left">
                 <x-svg.message-icon width="24" height="24" stroke="white" strokeWidth="1.6" />
@@ -70,5 +79,8 @@
             </span>
             {{ __('send_message_via_email') }}
         </a>
-    @endif
+ 
+
+
 </div>
+   @endif

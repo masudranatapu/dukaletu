@@ -82,7 +82,14 @@
     <div class="mobile-search-filed">
         <div class="container">
             <div class="search-field-wrap">
-                <div class="input-field">
+
+                <div class="input-group">
+                    <input type="text" name="search" id="search" class="form-control" placeholder="Search for anything" required>
+                    <button type="submit" class="btn btn-primary input-group-text"><i class="fa fa-search"></i></button>
+                </div>
+
+
+                <!-- <div class="input-field">
                     <input type="text" placeholder="Search for anything">
                     <span class="icon icon--left">
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
@@ -119,7 +126,7 @@
                             stroke-linejoin="round" />
                     </svg>
 
-                </span>
+                </span> -->
             </div>
 
         </div>
