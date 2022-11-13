@@ -85,7 +85,7 @@
             <div class="search-field-wrap">
 
                 <div class="input-group">
-                    <input type="text" name="search" id="search" class="form-control"
+                    <input type="text" name="keyword" id="search" class="form-control"
                         placeholder="Search for anything" required>
                     <button type="submit" class="btn btn-primary input-group-text"><i
                             class="fa fa-search"></i></button>
