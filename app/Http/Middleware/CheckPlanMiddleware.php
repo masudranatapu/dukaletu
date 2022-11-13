@@ -21,7 +21,7 @@ class CheckPlanMiddleware
                 session()->forget('user_plan');
                 session()->put('user_plan', auth('user')->user()->userPlan);
 
-                return redirect()->route('frontend.dashboard');
+                return redirect()->route('frontend.expiredPlan');
             }
 
             return $next($request);
@@ -29,6 +29,6 @@ class CheckPlanMiddleware
 
         session()->put('user_plan', auth('user')->user()->userPlan);
 
-        return redirect()->route('frontend.dashboard');
+        return redirect()->route('frontend.expiredPlan');
     }
 }
