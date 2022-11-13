@@ -92,7 +92,10 @@ class FilterController extends Controller
                     $data['searchable_fields'] = [];
                 }
             } else {
-                $category = SubCategory::where('slug', $request->subcategory)->first()->category;
+              
+                $category = SubCategory::where('slug', $request->subcategory)->first();
+
+
 
                 if ($category) {
                     $data['searchable_fields'] = $category->customFields->where('filterable', 1)->map(function ($field) {

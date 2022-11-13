@@ -118,5 +118,5 @@ Route::post('/verify-otp', [PhoneVerifyController::class, 'verifyOtp'])->name('v
 Route::group(['prefix' => '/webhooks'], function () {
     //PESAPAL
     Route::get('donepayment', [PaymentsController::class, 'payment'])->name('paymentsuccess');
-    Route::get('paymentconfirmation', 'PaymentsController@paymentconfirmation');
+    Route::get('paymentconfirmation', [PaymentsController::class, 'paymentconfirmation']);
 });

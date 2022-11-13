@@ -3,7 +3,7 @@
 @section('title', '404')
 
 @section('content')
-    <!-- breedcrumb section start  -->
+    {{-- <!-- breedcrumb section start  -->
     <section class="breedcrumb">
         <div class="container">
             <h2 class="breedcrumb__title text--heading-2">{{ __('404') }}</h2>
@@ -20,7 +20,7 @@
             </ul>
         </div>
     </section>
-    <!-- breedcrumb section end  -->
+    <!-- breedcrumb section end  --> --}}
 
     <!-- Error section start  -->
     <section class="section error text-center">
