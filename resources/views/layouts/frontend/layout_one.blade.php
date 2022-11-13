@@ -50,7 +50,7 @@
 
     {!! $settings->header_css !!}
     {!! $settings->header_script !!}
-    <link rel="stylesheet" href="{{ asset('frontend/css') }}/main.css?v-1">
+    <link rel="stylesheet" href="{{ asset('frontend/css') }}/main.css?v-2">
 
 </head>
 
