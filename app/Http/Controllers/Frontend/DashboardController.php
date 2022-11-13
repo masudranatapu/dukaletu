@@ -400,4 +400,8 @@ class DashboardController extends Controller
         $data['plan_info'] = UserPlan::customerData()->firstOrFail();
         return view('frontend.sms-merketing', $data);
     }
+    public function expiredPlan()
+    {
+        return view('frontend.add-plan');
+    }
 }

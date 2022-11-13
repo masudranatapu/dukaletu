@@ -100,6 +100,8 @@ Route::group(['as' => 'frontend.'], function () {
             Route::post('wishlist', 'addToWishlist')->name('add.wishlist');
             Route::delete('account-delete/{customer}', 'deleteAccount')->name('account.delete');
         });
+
+        Route::get('expired-plan', [DashboardController::class, 'expiredPlan'])->name('expiredPlan');
     });
 });
 
