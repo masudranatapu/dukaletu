@@ -3,9 +3,11 @@
 
     <ul class="footer-menu">
         @foreach ($top_categories as $category)
-        <li class="footer-menu__item">
-            <a href="{{ route('frontend.adlist.category.show', $category->slug) }}" class="footer-menu__link text--body-3"> {{ $category->name }} </a>
-        </li>
+            <li class="footer-menu__item">
+                <a href="{{ route('frontend.adlist.search', ['category' => $category->slug]) }}"
+                    class="footer-menu__link text--body-3">
+                    {{ $category->name }} </a>
+            </li>
         @endforeach
     </ul>
 </div>
