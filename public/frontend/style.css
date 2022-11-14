@@ -15512,7 +15512,7 @@ a {
 .navigation-bar__search-icon {
     position: absolute;
     top: 50%;
-    left: 21px;
+/*    left: 21px;*/
     transform: translateY(-50%);
 }
 .navigation-bar__bottom {
