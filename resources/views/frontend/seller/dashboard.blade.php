@@ -35,33 +35,36 @@
                         @endphp
                         <ul class="nav dashboard-post__nav2">
                             <li class="nav-item dashboard-post__item2" role="presentation">
-                                <button class="fw-bolder dashboard-post__link2 active" id="home-tab" data-bs-toggle="tab"
-                                    data-bs-target="#home" type="button" role="tab" aria-controls="home"
-                                    aria-selected="true">
+                                <button class="fw-bolder dashboard-post__link2 {{ $current_tab == 'ads' ? 'active' : '' }}"
+                                    id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab"
+                                    aria-controls="home" aria-selected="true">
                                     <div class="tab-title">{{ __('recent_ads') }}</div>
                                 </button>
                             </li>
                             <li class="nav-item dashboard-post__item2" role="presentation">
-                                <button class="fw-bolder dashboard-post__link2" id="seller-review-tab" data-bs-toggle="tab"
-                                    data-bs-target="#seller-review" type="button" role="tab"
-                                    aria-controls="seller-review" aria-selected="true">
+                                <button
+                                    class="fw-bolder dashboard-post__link2 {{ $current_tab == 'review_list' ? 'active' : '' }}"
+                                    id="seller-review-tab" data-bs-toggle="tab" data-bs-target="#seller-review"
+                                    type="button" role="tab" aria-controls="seller-review" aria-selected="true">
                                     <div class="tab-title">{{ __('seller_review') }}</div>
                                 </button>
                             </li>
                             @if ($user->id != auth()->id())
                                 @if (auth()->check())
                                     <li class="nav-item dashboard-post__item2" role="presentation">
-                                        <button class="fw-bolder dashboard-post__link2" id="review-tab" data-bs-toggle="tab"
-                                            data-bs-target="#review" type="button" role="tab" aria-controls="review"
-                                            aria-selected="true">
+                                        <button
+                                            class="fw-bolder dashboard-post__link2 {{ $current_tab == 'review_store' ? 'active' : '' }}"
+                                            id="review-tab" data-bs-toggle="tab" data-bs-target="#review" type="button"
+                                            role="tab" aria-controls="review" aria-selected="true">
                                             <div class="tab-title">{{ __('write_review') }}</div>
                                         </button>
                                     </li>
                                 @else
                                     <li class="nav-item dashboard-post__item2" role="presentation">
-                                        <button class="fw-bolder dashboard-post__link2" id="review-tab" data-bs-toggle="tab"
-                                            data-bs-target="#review" type="button" role="tab" aria-controls="review"
-                                            aria-selected="true">
+                                        <button
+                                            class="fw-bolder dashboard-post__link2 {{ $current_tab == 'review_store' ? 'active' : '' }}"
+                                            id="review-tab" data-bs-toggle="tab" data-bs-target="#review" type="button"
+                                            role="tab" aria-controls="review" aria-selected="true">
                                             <div class="tab-title">{{ __('write_review') }}</div>
                                         </button>
                                     </li>
@@ -74,7 +77,7 @@
                                 <div class="ad-list__content row">
                                     @forelse ($recent_ads as $ad)
                                         <x-frontend.single-ad :ad="$ad" :adfields="$ad->productCustomFields"
-                                            className="col-xl-4 col-md-6">
+                                            className="col-xl-4 col-md-6 my-2">
                                         </x-frontend.single-ad>
                                     @empty
                                         <x-not-found2 message="No ads found" />
@@ -259,5 +262,3 @@
 
 @section('frontend_script')
     @livewireScripts
-
-@endsection

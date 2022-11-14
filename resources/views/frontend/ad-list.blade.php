@@ -55,6 +55,7 @@
                             </span>
                         </div>
                         <form method="GET" action="{{ route('frontend.adlist.search') }}" id="adFilterForm">
+
                             <div class="accordion list-sidebar__accordion" id="accordionGroup">
                                 <div class="accordion-item list-sidebar__accordion-item category">
                                     <h2 class="accordion-header list-sidebar__accordion-header" id="category">
@@ -149,6 +150,7 @@
                                     </div>
                                 </div>
                             </div>
+                        </form>
                     </div>
                 </div>
                 <div class="col-xl-9">
@@ -167,7 +169,6 @@
             </div>
         </div>
     </section>
-    </form>
 @endsection
 
 @section('adlisting_style')
@@ -183,6 +184,7 @@
     <script src="{{ asset('frontend') }}/js/plugins/wNumb.min.js"></script>
     <script>
         function changeFilter() {
+            console.log("submit");
             const slider = document.getElementById('priceRangeSlider')
             const value = slider.noUiSlider.get(true);
             document.getElementById('price_min').value = value[0]
