@@ -29282,6 +29282,7 @@ a {
 
 .navigation_icon a {
     padding: 0px 8px;
+    position: relative;
 }
 
 .single_ads {

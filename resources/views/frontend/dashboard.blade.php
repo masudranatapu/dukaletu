@@ -75,40 +75,44 @@
                         </div>
                      </div>
                      <div class="mt-3">
-                         <div class="dashboard__count-card">
-                        <h4 class="my-2">@lang('current_plan_expirations_and_benefits')</h4>
-                        @if ($user_plan->subscription_type == 'recurring' && $user_plan->expired_date && $user_plan->expired_date > now()->format('Y-m-d'))
-                            <div class="col-lg-4">
-                                <div class="dashboard-card dashboard-card--count bgcolor--danger-9">
-                                    <div class="dashboard-card--count__info">
-                                        <span class="counter-number text--heading-2">
-                                            {{ formatDateTime($user_plan->expired_date)->diffInDays(formatDateTime(now()->format('Y-m-d'))) }}
-                                            {{ __('days') }}
-                                        </span>
+                            <div class="dashboard__count-card">
+                                <div class="row">
+                                    
+                                
+                                <h4 class="my-2">@lang('current_plan_expirations_and_benefits')</h4>
+                                @if ($user_plan->subscription_type == 'recurring' && $user_plan->expired_date && $user_plan->expired_date > now()->format('Y-m-d'))
+                                    <div class="col-lg-4">
+                                        <div class="dashboard-card dashboard-card--count bgcolor--danger-9">
+                                            <div class="dashboard-card--count__info">
+                                                <span class="counter-number text--heading-2">
+                                                    {{ formatDateTime($user_plan->expired_date)->diffInDays(formatDateTime(now()->format('Y-m-d'))) }}
+                                                    {{ __('days') }}
+                                                </span>
 
-                                        <h2 class="counter-title text--body-3">{{ __('remaining') }}</h2>
+                                                <h2 class="counter-title text--body-3">{{ __('remaining') }}</h2>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
+                                <div class="col-lg-4">
+                                    <div class="dashboard-card dashboard-card--count bgcolor--success-9">
+                                        <div class="dashboard-card--count__info">
+                                            <span class="counter-number text--heading-2"> {{ $user_plan->ad_limit }} </span>
+                                            <h2 class="counter-title text--body-3">{{ __('remaining_ads') }}</h2>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        @endif
-                        <div class="col-lg-4">
-                            <div class="dashboard-card dashboard-card--count bgcolor--success-9">
-                                <div class="dashboard-card--count__info">
-                                    <span class="counter-number text--heading-2"> {{ $user_plan->ad_limit }} </span>
-                                    <h2 class="counter-title text--body-3">{{ __('remaining_ads') }}</h2>
+                                <div class="col-lg-4">
+                                    <div class="dashboard-card dashboard-card--count bgcolor--primary-9">
+                                        <div class="dashboard-card--count__info">
+                                            <span class="counter-number text--heading-2"> {{ $user_plan->featured_limit }}
+                                            </span>
+                                            <h2 class="counter-title text--body-3">{{ __('featured_ads') }}</h2>
+                                        </div>
+                                    </div>
+                                </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="dashboard-card dashboard-card--count bgcolor--primary-9">
-                                <div class="dashboard-card--count__info">
-                                    <span class="counter-number text--heading-2"> {{ $user_plan->featured_limit }}
-                                    </span>
-                                    <h2 class="counter-title text--body-3">{{ __('featured_ads') }}</h2>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                      </div>
                     
 
