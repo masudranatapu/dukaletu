@@ -64,13 +64,13 @@ class ProfileController extends Controller
             abort(403, 'Sorry !! You are Unauthorized to profile settings.');
         }
 
-        $data = $request->only(['name','email']);
+        $data = $request->only(['name', 'email']);
         $user = auth('admin')->user();
-        if($request->hasFile('image')){
-            $data['image'] = $this->uploadOne($request->image, 'user');
+        if ($request->hasFile('image')) {
+            $data['image'] = uploadImage($request->image, 'user');
             $this->deleteOne($user->image);
         }
-        if($request->isPasswordChange == 1){
+        if ($request->isPasswordChange == 1) {
             $data['password'] = bcrypt($request->password);
         }
 
