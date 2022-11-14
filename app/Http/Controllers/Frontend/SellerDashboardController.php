@@ -16,7 +16,10 @@ class SellerDashboardController extends Controller
     {
         if (!session()->has('seller_tab')) {
             session(['seller_tab' => 'ads']);
+        } else {
+            session(['seller_tab' => 'ads']);
         }
+
 
         $reviews = Review::whereUserId($user->id)->whereStatus(1)->get();
 
@@ -44,7 +47,7 @@ class SellerDashboardController extends Controller
 
     public function rateReview(Request $request)
     {
-        session(['seller_tab' => 'review_store']);
+        session(['seller_tab' => 'ads']);
 
         $request->validate([
             'stars' => 'required|numeric|between:1,5',
