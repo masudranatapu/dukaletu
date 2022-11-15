@@ -28,7 +28,7 @@
                             <div class="form-group row">
                                 <x-forms.label name="{{ __('live_mode') }}" class="col-sm-3" />
                                 <div class="col-sm-9">
-                                    <input id="paylive" {{ (env('PESAPAL_MODE') == 'live') ? 'checked' : '' }}
+                                    <input id="paylive" {{ env('PESAPAL_MODE') == 'live' ? 'checked' : '' }}
                                         type="checkbox" name="pesapal_live_mode" button="button1"
                                         oldvalue="{{ env('PESAPAL_MODE') }}" data-bootstrap-switch value="1">
                                 </div>
@@ -111,7 +111,7 @@
             </div>
         </div>
 
-        <!-- <div class="col-sm-6">
+        <div class="col-sm-6">
             {{-- paypal settings --}}
             <div class="card">
                 <div class="card-header">
@@ -214,7 +214,7 @@
                     </div>
                 @endif
             </div>
-        </div> -->
+        </div>
     </div>
 @endsection
 

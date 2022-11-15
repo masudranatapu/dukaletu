@@ -85,6 +85,38 @@
                     </div>
                 </div>
             </div>
+            <div class="membership-card">
+                <div class="membership-card__info d-flex justify-content-center">
+
+                    @php
+                        $userPlan = App\Models\UserPlan::CustomerData(auth('user')->id())->first();
+                        $plan_id = $plan->plans_id;
+                        $plans = Modules\Plan\Entities\Plan::where('id', $plan_id)->first();
+
+                    @endphp
+
+                    @if ($plan->price == 0.0)
+                        <button onclick="openPaymentModal()" class="btn btn-success btn-sm text-center">Active</button>
+
+                        <form action="{{ route('frontend.planPurchase') }}" method="post" enctype="multipart/form-data"
+                            id="iHavePaid">
+                            @csrf
+                            <input type="hidden" name="users_unique_id" value="{{ auth('user')->user()->id }}">
+                            <input type="hidden" name="plan_id" value="{{ $plan->id }}">
+                            <div class="mb-3 row">
+
+                                <div class="col-sm-8">
+                                    <input type="hidden" readonly class="form-control" id="user_id"
+                                        value="{{ auth('user')->user()->code }}">
+                                </div>
+                            </div>
+                        </form>
+                    @endif
+                </div>
+            </div>
+
+
+
             <div class="row">
                 {{-- Paypal payment --}}
                 @if (config('paypal.mode') == 'sandbox')
@@ -184,7 +216,8 @@
                                 <img src="{{ asset('frontend/images/payment/ssl.jpeg') }}" alt="">
                             </div>
                             <div class="membership-card__info">
-                                <h2 class="membership-card__title text--body-1">{{ __('sslcommerz_payment') }}</h2>
+                                <h2 class="membership-card__title text--body-1">{{ __('sslcommerz_payment') }}
+                                </h2>
                                 <button type="button" id="ssl_btn" class="mt-3 btn btn--lg price-plan__checkout-btn">
                                     {{ __('pay_now') }}
                                 </button>
@@ -229,7 +262,8 @@
                                     src="{{ asset('frontend/images/payment/Flutterwave-logo.png') }}" alt="">
                             </div>
                             <div class="membership-card__info">
-                                <h2 class="membership-card__title text--body-1">{{ __('flutterwave_payment') }}</h2>
+                                <h2 class="membership-card__title text--body-1">{{ __('flutterwave_payment') }}
+                                </h2>
                                 <button id="flutterwave_btn" class="mt-3 btn btn--lg price-plan__checkout-btn">
                                     {{ __('pay_now') }}
                                 </button>
@@ -464,6 +498,17 @@
                     }
                 });
             }
+        }
+    </script>
+    <script>
+        function openPaymentModal() {
+            var yes = window.confirm('Your current plan will be deactivated. Are you sure to proceed ?');
+            if (yes) {
+                document.getElementById('iHavePaid').submit();
+            } else {
+                //some code
+            }
+
         }
     </script>
 @endsection

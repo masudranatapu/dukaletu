@@ -20,52 +20,59 @@ class PayPalController extends Controller
      */
     public function processTransaction(Request $request)
     {
-        $plan = session('plan');
-        $converted_amount = currencyConversion($plan->price);
-        session(['order_payment' => [
-            'payment_provider' => 'paypal',
-            'amount' =>  $converted_amount,
-            'currency_symbol' => '$',
-            'usd_amount' =>  $converted_amount,
-        ]]);
+        try {
+            //code...
+            $plan = session('plan');
+            $converted_amount = currencyConversion($plan->price);
+            session(['order_payment' => [
+                'payment_provider' => 'paypal',
+                'amount' =>  $converted_amount,
+                'currency_symbol' => '$',
+                'usd_amount' =>  $converted_amount,
+            ]]);
 
-        $provider = new PayPalClient;
-        $provider->setApiCredentials(config('paypal'));
-        $paypalToken = $provider->getAccessToken();
+            $provider = new PayPalClient;
+            $provider->setApiCredentials(config('paypal'));
+            $paypalToken = $provider->getAccessToken();
 
-        $response = $provider->createOrder([
-            "intent" => "CAPTURE",
-            "application_context" => [
-                "return_url" => route('paypal.successTransaction', [
-                    'plan_id' => $plan->id,
-                    'amount' => $converted_amount
-                ]),
-                "cancel_url" => route('paypal.cancelTransaction'),
-            ],
-            "purchase_units" => [
-                0 => [
-                    "amount" => [
-                        "currency_code" => 'USD',
-                        "value" => $converted_amount,
+            $response = $provider->createOrder([
+                "intent" => "CAPTURE",
+                "application_context" => [
+                    "return_url" => route('paypal.successTransaction', [
+                        'plan_id' => $plan->id,
+                        'amount' => $converted_amount
+                    ]),
+                    "cancel_url" => route('paypal.cancelTransaction'),
+                ],
+                "purchase_units" => [
+                    0 => [
+                        "amount" => [
+                            "currency_code" => 'USD',
+                            "value" => $converted_amount,
+                        ]
                     ]
                 ]
-            ]
-        ]);
+            ]);
 
-        if (isset($response['id']) && $response['id'] != null) {
 
-            // redirect to approve href
-            foreach ($response['links'] as $links) {
-                if ($links['rel'] == 'approve') {
-                    return redirect()->away($links['href']);
+            if (isset($response['id']) && $response['id'] != null) {
+
+                // redirect to approve href
+                foreach ($response['links'] as $links) {
+                    if ($links['rel'] == 'approve') {
+                        return redirect()->away($links['href']);
+                    }
                 }
-            }
 
-            session()->flash('error', 'Something went wrong.');
-            return back();
-        } else {
-            session()->flash('error', 'Something went wrong.');
-            return back();
+
+                session()->flash('error', 'Something went wrong.');
+                return back();
+            } else {
+                session()->flash('error', 'Something went wrong.');
+                return back();
+            }
+        } catch (\Exception $e) {
+            session()->flash('error', $e->getMessage());
         }
     }
 

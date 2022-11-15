@@ -17,7 +17,9 @@ use Modules\Plan\Entities\Plan;
 use Illuminate\Support\Facades\DB;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Http\Controllers\Controller;
+use App\Http\Traits\PaymentTrait;
 use App\Models\MobileValidation;
+use App\Models\UserPlan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use Modules\Faq\Entities\FaqCategory;
@@ -33,6 +35,8 @@ use Modules\CustomField\Entities\ProductCustomField;
 
 class FrontendController extends Controller
 {
+    use PaymentTrait;
+
     /**
      * View Home page
      * @return \Illuminate\Http\Response
@@ -298,6 +302,27 @@ class FrontendController extends Controller
 
         $plans = Plan::all();
         return view('frontend.price-plan', compact('plans'));
+    }
+
+
+    public function planPurchase(Request $request)
+    {
+
+        $plans = Plan::where('id', $request->plan_id)->first();
+        // dd($plans->id);
+
+        DB::beginTransaction();
+        try {
+
+            $this->userPlanInfoUpdate($plans);
+        } catch (\Exception $exception) {
+
+            DB::rollBack();
+            flashError($exception->getMessage());
+            return redirect()->back();
+        }
+        DB::commit();
+        return redirect()->route('frontend.dashboard');
     }
 
     /**

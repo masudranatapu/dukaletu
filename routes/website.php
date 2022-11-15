@@ -23,6 +23,8 @@ Route::group(['as' => 'frontend.'], function () {
         Route::get('terms-conditions', 'terms')->name('terms');
         Route::get('get-membership', 'getMembership')->name('getmembership');
         Route::get('price-plan', 'pricePlan')->name('priceplan');
+        Route::post('plan-purchase', 'planPurchase')->name('planPurchase');
+
         Route::get('price-plan-details/{plan_label}', 'pricePlanDetails')->name('priceplanDetails');
         Route::get('contact', 'contact')->name('contact');
         Route::get('ad-list', 'adList')->name('adlist');
