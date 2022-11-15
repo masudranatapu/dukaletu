@@ -249,7 +249,7 @@ class AdPostController extends Controller
         }
 
         $this->forgetStepSession();
-        $this->adNotification($ad);
+        // $this->adNotification($ad);
         !setting('ads_admin_approval') ? $this->userPlanInfoUpdate($ad->featured) : '';
 
         // ===================== For Custom Field   ================
