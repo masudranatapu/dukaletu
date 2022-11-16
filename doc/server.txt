@@ -1,0 +1,7 @@
+droplet pass: 1D2345678d
+user: root
+ip: 146.190.19.186
+
+
+Username: admin
+    Password: 53946ef6b7948aee9a5053b0f2e17c383d868ef9dc58e15f
