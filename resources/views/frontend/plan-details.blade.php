@@ -85,219 +85,254 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                {{-- Paypal payment --}}
-                @if (config('paypal.mode') == 'sandbox')
-                    @if (config('paypal.active') && config('paypal.sandbox.client_id') && config('paypal.sandbox.client_id'))
+            @php
+                $userPlan = App\Models\UserPlan::CustomerData(auth('user')->id())->first();
+                $plan_id = $plan->plans_id;
+                $plans = Modules\Plan\Entities\Plan::where('id', $plan_id)->first();
+
+            @endphp
+
+            @if ($plan->price == 0.0)
+                <div class="membership-card">
+                    <div class="membership-card__info d-flex justify-content-center">
+
+
+                        <button onclick="openPaymentModal()" class="btn btn-success btn-sm text-center">Active</button>
+
+                        <form action="{{ route('frontend.planPurchase') }}" method="post" enctype="multipart/form-data"
+                            id="iHavePaid">
+                            @csrf
+                            <input type="hidden" name="users_unique_id" value="{{ auth('user')->user()->id }}">
+                            <input type="hidden" name="plan_id" value="{{ $plan->id }}">
+                            <div class="mb-3 row">
+
+                                <div class="col-sm-8">
+                                    <input type="hidden" readonly class="form-control" id="user_id"
+                                        value="{{ auth('user')->user()->code }}">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            @else
+                <div class="row">
+                    {{-- Paypal payment --}}
+                    @if (config('paypal.mode') == 'sandbox')
+                        @if (config('paypal.active') && config('paypal.sandbox.client_id') && config('paypal.sandbox.client_id'))
+                            <div class="col-xl-6">
+                                <div class="membership-card">
+                                    <div class="membership-card__icon" style="background-color: #e8f7ff">
+                                        <x-svg.paypal-icon />
+                                    </div>
+                                    <div class="membership-card__info">
+                                        <h2 class="membership-card__title text--body-1">{{ __('paypal_payment') }}</h2>
+                                        <button id="paypal_btn" class="mt-3 btn btn--lg price-plan__checkout-btn">
+                                            {{ __('pay_now') }}
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+                    @else
+                        @if (config('paypal.active') && config('paypal.live.client_id') && config('paypal.live.client_secret'))
+                            <div class="col-xl-6">
+                                <div class="membership-card">
+                                    <div class="membership-card__icon" style="background-color: #e8f7ff">
+                                        <x-svg.paypal-icon />
+                                    </div>
+                                    <div class="membership-card__info">
+                                        <h2 class="membership-card__title text--body-1">{{ __('paypal_payment') }}</h2>
+                                        <button id="paypal_btn" class="mt-3 btn btn--lg price-plan__checkout-btn">
+                                            {{ __('pay_now') }}
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+                    @endif
+                    {{-- Paypal payment --}}
+
+
+                    @if (config('pesapal.active'))
                         <div class="col-xl-6">
                             <div class="membership-card">
                                 <div class="membership-card__icon" style="background-color: #e8f7ff">
-                                    <x-svg.paypal-icon />
+                                    {{-- <x-svg.paypal-icon /> --}}
                                 </div>
                                 <div class="membership-card__info">
-                                    <h2 class="membership-card__title text--body-1">{{ __('paypal_payment') }}</h2>
-                                    <button id="paypal_btn" class="mt-3 btn btn--lg price-plan__checkout-btn">
+                                    <h2 class="membership-card__title text--body-1">{{ __('pesapal_payment') }}</h2>
+                                    <button id="pesapal_btn" class="mt-3 btn btn--lg price-plan__checkout-btn">
                                         {{ __('pay_now') }}
                                     </button>
                                 </div>
                             </div>
                         </div>
                     @endif
-                @else
-                    @if (config('paypal.active') && config('paypal.live.client_id') && config('paypal.live.client_secret'))
+
+
+                    {{-- Stripe payment --}}
+                    @if (config('zakirsoft.stripe_active') && config('zakirsoft.stripe_key') && config('zakirsoft.stripe_secret'))
                         <div class="col-xl-6">
                             <div class="membership-card">
                                 <div class="membership-card__icon" style="background-color: #e8f7ff">
-                                    <x-svg.paypal-icon />
+                                    <x-svg.stripe-icon />
                                 </div>
                                 <div class="membership-card__info">
-                                    <h2 class="membership-card__title text--body-1">{{ __('paypal_payment') }}</h2>
-                                    <button id="paypal_btn" class="mt-3 btn btn--lg price-plan__checkout-btn">
+                                    <h2 class="membership-card__title text--body-1">{{ __('stripe_payment') }}</h2>
+                                    <button id="stripe_btn" class="mt-3 btn btn--lg price-plan__checkout-btn">
                                         {{ __('pay_now') }}
                                     </button>
                                 </div>
                             </div>
                         </div>
                     @endif
-                @endif
-                {{-- Paypal payment --}}
 
-
-                @if (config('pesapal.active'))
-                    <div class="col-xl-6">
-                        <div class="membership-card">
-                            <div class="membership-card__icon" style="background-color: #e8f7ff">
-                                {{-- <x-svg.paypal-icon /> --}}
-                            </div>
-                            <div class="membership-card__info">
-                                <h2 class="membership-card__title text--body-1">{{ __('pesapal_payment') }}</h2>
-                                <button id="pesapal_btn" class="mt-3 btn btn--lg price-plan__checkout-btn">
-                                    {{ __('pay_now') }}
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                @endif
-
-
-                {{-- Stripe payment --}}
-                @if (config('zakirsoft.stripe_active') && config('zakirsoft.stripe_key') && config('zakirsoft.stripe_secret'))
-                    <div class="col-xl-6">
-                        <div class="membership-card">
-                            <div class="membership-card__icon" style="background-color: #e8f7ff">
-                                <x-svg.stripe-icon />
-                            </div>
-                            <div class="membership-card__info">
-                                <h2 class="membership-card__title text--body-1">{{ __('stripe_payment') }}</h2>
-                                <button id="stripe_btn" class="mt-3 btn btn--lg price-plan__checkout-btn">
-                                    {{ __('pay_now') }}
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                @endif
-
-                {{-- Razorpay payment --}}
-                @if (config('zakirsoft.razorpay_active') &&
-                    config('zakirsoft.razorpay_key') &&
-                    config('zakirsoft.razorpay_secret'))
-                    <div class="col-xl-6">
-                        <div class="membership-card">
-                            <div class="membership-card__icon" style="background-color: #e8f7ff">
-                                <img src="{{ asset('frontend/images/payment/razorpay.svg') }}" alt="">
-                            </div>
-                            <div class="membership-card__info">
-                                <h2 class="membership-card__title text--body-1">{{ __('razor_payment') }}</h2>
-                                <button id="razorpay_btn" class="mt-3 btn btn--lg price-plan__checkout-btn">
-                                    {{ __('pay_now') }}
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                @endif
-
-                {{-- SSl Commerz payment --}}
-                @if (config('zakirsoft.ssl_active') && config('zakirsoft.ssl_id') && config('zakirsoft.ssl_pass'))
-                    <div class="col-xl-6">
-                        <div class="membership-card">
-                            <div class="membership-card__icon" style="background-color: #e8f7ff">
-                                <img src="{{ asset('frontend/images/payment/ssl.jpeg') }}" alt="">
-                            </div>
-                            <div class="membership-card__info">
-                                <h2 class="membership-card__title text--body-1">{{ __('sslcommerz_payment') }}</h2>
-                                <button type="button" id="ssl_btn" class="mt-3 btn btn--lg price-plan__checkout-btn">
-                                    {{ __('pay_now') }}
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                @endif
-
-                {{-- Paystack payment --}}
-                @if (config('zakirsoft.paystack_active') &&
-                    config('zakirsoft.paystack_key') &&
-                    config('zakirsoft.paystack_secret'))
-                    <div class="col-xl-6">
-                        <div class="membership-card">
-                            <div class="membership-card__icon" style="background-color: #e8f7ff">
-                                <img src="{{ asset('frontend/images/payment/paystack.png') }}" alt="">
-                            </div>
-                            <div class="membership-card__info">
-                                <h2 class="membership-card__title text--body-1">{{ __('paystack_payment') }}</h2>
-                                @if (config('adlisting.currency') == 'USD')
-                                    <button id="paystack_btn" class="mt-3 btn btn--lg price-plan__checkout-btn">
+                    {{-- Razorpay payment --}}
+                    @if (config('zakirsoft.razorpay_active') &&
+                        config('zakirsoft.razorpay_key') &&
+                        config('zakirsoft.razorpay_secret'))
+                        <div class="col-xl-6">
+                            <div class="membership-card">
+                                <div class="membership-card__icon" style="background-color: #e8f7ff">
+                                    <img src="{{ asset('frontend/images/payment/razorpay.svg') }}" alt="">
+                                </div>
+                                <div class="membership-card__info">
+                                    <h2 class="membership-card__title text--body-1">{{ __('razor_payment') }}</h2>
+                                    <button id="razorpay_btn" class="mt-3 btn btn--lg price-plan__checkout-btn">
                                         {{ __('pay_now') }}
                                     </button>
-                                @else
-                                    <p class="text-danger">{{ __('paystack_does_not_support') }}
-                                        {{ config('adlisting.currency') }}</p>
-                                @endif
+                                </div>
                             </div>
                         </div>
-                    </div>
-                @endif
+                    @endif
 
-                {{-- Flutterwave payment --}}
-                @if (config('zakirsoft.flw_active') &&
-                    config('zakirsoft.flw_public_key') &&
-                    config('zakirsoft.flw_secret') &&
-                    config('zakirsoft.flw_secret_hash'))
-                    <div class="col-xl-6">
-                        <div class="membership-card">
-                            <div class="membership-card__icon" style="background-color: #e8f7ff">
-                                <img height="80px" width="80px"
-                                    src="{{ asset('frontend/images/payment/Flutterwave-logo.png') }}" alt="">
-                            </div>
-                            <div class="membership-card__info">
-                                <h2 class="membership-card__title text--body-1">{{ __('flutterwave_payment') }}</h2>
-                                <button id="flutterwave_btn" class="mt-3 btn btn--lg price-plan__checkout-btn">
-                                    {{ __('pay_now') }}
-                                </button>
+                    {{-- SSl Commerz payment --}}
+                    @if (config('zakirsoft.ssl_active') && config('zakirsoft.ssl_id') && config('zakirsoft.ssl_pass'))
+                        <div class="col-xl-6">
+                            <div class="membership-card">
+                                <div class="membership-card__icon" style="background-color: #e8f7ff">
+                                    <img src="{{ asset('frontend/images/payment/ssl.jpeg') }}" alt="">
+                                </div>
+                                <div class="membership-card__info">
+                                    <h2 class="membership-card__title text--body-1">{{ __('sslcommerz_payment') }}
+                                    </h2>
+                                    <button type="button" id="ssl_btn"
+                                        class="mt-3 btn btn--lg price-plan__checkout-btn">
+                                        {{ __('pay_now') }}
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                @endif
+                    @endif
 
-                {{-- Instamojo payment --}}
-                @if (config('zakirsoft.im_active') &&
-                    config('zakirsoft.im_key') &&
-                    config('zakirsoft.im_secret') &&
-                    config('zakirsoft.im_url'))
-                    <div class="col-xl-6">
-                        <div class="membership-card">
-                            <div class="membership-card__icon" style="background-color: #e8f7ff">
-                                <img height="20px" width="20px"
-                                    src="{{ asset('frontend/images/payment/insta.png') }}" alt="">
-                            </div>
-                            <div class="membership-card__info">
-                                <h2 class="membership-card__title text--body-1">{{ __('instamojo_payment') }}</h2>
-                                <button id="instamojo_btn" class="mt-3 btn btn--lg price-plan__checkout-btn">
-                                    {{ __('pay_now') }}
-                                </button>
+                    {{-- Paystack payment --}}
+                    @if (config('zakirsoft.paystack_active') &&
+                        config('zakirsoft.paystack_key') &&
+                        config('zakirsoft.paystack_secret'))
+                        <div class="col-xl-6">
+                            <div class="membership-card">
+                                <div class="membership-card__icon" style="background-color: #e8f7ff">
+                                    <img src="{{ asset('frontend/images/payment/paystack.png') }}" alt="">
+                                </div>
+                                <div class="membership-card__info">
+                                    <h2 class="membership-card__title text--body-1">{{ __('paystack_payment') }}</h2>
+                                    @if (config('adlisting.currency') == 'USD')
+                                        <button id="paystack_btn" class="mt-3 btn btn--lg price-plan__checkout-btn">
+                                            {{ __('pay_now') }}
+                                        </button>
+                                    @else
+                                        <p class="text-danger">{{ __('paystack_does_not_support') }}
+                                            {{ config('adlisting.currency') }}</p>
+                                    @endif
+                                </div>
                             </div>
                         </div>
-                    </div>
-                @endif
+                    @endif
 
-                {{-- Midtrans payment --}}
-                @if (config('zakirsoft.midtrans_active') &&
-                    config('zakirsoft.midtrans_id') &&
-                    config('zakirsoft.midtrans_key') &&
-                    config('zakirsoft.midtrans_secret'))
-                    <div class="col-xl-6">
-                        <div class="membership-card">
-                            <div class="membership-card__icon" style="background-color: #e8f7ff">
-                                <img height="20px" width="20px"
-                                    src="{{ asset('frontend/images/payment/midtrans.jpeg') }}" alt="">
-                            </div>
-                            <div class="membership-card__info">
-                                <h2 class="membership-card__title text--body-1">{{ __('midtrans_payment') }}</h2>
-                                <button id="midtrans_btn" class="mt-3 btn btn--lg price-plan__checkout-btn">
-                                    {{ __('pay_now') }}
-                                </button>
+                    {{-- Flutterwave payment --}}
+                    @if (config('zakirsoft.flw_active') &&
+                        config('zakirsoft.flw_public_key') &&
+                        config('zakirsoft.flw_secret') &&
+                        config('zakirsoft.flw_secret_hash'))
+                        <div class="col-xl-6">
+                            <div class="membership-card">
+                                <div class="membership-card__icon" style="background-color: #e8f7ff">
+                                    <img height="80px" width="80px"
+                                        src="{{ asset('frontend/images/payment/Flutterwave-logo.png') }}" alt="">
+                                </div>
+                                <div class="membership-card__info">
+                                    <h2 class="membership-card__title text--body-1">{{ __('flutterwave_payment') }}
+                                    </h2>
+                                    <button id="flutterwave_btn" class="mt-3 btn btn--lg price-plan__checkout-btn">
+                                        {{ __('pay_now') }}
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                @endif
+                    @endif
 
-                {{-- Mollie payment --}}
-                @if (config('zakirsoft.mollie_key') && config('zakirsoft.mollie_active'))
-                    <div class="col-xl-6">
-                        <div class="membership-card">
-                            <div class="membership-card__icon" style="background-color: #e8f7ff">
-                                <img height="20px" width="20px"
-                                    src="{{ asset('frontend/images/payment/mollie.png') }}" alt="">
-                            </div>
-                            <div class="membership-card__info">
-                                <h2 class="membership-card__title text--body-1">{{ __('mollie_payment') }}</h2>
-                                <button id="mollie_btn" class="mt-3 btn btn--lg price-plan__checkout-btn">
-                                    {{ __('pay_now') }}
-                                </button>
+                    {{-- Instamojo payment --}}
+                    @if (config('zakirsoft.im_active') &&
+                        config('zakirsoft.im_key') &&
+                        config('zakirsoft.im_secret') &&
+                        config('zakirsoft.im_url'))
+                        <div class="col-xl-6">
+                            <div class="membership-card">
+                                <div class="membership-card__icon" style="background-color: #e8f7ff">
+                                    <img height="20px" width="20px"
+                                        src="{{ asset('frontend/images/payment/insta.png') }}" alt="">
+                                </div>
+                                <div class="membership-card__info">
+                                    <h2 class="membership-card__title text--body-1">{{ __('instamojo_payment') }}</h2>
+                                    <button id="instamojo_btn" class="mt-3 btn btn--lg price-plan__checkout-btn">
+                                        {{ __('pay_now') }}
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                @endif
-            </div>
+                    @endif
+
+                    {{-- Midtrans payment --}}
+                    @if (config('zakirsoft.midtrans_active') &&
+                        config('zakirsoft.midtrans_id') &&
+                        config('zakirsoft.midtrans_key') &&
+                        config('zakirsoft.midtrans_secret'))
+                        <div class="col-xl-6">
+                            <div class="membership-card">
+                                <div class="membership-card__icon" style="background-color: #e8f7ff">
+                                    <img height="20px" width="20px"
+                                        src="{{ asset('frontend/images/payment/midtrans.jpeg') }}" alt="">
+                                </div>
+                                <div class="membership-card__info">
+                                    <h2 class="membership-card__title text--body-1">{{ __('midtrans_payment') }}</h2>
+                                    <button id="midtrans_btn" class="mt-3 btn btn--lg price-plan__checkout-btn">
+                                        {{ __('pay_now') }}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+
+                    {{-- Mollie payment --}}
+                    @if (config('zakirsoft.mollie_key') && config('zakirsoft.mollie_active'))
+                        <div class="col-xl-6">
+                            <div class="membership-card">
+                                <div class="membership-card__icon" style="background-color: #e8f7ff">
+                                    <img height="20px" width="20px"
+                                        src="{{ asset('frontend/images/payment/mollie.png') }}" alt="">
+                                </div>
+                                <div class="membership-card__info">
+                                    <h2 class="membership-card__title text--body-1">{{ __('mollie_payment') }}</h2>
+                                    <button id="mollie_btn" class="mt-3 btn btn--lg price-plan__checkout-btn">
+                                        {{ __('pay_now') }}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+                </div>
+            @endif
+
         </div>
 
         {{-- Paypal Form --}}
@@ -464,6 +499,17 @@
                     }
                 });
             }
+        }
+    </script>
+    <script>
+        function openPaymentModal() {
+            var yes = window.confirm('Your current plan will be deactivated. Are you sure to proceed ?');
+            if (yes) {
+                document.getElementById('iHavePaid').submit();
+            } else {
+                //some code
+            }
+
         }
     </script>
 @endsection

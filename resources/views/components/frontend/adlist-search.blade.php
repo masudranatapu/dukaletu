@@ -1,4 +1,5 @@
-<form action="{{ route('frontend.adlist.search') }}" method="GET">
+<form action="{{ route('frontend.adlist.search') }}" id="searchform" method="GET">
+
     <div class="ad-list__search-box d-none d-xl-block">
         <div class="container">
             <!-- Search Box -->
@@ -65,7 +66,8 @@
                     </div>
                     <!-- Search Btn -->
                     <div class="search__content-item">
-                        <button class="btn btn--lg d-flex align-items-center" type="submit">
+
+                        <button type="submit" class="btn btn--lg d-flex align-items-center" id="submitBtn">
                             <span class="icon--left">
                                 <x-svg.search-icon stroke="#fff" />
                             </span>
@@ -77,15 +79,19 @@
             </div>
         </div>
     </div>
+</form>
 
-    {{-- Mobile Search --}}
+{{-- Mobile Search --}}
+<form action="{{ route('frontend.adlist.search') }}" id="searchform" method="GET">
     <div class="mobile-search-filed">
         <div class="container">
             <div class="search-field-wrap">
 
                 <div class="input-group">
-                    <input type="text" name="search" id="search" class="form-control" placeholder="Search for anything" required>
-                    <button type="submit" class="btn btn-primary input-group-text"><i class="fa fa-search"></i></button>
+                    <input type="text" name="keyword" id="search" class="form-control"
+                        placeholder="Search for anything">
+                    <button type="submit" class="btn btn-primary input-group-text"><i
+                            class="fa fa-search"></i></button>
                 </div>
 
 
@@ -132,7 +138,6 @@
         </div>
     </div>
     <div class="offcanvas-overlay"></div>
-
     {{ $slot }}
 </form>
 
@@ -245,4 +250,13 @@
         @endphp;
     </script>
     <script src="{{ $scr }}" async defer></script>
+    {{-- <script>
+        var form = document.getElementById("searchform");
+
+        document.getElementById("submitBtn").addEventListener("click", function() {
+            form.submit();
+            $('#searchform').submit();
+            console.log("success");
+        });
+    </script> --}}
 @endpush

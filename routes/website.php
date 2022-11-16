@@ -23,6 +23,8 @@ Route::group(['as' => 'frontend.'], function () {
         Route::get('terms-conditions', 'terms')->name('terms');
         Route::get('get-membership', 'getMembership')->name('getmembership');
         Route::get('price-plan', 'pricePlan')->name('priceplan');
+        Route::post('plan-purchase', 'planPurchase')->name('planPurchase');
+
         Route::get('price-plan-details/{plan_label}', 'pricePlanDetails')->name('priceplanDetails');
         Route::get('contact', 'contact')->name('contact');
         Route::get('ad-list', 'adList')->name('adlist');
@@ -100,6 +102,8 @@ Route::group(['as' => 'frontend.'], function () {
             Route::post('wishlist', 'addToWishlist')->name('add.wishlist');
             Route::delete('account-delete/{customer}', 'deleteAccount')->name('account.delete');
         });
+
+        Route::get('expired-plan', [DashboardController::class, 'expiredPlan'])->name('expiredPlan');
     });
 });
 
@@ -118,5 +122,5 @@ Route::post('/verify-otp', [PhoneVerifyController::class, 'verifyOtp'])->name('v
 Route::group(['prefix' => '/webhooks'], function () {
     //PESAPAL
     Route::get('donepayment', [PaymentsController::class, 'payment'])->name('paymentsuccess');
-    Route::get('paymentconfirmation', 'PaymentsController@paymentconfirmation');
+    Route::get('paymentconfirmation', [PaymentsController::class, 'paymentconfirmation']);
 });

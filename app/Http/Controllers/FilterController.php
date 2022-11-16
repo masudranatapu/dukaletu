@@ -79,31 +79,34 @@ class FilterController extends Controller
             });
         }
 
-        if ($request->has('category') || $request->has('subcategory')) {
-            if ($request->category) {
-                $category = Category::where('slug', $request->category)->first();
+        // if ($request->has('category') || $request->has('subcategory')) {
+        //     if ($request->category) {
+        //         $category = Category::where('slug', $request->category)->first();
 
-                if ($category) {
-                    $data['searchable_fields'] = $category->customFields->where('filterable', 1)->map(function ($field) {
-                        $field->values = CustomFieldValue::where('custom_field_id', $field->id)->get();
-                        return $field;
-                    });
-                } else {
-                    $data['searchable_fields'] = [];
-                }
-            } else {
-                $category = SubCategory::where('slug', $request->subcategory)->first()->category;
+        //         if ($category) {
+        //             $data['searchable_fields'] = $category->customFields->where('filterable', 1)->map(function ($field) {
+        //                 $field->values = CustomFieldValue::where('custom_field_id', $field->id)->get();
+        //                 return $field;
+        //             });
+        //         } else {
+        //             $data['searchable_fields'] = [];
+        //         }
+        //     } else {
 
-                if ($category) {
-                    $data['searchable_fields'] = $category->customFields->where('filterable', 1)->map(function ($field) {
-                        $field->values = CustomFieldValue::where('custom_field_id', $field->id)->get();
-                        return $field;
-                    });
-                } else {
-                    $data['searchable_fields'] = [];
-                }
-            }
-        }
+        //         $category = SubCategory::where('slug', $request->subcategory)->first();
+
+
+
+        //         if ($category) {
+        //             $data['searchable_fields'] = $category->customFields->where('filterable', 1)->map(function ($field) {
+        //                 $field->values = CustomFieldValue::where('custom_field_id', $field->id)->get();
+        //                 return $field;
+        //             });
+        //         } else {
+        //             $data['searchable_fields'] = [];
+        //         }
+        //     }
+        // }
 
         if ($request->has('keyword') && $request->keyword != null) {
             $query->where('title', 'LIKE', "%$request->keyword%");

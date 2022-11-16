@@ -22,18 +22,18 @@
                     <x-admin.sidebar-list :linkActive="Route::is('settings.system') ? true : false" route="settings.system" icon="fas fa-hashtag">
                         {{ __('preferences') }}
                     </x-admin.sidebar-list>
-                    <x-admin.sidebar-list :linkActive="Route::is('settings.social.login') ? true : false" route="settings.social.login" icon="fab fa-facebook">
+                    {{-- <x-admin.sidebar-list :linkActive="Route::is('settings.social.login') ? true : false" route="settings.social.login" icon="fab fa-facebook">
                         {{ __('social_login') }}
-                    </x-admin.sidebar-list>
+                    </x-admin.sidebar-list> --}}
                     <x-admin.sidebar-list :linkActive="Route::is('settings.cookies') ? true : false" route="settings.cookies" icon="fas fa-cookie-bite">
                         {{ __('cookies_alert') }}
                     </x-admin.sidebar-list>
                     <x-admin.sidebar-list :linkActive="Route::is('settings.seo.*') ? true : false" route="settings.seo.index" icon="fas fa-award">
                         {{ __('seo') }} {{ __('settings') }}
-                    <!-- </x-admin.sidebar-list>
+                        <!-- </x-admin.sidebar-list>
                     <x-admin.sidebar-list :linkActive="Route::is('settings.custom') ? true : false" route="settings.custom" icon="fas fa-tools">
                         {{ __('custom_css_and_JS') }} -->
-                        
+
                     </x-admin.sidebar-list>
                     <x-admin.sidebar-list :linkActive="Route::is('settings.cms') ? true : false" route="settings.cms" icon="fas fa-paragraph">
                         {{ __('cms') }}
@@ -51,25 +51,25 @@
                             </x-admin.sidebar-list>
                         @endif
                     @endif
-                    {{--<x-admin.sidebar-list :linkActive="Route::is('settings.theme') ? true : false" route="settings.theme" icon="fas fa-swatchbook">
+                    {{-- <x-admin.sidebar-list :linkActive="Route::is('settings.theme') ? true : false" route="settings.theme" icon="fas fa-swatchbook">
                         {{ __('theme') }}
-                    </x-admin.sidebar-list>--}}
+                    </x-admin.sidebar-list> --}}
                     <x-admin.sidebar-list :linkActive="Route::is('settings.email') ? true : false" route="settings.email" icon="fas fa-envelope">
                         {{ __('SMTP') }}
                     </x-admin.sidebar-list>
                     <x-admin.sidebar-list :linkActive="Route::is('module.currency.*') ? true : false" route="module.currency.index" icon="fas fa-dollar-sign">
                         {{ __('currency') }}
                     </x-admin.sidebar-list>
-                    {{--<x-admin.sidebar-list :linkActive="Route::is('settings.database.backup.*') ? true : false" route="settings.database.backup.index"
+                    {{-- <x-admin.sidebar-list :linkActive="Route::is('settings.database.backup.*') ? true : false" route="settings.database.backup.index"
                         icon="fas fa-database">
                         {{ __('backup') }}
-                    </x-admin.sidebar-list>--}}
+                    </x-admin.sidebar-list> --}}
                     <x-admin.sidebar-list :linkActive="Route::is('settings.payment') ? true : false" route="settings.payment" icon="fas fa-credit-card">
                         {{ __('payment_gateway') }}
                     </x-admin.sidebar-list>
-                    {{--<x-admin.sidebar-list :linkActive="Route::is('settings.module') ? true : false" route="settings.module" icon="fas fa-cog">
+                    {{-- <x-admin.sidebar-list :linkActive="Route::is('settings.module') ? true : false" route="settings.module" icon="fas fa-cog">
                         {{ __('module') }}
-                    </x-admin.sidebar-list>--}}
+                    </x-admin.sidebar-list> --}}
 
                     {{-- Mobile App Setting --}}
                     @if (Module::collections()->has('MobileApp'))

@@ -4,7 +4,7 @@
 
 @section('meta')
     @php
-    $data = metaData('ads');
+        $data = metaData('ads');
     @endphp
 
     <meta name="title" content="{{ $data->title }}">
@@ -35,7 +35,7 @@
         </x-slot>
     </x-frontend.breedcrumb-component>
     <!-- breedcrumb section end  -->
-    <x-frontend.adlist-search class="adlist-search" :categories="$categories" :dark="false" :total-ads="$adlistings->total()" />
+    <x-frontend.adlist-search class="adlist-search" :categories="$categories" :dark="true" :total-ads="$adlistings->total()" />
 
     <section class="section ad-list">
         <div class="container">
@@ -55,6 +55,7 @@
                             </span>
                         </div>
                         <form method="GET" action="{{ route('frontend.adlist.search') }}" id="adFilterForm">
+
                             <div class="accordion list-sidebar__accordion" id="accordionGroup">
                                 <div class="accordion-item list-sidebar__accordion-item category">
                                     <h2 class="accordion-header list-sidebar__accordion-header" id="category">
@@ -70,54 +71,56 @@
                                             <div class="accordion list-sidebar__accordion-inner" id="subcategoryGroup">
                                                 @foreach ($categories as $category)
                                                     @if ($category->subcategories->count() > 1)
-                                                    <div class="accordion-item list-sidebar__accordion-inner-item">
-                                                        <h2 class="accordion-header"
-                                                            id="{{ Str::slug($category->slug) }}">
-                                                            <div class="accordion-button list-sidebar__accordion-inner-button {{ isActiveCategorySidebar($category) ? '' : 'collapsed' }}"
-                                                                data-bs-toggle="collapse"
-                                                                data-bs-target="#{{ Str::slug($category->slug) }}Collapse"
-                                                                aria-expanded="true"
-                                                                aria-controls="{{ Str::slug($category->slug) }}Collapse">
-                                                                <span class="list-sidebar__accordion-inner-icon">
-                                                                    <i class="{{ $category->icon }}"></i>
-                                                                </span>
-                                                                {{ $category->name }}
-                                                               
+                                                        <div class="accordion-item list-sidebar__accordion-inner-item">
+                                                            <h2 class="accordion-header"
+                                                                id="{{ Str::slug($category->slug) }}">
+                                                                <div class="accordion-button list-sidebar__accordion-inner-button {{ isActiveCategorySidebar($category) ? '' : 'collapsed' }}"
+                                                                    data-bs-toggle="collapse"
+                                                                    data-bs-target="#{{ Str::slug($category->slug) }}Collapse"
+                                                                    aria-expanded="true"
+                                                                    aria-controls="{{ Str::slug($category->slug) }}Collapse">
+                                                                    <span class="list-sidebar__accordion-inner-icon">
+                                                                        <i class="{{ $category->icon }}"></i>
+                                                                    </span>
+                                                                    {{ $category->name }}
+
                                                                     <span class="icon icon--plus">
                                                                         <x-svg.plus-light-icon />
                                                                     </span>
-                                                               
-                                                                <span class="icon icon--minus">
-                                                                    <x-svg.minus-icon />
-                                                                </span>
-                                                            </div>
-                                                        </h2>
-                                                        <div id="{{ Str::slug($category->slug) }}Collapse"
-                                                            class="accordion-collapse collapse {{ isActiveCategorySidebar($category) ? 'show' : '' }}"
-                                                            aria-labelledby="{{ $category->slug }}"
-                                                            data-bs-parent="#subcategoryGroup">
-                                                            <div class="accordion-body list-sidebar__accordion-inner-body">
-                                                                @foreach ($category->subcategories as $subcategory)
-                                                                    <div class="list-sidebar__accordion-inner-body--item">
-                                                                        <div class="form-check">
-                                                                            <input id="{{ $subcategory->slug }}"
-                                                                                type="checkbox" name="subcategory[]"
-                                                                                value="{{ $subcategory->slug }}"
-                                                                                class="form-check-input"
-                                                                                {{ request('subcategory') && in_array($subcategory->slug, request('subcategory')) ? 'checked' : '' }}
-                                                                                onchange="changeFilter()" />
 
-                                                                            <x-forms.label
-                                                                                name="{{ $subcategory->name }}"
-                                                                                for="{{ $subcategory->slug }}"
-                                                                                class="form-check-label" />
+                                                                    <span class="icon icon--minus">
+                                                                        <x-svg.minus-icon />
+                                                                    </span>
+                                                                </div>
+                                                            </h2>
+                                                            <div id="{{ Str::slug($category->slug) }}Collapse"
+                                                                class="accordion-collapse collapse {{ isActiveCategorySidebar($category) ? 'show' : '' }}"
+                                                                aria-labelledby="{{ $category->slug }}"
+                                                                data-bs-parent="#subcategoryGroup">
+                                                                <div
+                                                                    class="accordion-body list-sidebar__accordion-inner-body">
+                                                                    @foreach ($category->subcategories as $subcategory)
+                                                                        <div
+                                                                            class="list-sidebar__accordion-inner-body--item">
+                                                                            <div class="form-check">
+                                                                                <input id="{{ $subcategory->slug }}"
+                                                                                    type="checkbox" name="subcategory[]"
+                                                                                    value="{{ $subcategory->slug }}"
+                                                                                    class="form-check-input"
+                                                                                    {{ request('subcategory') && in_array($subcategory->slug, request('subcategory')) ? 'checked' : '' }}
+                                                                                    onchange="changeFilter()" />
+
+                                                                                <x-forms.label
+                                                                                    name="{{ $subcategory->name }}"
+                                                                                    for="{{ $subcategory->slug }}"
+                                                                                    class="form-check-label" />
+                                                                            </div>
                                                                         </div>
-                                                                    </div>
-                                                                @endforeach
+                                                                    @endforeach
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                     @endif
+                                                    @endif
                                                 @endforeach
                                             </div>
                                         </div>
@@ -147,12 +150,14 @@
                                     </div>
                                 </div>
                             </div>
+                        </form>
                     </div>
                 </div>
                 <div class="col-xl-9">
                     <div class="ad-list__content row">
                         @forelse ($adlistings as $ad)
-                            <x-frontend.shop-ad :ad="$ad" :adfields="$ad->productCustomFields" className="col-xl-3 col-md-4 col-sm-6" />
+                            <x-frontend.shop-ad :ad="$ad" :adfields="$ad->productCustomFields"
+                                className="col-xl-3 col-md-4 col-sm-6" />
                         @empty
                             <x-not-found2 message="{{ __('no_ads_found') }}" />
                         @endforelse
@@ -164,7 +169,6 @@
             </div>
         </div>
     </section>
-    </form>
 @endsection
 
 @section('adlisting_style')
@@ -180,6 +184,7 @@
     <script src="{{ asset('frontend') }}/js/plugins/wNumb.min.js"></script>
     <script>
         function changeFilter() {
+            console.log("submit");
             const slider = document.getElementById('priceRangeSlider')
             const value = slider.noUiSlider.get(true);
             document.getElementById('price_min').value = value[0]
