@@ -30,7 +30,7 @@ class PhoneVerifyController extends Controller
             $find = MobileValidation::where('phone_number', $request->phone)->first();
 
             if (isset($find)) {
-                # code...
+                
 
                 if ($find->attempt >= 5 && Carbon::parse($find->updated_at)->isToday()) {
                     return response()->json(['message' => "You already attempt 5 times please try again tommrow", 'status' => "faild"]);
@@ -44,12 +44,12 @@ class PhoneVerifyController extends Controller
                     ]);
 
                     if ($response->json()['responses'][0]['response-code'] == 200) {
-                        $find->phone_number = $request->phone;
-                        $find->otp_code = $six_digit_random_number;
-                        $find->expired_in = Carbon::now()->addSeconds(30);
-                        $find->attempt = $find->attempt + 1;
-                        $find->save();
-                        return response()->json(['message' => $find, 'status' => "success"], 200);
+                    $find->phone_number = $request->phone;
+                    $find->otp_code = $six_digit_random_number;
+                    $find->expired_in = Carbon::now()->addSeconds(30);
+                    $find->attempt = $find->attempt + 1;
+                    $find->save();
+                    return response()->json(['message' => $find, 'status' => "success"], 200);
                     }
                 }
             } else {
@@ -64,13 +64,13 @@ class PhoneVerifyController extends Controller
                 if ($response->json()['responses'][0]['response-code'] == 200) {
 
 
-                    $mobileValidation = new MobileValidation();
-                    $mobileValidation->phone_number = $request->phone;
-                    $mobileValidation->otp_code = $six_digit_random_number;
-                    $mobileValidation->expired_in = Carbon::now()->addSeconds(30);
-                    $mobileValidation->attempt = 1;
-                    $mobileValidation->save();
-                    return response()->json(['message' => $mobileValidation, 'status' => "success"], 200);
+                $mobileValidation = new MobileValidation();
+                $mobileValidation->phone_number = $request->phone;
+                $mobileValidation->otp_code = $six_digit_random_number;
+                $mobileValidation->expired_in = Carbon::now()->addSeconds(30);
+                $mobileValidation->attempt = 1;
+                $mobileValidation->save();
+                return response()->json(['message' => $mobileValidation, 'status' => "success"], 200);
                 }
             }
         }
