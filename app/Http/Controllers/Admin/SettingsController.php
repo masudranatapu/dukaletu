@@ -239,9 +239,10 @@ class SettingsController extends Controller
 
             $this->timezone($request);
         }
+        
         if ($request->has('code')) {
 
-            (new TranslationController())->setDefaultLanguage($request);
+            // (new TranslationController())->setDefaultLanguage($request);
         }
 
         if ($request->app_debug == 1) {
@@ -267,13 +268,13 @@ class SettingsController extends Controller
 
         if ($request->commingsoon_mode) {
             setEnv('APP_MODE', 'comingsoon');
-            return back()->with('success', 'App is in coming soon mode!');
+            // return back()->with('success', 'App is in coming soon mode!');
         } elseif ($request->maintenance_mode) {
             setEnv('APP_MODE', 'maintenance');
-            return back()->with('success', 'App is in maintenance mode!');
+            // return back()->with('success', 'App is in maintenance mode!');
         } else {
             setEnv('APP_MODE', 'live');
-            return back()->with('success', 'App is now live');
+            // return back()->with('success', 'App is now live');
         }
 
         flashSuccess('App Configuration Updated!');
@@ -378,10 +379,11 @@ class SettingsController extends Controller
         if ($timezone && $timezone != config('app.timezone')) {
             envReplace('APP_TIMEZONE', $timezone);
 
-            flashSuccess('Timezone Updated Successfully!');
+            // flashSuccess('Timezone Updated Successfully!');
         }
 
-        flashError('Timezone update failed!');
+        // flashError('Timezone update failed!');
+        return 1;
     }
 
     public function cookies()

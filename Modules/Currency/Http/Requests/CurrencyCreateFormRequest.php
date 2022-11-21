@@ -16,7 +16,7 @@ class CurrencyCreateFormRequest extends FormRequest
         return [
             'name' => 'required|unique:currencies,name',
             'code' => 'required|unique:currencies,code|regex:/^[a-zA-Z]+$/u',
-            'symbol' => 'required|unique:currencies,symbol|string|max:2'
+            'symbol' => 'required|unique:currencies,symbol|string|max:4'
         ];
     }
 

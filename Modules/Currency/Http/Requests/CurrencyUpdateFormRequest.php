@@ -16,7 +16,7 @@ class CurrencyUpdateFormRequest extends FormRequest
         return [
             'name' => "required|unique:currencies,name,{$this->currency->id}",
             'code' => "required|regex:/^[a-zA-Z]+$/u|unique:currencies,code,{$this->currency->id}",
-            'symbol' => "required|string|max:2|unique:currencies,symbol,{$this->currency->id}",
+            'symbol' => "required|string|max:4|unique:currencies,symbol,{$this->currency->id}",
         ];
     }
 
