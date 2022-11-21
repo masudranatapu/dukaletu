@@ -45,7 +45,8 @@
                 <div class="d-flex flex-column justify-content-between align-items-center py-5 px-4 min-vh-100">
                     <a href="{{ route('admin.login') }}" class="d-block">
                         <div class="system-logo d-flex justify-content-center">
-                            <img src="{{ $setting->logo_image_url }}" alt="logo" class="img-fluid">
+                            <!-- <img src="{{ $setting->logo_image_url }}" alt="logo" class="img-fluid"> -->
+                            <img src="{{ asset('frontend/images/admin_logo.png') }}" alt="logo" class="img-fluid">
                         </div>
                     </a>
                     <div class="login-card-body p-0">
