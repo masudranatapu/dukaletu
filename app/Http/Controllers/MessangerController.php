@@ -171,14 +171,14 @@ class MessangerController extends Controller
 
         event(new MessageEvent($message->to_id, auth()->user(), new MessageBodyResource($message)));
         // if push_notification_status is enabled
-        if (setting('push_notification_status')) {
-            // send push notification
-            $pushNotice = (new PushNotificationController)->sendNotification(
-                $message->to_id,
-                auth()->user()->name,
-                $message->body
-            );
-        }
+        // if (setting('push_notification_status')) {
+        //     // send push notification
+        //     $pushNotice = (new PushNotificationController)->sendNotification(
+        //         $message->to_id,
+        //         auth()->user()->name,
+        //         $message->body
+        //     );
+        // }
         }catch(\Exception $ex) {
             dd($ex);
         }
