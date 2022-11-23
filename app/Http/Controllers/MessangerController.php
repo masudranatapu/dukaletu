@@ -143,8 +143,8 @@ class MessangerController extends Controller
             'body'      =>  ['required',],
         ]);
 
-        $user = User::where('username', $username)->firstOrFail();
-
+        try{
+            $user = User::where('username', $username)->firstOrFail();
         if ($user->id === auth()->id()) {
             return redirect()->route('frontend.message', $user->username);
         }
@@ -179,6 +179,10 @@ class MessangerController extends Controller
                 $message->body
             );
         }
+        }catch(\Exception $ex) {
+            dd($ex);
+        }
+        
 
         return [
             'user' => auth()->user(),
