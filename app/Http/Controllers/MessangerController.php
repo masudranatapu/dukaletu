@@ -139,7 +139,6 @@ class MessangerController extends Controller
      */
     public function sendMessage(Request $request, $username)
     {
-        dd(1);
         $request->validate([
             'body'      =>  ['required',],
         ]);
@@ -170,7 +169,7 @@ class MessangerController extends Controller
             'body'      =>  $request->body,
         ]);
 
-        event(new MessageEvent($message->to_id, auth()->user(), new MessageBodyResource($message)));
+        //event(new MessageEvent($message->to_id, auth()->user(), new MessageBodyResource($message)));
         // if push_notification_status is enabled
         // if (setting('push_notification_status')) {
         //     // send push notification
