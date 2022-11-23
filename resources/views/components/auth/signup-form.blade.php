@@ -167,7 +167,7 @@
                         if (response.data.status == "success") {
                             $('#otpSection').show();
                             timerId = setInterval(countdown, 1000);
-                            var timeLeft = 30;
+                            var timeLeft = 1800;
                             var elem = document.getElementById('coundown');
 
                             function countdown() {
