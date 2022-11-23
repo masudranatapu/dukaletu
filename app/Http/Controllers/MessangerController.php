@@ -139,8 +139,7 @@ class MessangerController extends Controller
      */
     public function sendMessage(Request $request, $username)
     {
-        dd(1);
-        $request->validate([
+         $request->validate([
             'body'      =>  ['required',],
         ]);
 
