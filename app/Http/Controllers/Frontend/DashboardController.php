@@ -227,6 +227,7 @@ class DashboardController extends Controller
                 return back();
             }
         } catch (\Exception $e) {
+            dd($e);
             flashError();
             return back();
         }

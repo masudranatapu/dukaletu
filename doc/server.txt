@@ -3,8 +3,13 @@ user: root
 ip: 146.190.19.186
 
 
-Username: admin
-    Password: 53946ef6b7948aee9a5053b0f2e17c383d868ef9dc58e15f
+http://188.166.114.45/info.php
+http://188.166.114.45/phpmyadmin
 
 new user: rony
 pass: 12345678
+
+
+PhPMyAdmin
+User:phpmyadmin
+Pass:Ndiruni@123!
