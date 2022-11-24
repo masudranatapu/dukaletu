@@ -37,7 +37,7 @@ class PaymentsController extends Controller
             'phonenumber' => '254-723232323',
             'reference' => $payments->transactionid,
             'height' => '400px',
-            //'currency' => 'USD'
+            'currency' => 'kes'
         );
         $iframe = Pesapal::makePayment($details);
 
