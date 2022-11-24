@@ -15,7 +15,7 @@ class PaymentsController extends Controller
     public function payment()
     { //initiates payment
 
-        $apiLink = config('pesapal.is_live') ? "https://www.pesapal.com/API/PostPesapalDirectOrderV4" : "https://cybqa.pesapal.com/pesapalv3";
+        $apiLink = config('pesapal.is_live') ? "https://www.pesapal.com/API/PostPesapalDirectOrderV4" : "https://www.pesapal.com/API/PostPesapalDirectOrderV4";
 
         $payments = new Transaction();
         $payments->user_id = 1; //Business ID
