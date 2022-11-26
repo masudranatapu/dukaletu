@@ -14,6 +14,7 @@ use App\Http\Controllers\Controller;
 use Modules\Category\Entities\Category;
 use Modules\CustomField\Entities\CustomField;
 use Modules\CustomField\Entities\ProductCustomField;
+use File;
 
 class AdPostController extends Controller
 {
@@ -515,7 +516,9 @@ class AdPostController extends Controller
         $old_thumb = $request->old_thumbnail;
         if ($thumbnail && $thumbnail->isValid()) {
                $thumb =  uploadImage($thumbnail, 'addds_image', true);
-            if ($old_thumb) {
+
+
+            if (File::exists($old_thumb)) {
                 @unlink($old_thumb);
             }
             $tr = $ad->update(['thumbnail' => $thumb]);
