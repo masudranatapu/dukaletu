@@ -55,6 +55,7 @@ class PaymentsController extends Controller
         $ref = $request->input('merchant_reference');
 
         $payments = Transaction::where('id', $ref)->first();
+        dd($payments);
         $payments->trackingid = $trackingid;
         $payments->payment_status = 'unpaid';
         $payments->update();
