@@ -35,7 +35,7 @@ return [
    | false if your account was obtained from https://demo.pesapal.com
    |
    */
-    'is_live' => env('PESAPAL_LIVE'),
+    'live' => env('PESAPAL_LIVE'),
 
     /*
    |--------------------------------------------------------------------------
@@ -48,5 +48,5 @@ return [
    */
     'callback_route' => env('PESAPAL_CALLBACK_ROUTE', "paymentsuccess"),
 
-    'active' => env('PAYPAL_ACTIVE', false)
+    'active' => env('PESAPAL_ACTIVE', true)
 ];

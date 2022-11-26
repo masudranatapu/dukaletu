@@ -341,7 +341,10 @@
         </form>
         <form action="{{ route('paymentsuccess') }}" method="GET" class="d-none" id="pesapal-payment-form">
             @csrf
+            <input type="hidden" name="plan_id" value="{{ $plan->id }}">
+            <input type="hidden" name="amount" value="{{ $plan->price }}">
         </form>
+
 
         {{-- Stripe Form --}}
         <form action="{{ route('stripe.post') }}" method="POST" class="d-none">

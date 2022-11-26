@@ -4,44 +4,49 @@ namespace App\Http\Controllers;
 
 
 use Pesapal;
-use Illuminate\Http\Request;
+use App\Payment;
 use App\Http\Requests;
 use App\Models\Transaction;
+use Illuminate\Http\Request;
+use App\Http\Traits\PaymentTrait;
 use Illuminate\Support\Facades\Auth;
-use App\Payment;
+use Modules\Plan\Entities\Plan;
 
 class PaymentsController extends Controller
 {
-    public function payment()
+    use PaymentTrait;
+
+    public function payment(Request $request)
     { //initiates payment
 
-        $apiLink = config('pesapal.is_live') ? "https://www.pesapal.com/API/PostPesapalDirectOrderV4" : "https://www.pesapal.com/API/PostPesapalDirectOrderV4";
+        $apiLink = config('pesapal.live') ? "https://www.pesapal.com/API/PostPesapalDirectOrderV4" : "https://www.pesapal.com/API/PostPesapalDirectOrderV4";
 
         $payments = new Transaction();
-        $payments->user_id = 1; //Business ID
+        $payments->user_id = Auth::user()->id; //Business ID
         $payments->transaction_id = Pesapal::random_reference();
         $payments->order_id = Pesapal::random_reference();
-        $payments->plan_id = 1;
+        $payments->plan_id = $request->plan_id;
 
-        $payments->payment_status = "paid"; //if user gets to iframe then exits, i prefer to have that as a new/lost transaction, not pending
-        $payments->amount = 10;
+        $payments->payment_status = "unpaid"; //if user gets to iframe then exits, i prefer to have that as a new/lost transaction, not unpaid
+        $payments->amount = $request->amount;
         $payments->save();
+        // dd($payments);
 
         $details = array(
             'amount' => $payments->amount,
-            'description' => 'Test Transaction',
+            'description' => 'Plan Purchase',
             'type' => 'MERCHANT',
-            'first_name' => 'Fname',
-            'last_name' => 'Lname',
-            'email' => 'test@test.com',
-            'phonenumber' => '254-723232323',
-            'reference' => $payments->transactionid,
+            'first_name' => Auth::user()->name ?? '',
+            'last_name' => '',
+            'email' => Auth::user()->email ?? '',
+            'phonenumber' => Auth::user()->phone ?? '',
+            'reference' => $payments->id,
             'height' => '400px',
-            'currency' => 'kes'
+            'currency' => 'KES'
         );
         $iframe = Pesapal::makePayment($details);
 
-
+        // dd($iframe);
         return view('frontend.payment', compact('iframe'));
     }
     public function paymentsuccess(Request $request) //just tells u payment has gone thru..but not confirmed
@@ -49,12 +54,12 @@ class PaymentsController extends Controller
         $trackingid = $request->input('tracking_id');
         $ref = $request->input('merchant_reference');
 
-        // $payments = Transaction::where('transaction_id', $ref)->first();
-        // // $payments->trackingid = $trackingid;
-        // // $payments->status = 'PENDING';
-        // $payments->save();
+        $payments = Transaction::where('id', $ref)->first();
+        $payments->trackingid = $trackingid;
+        $payments->status = 'unpaid';
+        $payments->save();
         //go back home
-        $payments = Transaction::all();
+        // $payments = Transaction::all();
         return redirect()->back();
     }
     //This method just tells u that there is a change in pesapal for your transaction..
@@ -72,10 +77,12 @@ class PaymentsController extends Controller
     public function checkpaymentstatus($trackingid, $merchant_reference, $pesapal_notification_type)
     {
         $status = Pesapal::getMerchantStatus($merchant_reference);
-        $payments = Payment::where('trackingid', $trackingid)->first();
-        $payments->status = $status;
+        $payments = Transaction::where('trackingid', $trackingid)->first();
+        $payments->status = 'paid';
         $payments->payment_method = "PESAPAL"; //use the actual method though...
         $payments->save();
+        $plan = Plan::where('id', $payments->plan_id)->first();
+        $this->userPlanInfoUpdate($plan);
         return "success";
     }
 }
