@@ -47,7 +47,6 @@ class PaymentsController extends Controller
         );
         $iframe = Pesapal::makePayment($details);
 
-        // dd($iframe);
         return view('frontend.payment', compact('iframe'));
     }
     public function paymentsuccess(Request $request) //just tells u payment has gone thru..but not confirmed
@@ -58,9 +57,7 @@ class PaymentsController extends Controller
         $payments = Transaction::where('id', $ref)->first();
         $payments->trackingid = $trackingid;
         $payments->payment_status = 'unpaid';
-        $payments->save();
-        //go back home
-        // $payments = Transaction::all();
+        $payments->update();
         return redirect()->back();
     }
     //This method just tells u that there is a change in pesapal for your transaction..
@@ -81,7 +78,7 @@ class PaymentsController extends Controller
         $payments = Transaction::where('trackingid', $trackingid)->first();
         $payments->payment_status = 'paid';
         $payments->payment_method = "PESAPAL"; //use the actual method though...
-        $payments->save();
+        $payments->update();
         $plan = Plan::where('id', $payments->plan_id)->first();
         $this->userPlanInfoUpdate($plan);
         return "success";
