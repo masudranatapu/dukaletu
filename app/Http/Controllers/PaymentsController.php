@@ -30,7 +30,7 @@ class PaymentsController extends Controller
         $payments->payment_status = "unpaid"; //if user gets to iframe then exits, i prefer to have that as a new/lost transaction, not unpaid
         $payments->amount = $request->amount;
         $payments->save();
-        // dd($payments);
+        dd($payments);
 
         $details = array(
             'amount' => $payments->amount,
@@ -56,7 +56,7 @@ class PaymentsController extends Controller
 
         $payments = Transaction::where('id', $ref)->first();
         $payments->trackingid = $trackingid;
-        $payments->status = 'unpaid';
+        $payments->payment_status = 'unpaid';
         $payments->save();
         //go back home
         // $payments = Transaction::all();
@@ -78,7 +78,7 @@ class PaymentsController extends Controller
     {
         $status = Pesapal::getMerchantStatus($merchant_reference);
         $payments = Transaction::where('trackingid', $trackingid)->first();
-        $payments->status = 'paid';
+        $payments->payment_status = 'paid';
         $payments->payment_method = "PESAPAL"; //use the actual method though...
         $payments->save();
         $plan = Plan::where('id', $payments->plan_id)->first();

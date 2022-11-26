@@ -82,7 +82,7 @@ class AdPostController extends Controller
             'price' => 'required|numeric',
             'category_id' => 'required',
             'subcategory_id' => 'sometimes',
-            'brand_id' => 'required',
+            'brand_id' => 'nullable',
         ]);
 
         try {
@@ -414,7 +414,6 @@ class AdPostController extends Controller
             'title' => "required|unique:ads,title,$ad->id",
             'price' => 'required|numeric',
             'category_id' => 'required',
-            'brand_id' => 'required',
         ]);
 
         $ad->update([
@@ -511,6 +510,18 @@ class AdPostController extends Controller
                 $ad->adFeatures()->create(['name' => $feature]);
             }
         }
+
+        $thumbnail = $request->file('thumbnail');
+        $old_thumb = $request->old_thumbnail;
+        if ($thumbnail && $thumbnail->isValid()) {
+               $thumb =  uploadImage($thumbnail, 'addds_image', true);
+            if ($old_thumb) {
+                @unlink($old_thumb);
+            }
+            $tr = $ad->update(['thumbnail' => $thumb]);
+            // dd($old_thumb);
+        }
+        // dd($tr);
 
         // image uploading
         $images = $request->file('images');

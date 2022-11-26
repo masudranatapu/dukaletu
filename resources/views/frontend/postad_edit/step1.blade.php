@@ -59,8 +59,8 @@
                     </div>
                     <div class="input-field__group">
                         <div class="input-select">
-                            <x-forms.label name="brand" for="brand" required="true" />
-                            <select required name="brand_id" id="brandd"
+                            <x-forms.label name="brand" for="brand" required="" />
+                            <select name="brand_id" id="brandd"
                                 class="form-control select-bg @error('brand_id') border-danger @enderror">
                                 <option value="" hidden>{{ __('select_brand') }}</option>
                                 @foreach ($brands as $brand)
