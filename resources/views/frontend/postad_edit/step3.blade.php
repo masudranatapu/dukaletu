@@ -61,7 +61,7 @@
                         <input type="hidden" name="old_thumbnail" value="{{ $ad->thumbnail ?? '' }}">
                     </div>
                 </div>
-                {{-- {{ $ad->thumbnail }} --}}
+                @dd($ad)
                 <div class="col-lg-6 col-md-6">
                     <img src="{{ asset($ad->thumbnail ?? '') }}" id="thumbnail" style="height: 100px;width: 80px;float: right;margin-right: 46%;">
                 </div>

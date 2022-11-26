@@ -26,6 +26,7 @@ class PaymentsController extends Controller
         $payments->transaction_id = Pesapal::random_reference();
         $payments->order_id = Pesapal::random_reference();
         $payments->plan_id = $request->plan_id;
+        $payments->payment_provider = 'Pesapal';
 
         $payments->payment_status = "unpaid"; //if user gets to iframe then exits, i prefer to have that as a new/lost transaction, not unpaid
         $payments->amount = $request->amount;
