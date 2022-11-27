@@ -138,7 +138,7 @@
                     </span>
                     {{ __('post_ads') }}
                 </a>
-                <a href="{{ route('users.login') }}" class="btn btn--bg ">{{ __('sign_in') }}</a>
+                <a href="{{ route('users.login') }}" class="btn btn-bg ">{{ __('sign_in') }}</a>
             </div>
         @endif
     </div>

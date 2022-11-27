@@ -25,7 +25,7 @@
 
     {!! $settings->header_css !!}
     {!! $settings->header_script !!}
-    <link rel="stylesheet"  href="{{ asset('frontend/css') }}/main.css?v-2">
+    <link rel="stylesheet"  href="{{ asset('frontend/css') }}/main.css?v-1">
 </head>
 
 <body class="overlay-view">

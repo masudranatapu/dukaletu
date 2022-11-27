@@ -37,7 +37,7 @@
 
     {!! $settings->header_css !!}
     {!! $settings->header_script !!}
-    <link rel="stylesheet" href="{{ asset('frontend/css') }}/main.css?v-2">
+    <link rel="stylesheet" href="{{ asset('frontend/css') }}/main.css?v-1">
 </head>
 
 <body class="{{ auth('user')->check() && isset(session('user_plan')->ad_limit) && session('user_plan')->ad_limit < $settings->free_ad_limit ? '':'' }}" dir="{{ langDirection() }}">
