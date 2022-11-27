@@ -42,10 +42,10 @@
             <div class="row">
                 <div class="col-xl-8">
                     <div class="single_ads">
-                        {{-- ad badge 
+                        {{-- ad badge
                         <x-frontend.ad-details.ad-badge :featured="$ad->featured" :customerid="$ad->user_id" :verifiedseller="$verified_seller"
                             :status="$ad->status" />
-                     --}}       
+                     --}}
 
                         {{-- ad info --}}
                         <div class="ad_info">
@@ -159,6 +159,19 @@
     <script src="{{ asset('frontend') }}/js/plugins/slick.min.js"></script>
     <script src="{{ asset('frontend') }}/js/plugins/swiper-bundle.min.js"></script>
     <script src="{{ asset('frontend') }}/js/swiperslider.config.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.0/css/lightgallery-bundle.min.css">
+
+    <!-- lightgallery plugins -->
+    <script src="{{asset('lightgallery/lightgallery.js')}}"></script>
+    <script src="{{asset('lightgallery/thumbnail.js')}}"></script>
+    <script src="{{asset('lightgallery/zoom.js')}}"></script>
+    <script type="text/javascript">
+        lightGallery(document.getElementById('lightgallery'), {
+            plugins: [lgZoom, lgThumbnail],
+            speed: 500,
+        });
+    </script>
+
     @stack('ad_scripts')
     <!-- ================ mapbox map ============== -->
     <script>
