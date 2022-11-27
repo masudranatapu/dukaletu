@@ -28,7 +28,7 @@
                         <div class="row">
                             <div class="col-9 col-md-11 col-lg-11">
                                 <div class="input-field">
-                                    <input required name="features[]" type="text" placeholder="{{ __('feature') }}"
+                                    <input name="features[]" type="text" placeholder="{{ __('feature') }}"
                                         id="adname" class="@error('title') border-danger @enderror" />
                                 </div>
                             </div>

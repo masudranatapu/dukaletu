@@ -25,7 +25,7 @@
                 <textarea name="description" placeholder="{{ __('your_thought') }}..." id="description" class="@error('description') border-danger @enderror">{{ $ad->description }}</textarea>
             </div>
             <div class="input-field--textarea">
-                <x-forms.label name="feature" for="feature" />
+                <x-forms.label name="feature" required="" for="feature" />
                 <div id="multiple_feature_part">
                     <div class="row">
                         <div class="col-lg-10">
@@ -50,6 +50,20 @@
                             </div>
                         </div>
                     @endforeach
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6 col-md-6 upload-wrapper">
+                    <h3>{{ __('Thumbnail Image') }} <span class="text-danger">*</span></h3>
+                    <div class="input-field">
+                        <input type="file" name="thumbnail" class="form-control @error('title') border-danger @enderror" onchange="readURL(this);">
+                        <input type="hidden" name="old_thumbnail" value="{{ $ad->thumbnail ?? '' }}">
+                    </div>
+                </div>
+                {{-- @dd($ad) --}}
+                <div class="col-lg-6 col-md-6">
+                    <img src="{{ asset($ad->thumbnail ?? '') }}" id="thumbnail" style="height: 100px;width: 80px;float: right;margin-right: 46%;">
                 </div>
             </div>
             <div class="upload-wrapper">

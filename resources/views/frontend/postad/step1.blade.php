@@ -63,8 +63,8 @@
                     </div>
                     <div class="input-field__group">
                         <div class="input-select">
-                            <x-forms.label name="brand" required="true" for="brand" />
-                            <select required name="brand_id" id="brandd"
+                            <x-forms.label name="brand" required="" for="brand" />
+                            <select name="brand_id" id="brandd"
                                 class="form-control select-bg @error('brand_id') border-danger @enderror">
                                 <option value="" hidden>{{ __('select_brand') }}</option>
                                 @isset($ad->brand_id)
