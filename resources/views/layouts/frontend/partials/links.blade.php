@@ -1,6 +1,6 @@
 <!-- Favicons -->
 {{-- toastr notification --}}
-<link rel="icon" type="image/png" sizes="16x16" href="{{ asset($settings->favicon_image) }}" />
+<link rel="icon" type="image/png" sizes="16x16" href="{{ asset($settings->logo_image) }}" />
 <link rel="manifest" href="{{ asset('frontend/images/favicon_io/site.webmanifest') }}" />
 <link rel="stylesheet" href="{{ asset('frontend/css') }}/bootstrap.min.css">
 <link rel="stylesheet" href="{{ asset('frontend/css/font-awesome.min.css') }}" />

@@ -3160,7 +3160,10 @@ a {
         font-family: \00003207;
     }
 }
-
+.mobile-menu__brand{
+    background: #3db83a !important;
+    box-shadow: 1px 1px 4px rgb(80 114 125 / 40%);
+}
 .header--two .navigation-bar__top {
     padding:5px 0px;
     background: #3db83a !important;
@@ -4699,7 +4702,7 @@ a {
     width: 320px;
     height: 100vh;
     position: absolute;
-    padding: 24px 0px;
+    padding: 0px 0px;
     padding-bottom: 4px;
     z-index: 999;
     display: -webkit-box;
@@ -5011,7 +5014,7 @@ a {
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
-    padding: 0px 20px 20px 20px;
+    padding: 10px 20px 20px 20px;
     -webkit-box-pack: justify;
     -ms-flex-pack: justify;
     justify-content: space-between;

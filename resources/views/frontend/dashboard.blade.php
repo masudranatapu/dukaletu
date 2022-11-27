@@ -185,7 +185,7 @@
                                                     </a>
                                                 </div>
                                                 <div class="cards__info-bottom">
-                                                    <span class="cards__price-title text--body-3-600">${{ $ad->price }}
+                                                    <span class="cards__price-title text--body-3-600">KSh {{ $ad->price }}
                                                     </span>
                                                     <ul class="edit">
                                                         <li class="edit-icon">
