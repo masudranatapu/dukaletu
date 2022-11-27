@@ -48,5 +48,5 @@ return [
    */
     'callback_route' => env('PESAPAL_CALLBACK_ROUTE', "paymentsuccess"),
 
-    'active' => env('PAYPAL_ACTIVE', false)
+    'active' => env('PESAPAL_ACTIVE', false)
 ];

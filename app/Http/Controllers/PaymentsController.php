@@ -13,34 +13,61 @@ use App\Payment;
 class PaymentsController extends Controller
 {
     public function payment()
-    { //initiates payment
+    { 
 
-        $apiLink = config('pesapal.is_live') ? "https://www.pesapal.com/API/PostPesapalDirectOrderV4" : "https://www.pesapal.com/API/PostPesapalDirectOrderV4";
+        try{
+            // $apiLink = "https://www.pesapal.com/API/PostPesapalDirectOrderV4";
+            // $payments = new Transaction();
+            // $payments->user_id = 1; //Business ID
+            // $payments->transaction_id = Pesapal::random_reference();
+            // $payments->order_id = Pesapal::random_reference();
+            // $payments->plan_id = 1;
 
-        $payments = new Transaction();
-        $payments->user_id = 1; //Business ID
-        $payments->transaction_id = Pesapal::random_reference();
-        $payments->order_id = Pesapal::random_reference();
-        $payments->plan_id = 1;
+            // $payments->payment_status = "paid"; //if user gets to iframe then exits, i prefer to have that as a new/lost transaction, not pending
+            // $payments->amount = 10;
+            // $payments->save();
 
-        $payments->payment_status = "paid"; //if user gets to iframe then exits, i prefer to have that as a new/lost transaction, not pending
-        $payments->amount = 10;
-        $payments->save();
+            // $details = array(
+            //     'amount' => $payments->amount,
+            //     'description' => 'Test Transaction',
+            //     'type' => 'MERCHANT',
+            //     'first_name' => 'Fname',
+            //     'last_name' => 'Lname',
+            //     'email' => 'test@test.com',
+            //     'phonenumber' => '254-723232323',
+            //     'reference' => $payments->transactionid,
+            //     'height' => '400px',
+            //     'currency' => 'kes'
+            // );
+            // $iframe = Pesapal::makePayment($details);
 
-        $details = array(
-            'amount' => $payments->amount,
-            'description' => 'Test Transaction',
-            'type' => 'MERCHANT',
-            'first_name' => 'Fname',
-            'last_name' => 'Lname',
-            'email' => 'test@test.com',
-            'phonenumber' => '254-723232323',
-            'reference' => $payments->transactionid,
-            'height' => '400px',
-            'currency' => 'kes'
-        );
-        $iframe = Pesapal::makePayment($details);
+            $payments = new Transaction();
+            $payments->user_id = 1; //Business ID
+            $payments->transaction_id = Pesapal::random_reference();
+            $payments->order_id = Pesapal::random_reference();
+            $payments->plan_id = 1;
 
+            $payments->payment_status = "paid"; //if user gets to iframe then exits, i prefer to have that as a new/lost transaction, not pending
+            $payments->amount = 10;
+            $payments->save();
+
+            $details = array(
+                'amount' => $payments->amount,
+                'description' => 'Test Transaction',
+                'type' => 'MERCHANT',
+                'first_name' => 'Fname',
+                'last_name' => 'Lname',
+                'email' => 'test@test.com',
+                'phonenumber' => '254-723232323',
+                'reference' => $payments->transactionid,
+                'height' => '400px',
+                'currency' => 'kes'
+            );
+            $iframe = Pesapal::makePayment($details);
+
+        }catch(Exception $e){
+            $dd($e);
+        }
 
         return view('frontend.payment', compact('iframe'));
     }
@@ -61,6 +88,7 @@ class PaymentsController extends Controller
     //u need to now query status..retrieve the change...CANCELLED? CONFIRMED?
     public function paymentconfirmation(Request $request)
     {
+        dd(1);
         $trackingid = $request->input('pesapal_transaction_tracking_id');
         $merchant_reference = $request->input('pesapal_merchant_reference');
         $pesapal_notification_type = $request->input('pesapal_notification_type');

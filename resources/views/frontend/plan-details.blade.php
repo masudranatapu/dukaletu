@@ -157,7 +157,7 @@
                         <div class="col-xl-6">
                             <div class="membership-card">
                                 <div class="membership-card__icon" style="background-color: #e8f7ff">
-                                    {{-- <x-svg.paypal-icon /> --}}
+                                    <x-svg.paypal-icon />
                                 </div>
                                 <div class="membership-card__info">
                                     <h2 class="membership-card__title text--body-1">{{ __('pesapal_payment') }}</h2>
