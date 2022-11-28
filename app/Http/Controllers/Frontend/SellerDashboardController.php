@@ -9,6 +9,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Report;
 use Modules\Ad\Transformers\AdResource;
 use Modules\Review\Entities\Review;
+use DB;
+use Auth;
 
 class SellerDashboardController extends Controller
 {
@@ -20,8 +22,8 @@ class SellerDashboardController extends Controller
             session(['seller_tab' => 'ads']);
         }
 
-
-        $reviews = Review::whereUserId($user->id)->whereStatus(1)->get();
+        $reviews = DB::table('reviews')->where('seller_id', $user->id)->where('status', 1)->get();
+        // dd($reviews);
 
         $rating_details = [
             'total' => $reviews->count(),
@@ -49,12 +51,19 @@ class SellerDashboardController extends Controller
     {
         session(['seller_tab' => 'ads']);
 
+        $user_id = Auth::user()->id;
+        $review = DB::table('reviews')->where('user_id', $user_id)->where('seller_id', $request->seller_id)->get();
+        if ($review && $review->count() > 0) {
+            return redirect()->back()->with('error', 'You already reviewed this seller.');
+        }
+
         $request->validate([
             'stars' => 'required|numeric|between:1,5',
             'comment' => 'required|string|max:255',
         ]);
 
         Review::create([
+            'seller_id' => $request->seller_id,
             'user_id' => auth()->id(),
             'stars' => $request->stars,
             'comment' => $request->comment,

@@ -12,6 +12,7 @@ class Review extends Model
     use HasFactory;
 
     protected $fillable = [
+        'seller_id',
         'user_id',
         'stars',
         'comment',

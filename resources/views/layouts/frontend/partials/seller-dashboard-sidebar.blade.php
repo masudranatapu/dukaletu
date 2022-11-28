@@ -65,7 +65,7 @@
         <ul class="dashboard__nav">
             @if ($user->phone)
                 <li class="dashboard__nav-item">
-                    <a href="#" class="seller-dashboard__nav-link">
+                    <a href="tel:{{ $user->phone }}" class="seller-dashboard__nav-link">
                         <span class="icon">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -104,7 +104,6 @@
                                 <path d="M20.7688 18.5381L13.6364 12" stroke="#3db83a" stroke-width="1.6"
                                     stroke-linecap="round" stroke-linejoin="round" />
                             </svg>
-
                         </span>
                         {{ $user->email }}
                     </a>
@@ -112,7 +111,7 @@
             @endif
             @if ($user->website)
                 <li class="dashboard__nav-item">
-                    <a href="#" class="seller-dashboard__nav-link">
+                    <a href="{{ $user->website }}" class="seller-dashboard__nav-link">
                         <span class="icon">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -129,7 +128,6 @@
                                     stroke="#3db83a" stroke-width="1.6" stroke-linecap="round"
                                     stroke-linejoin="round" />
                             </svg>
-
                         </span>
                         <span class="website">{{ $user->website }}</span> <svg class="go-to-icon" width="18"
                             height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -145,21 +143,20 @@
                     </a>
                 </li>
             @endif
-
         </ul>
     </div>
     @if ($user->bio)
         <div class="seller-info">
             <h4>{{ __('bio') }}</h2>
-                <p>{{ $user->bio }}</p>
-                <hr>
+            <p>{{ $user->bio }}</p>
+            <hr>
         </div>
     @endif
     @if (auth('user')->check() && $user->id != auth('user')->id())
         <hr>
         <div class="dashboard__navigation-report">
-            <div class="report">
-                <button class="seller-dashboard__nav-link" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <div class="report" style="overflow: hidden;">
+                <button class="seller-dashboard__nav-link" data-bs-toggle="modal" data-bs-target="#exampleModal" style="padding: 10px; margin: 20px; width: 100%;">
                     <span class="icon">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
@@ -194,7 +191,7 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label class="form-label" for="reasonn">{{ __('reason') }}</label>
-                            <textarea required name="reason" id="reasonn" rows="8" class="form-control"></textarea>
+                            <textarea required name="reason" id="reasonn" rows="8" class="form-control" style="height: 100px; width: 100%;"></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -206,8 +203,6 @@
             </div>
         </div>
     </div>
-
-
 </div>
 
 <style>
