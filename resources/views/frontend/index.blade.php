@@ -33,10 +33,11 @@
     @php
         $sliders = DB::table('sliders')->where('status', 1)->get();
     @endphp
-    <!-- banner section start  -->
+
+    <!-- banner section start  --> 
     <div class="banner banner--two text-center" style="background-image:url('{{ $cms->home_main_banner }}');">
         <div class="container">
-            <div class="row">
+            <div class="row d-none d-sm-block">
                 <div class="col-12">
                     <h2 class="text--display-3 banner__title animate__animated animate__bounceInDown">
                         {{ $cms->home_title }}
@@ -46,8 +47,23 @@
                     </p>
                 </div>
             </div>
+            <div class="row d-block d-sm-none">
+                <div class="col-12">
+                    <form action="{{ route('frontend.adlist.search') }}" method="GET">
+                        <div class="mobile_search_box">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Ads tittle, keyword..." name="keyword" required="">
+                                <button type="submit" class="input-type-text">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                            </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
+
     <!-- banner section end   -->
     <div class="main_content mb-5">
         <div class="container">
@@ -126,6 +142,48 @@
                         </div>
                      </div>
                      <!-- Slider banner -->
+
+
+
+                      <!-- Poupular category Section start  -->
+                        <section class="section popular-category d-block d-sm-none" style="padding-top: 0px !important; padding-bottom: 25px;">
+                            <h2 class="text--heading-1 section__title">
+                                        {{ __('popular_category') }}
+                                </h2>
+                            <div class="">
+                                <div class="row g-2">
+                                    @foreach ($topCategories as $category)
+                                        <div class="col-4">
+                                            <div class="category-card">
+                                                <div class="category-card__icon">
+                                                    <i class="{{ $category->icon }}" style="font-size: 40px"></i>
+                                                </div>
+                                                {{-- Filter Form --}}
+                                                <form method="GET" action="{{ route('frontend.adlist.search') }}" id="adFilterForm"
+                                                    class="d-none">
+                                                    <input type="hidden" name="category" value="" id="adFilterInput">
+                                                </form>
+                                                <a href="javascript:void(0)" onclick="adFilterFunction('{{ $category->slug }}')">
+                                                    <h5 class="text--body-2 category-card__title"> {{ $category->name }} </h5>
+                                                </a>
+                                                <!-- <div class="category-card__view">
+                                                    <span class="first view-number"> {{ $category->ad_count ?? 0 }}
+                                                        {{ __('ads') }}</span>
+                                                    <a href="javascript:void(0)" onclick="adFilterFunction('{{ $category->slug }}')"
+                                                        class="second view-btn">
+                                                        {{ __('view_ads') }}
+                                                        <span class="icon">
+                                                            <x-svg.right-arrow-icon stroke="#3db83a" />
+                                                        </span>
+                                                    </a>
+                                                </div> -->
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </section>
+                        <!-- Poupular category Section end  -->
 
 
 
