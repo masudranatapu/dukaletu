@@ -223,7 +223,7 @@ class FrontendController extends Controller
         $ad->increment('total_views');
         $ad = $ad->load(['customer', 'brand', 'adFeatures', 'galleries', 'productCustomFields.customField']);
 
-        $lists = AdResource::collection(Ad::activeCategory()->select(['id', 'title', 'slug', 'price', 'thumbnail', 'category_id', 'region', 'country'])
+        $lists = AdResource::collection(Ad::activeCategory()->select(['id', 'title', 'slug', 'price', 'thumbnail', 'category_id', 'region', 'country', 'user_id'])
             ->with(['category', 'productCustomFields' => function ($q) {
                 $q->select('id', 'ad_id', 'custom_field_id', 'value', 'order')->with(['customField' => function ($q) {
                     $q->select('id', 'name', 'type', 'icon', 'order', 'listable')

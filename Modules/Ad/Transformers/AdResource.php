@@ -22,6 +22,7 @@ class AdResource extends JsonResource
             'title' => $this->title,
             'slug' => $this->slug,
             'phone'=>$this->phone,
+            'user_id'=>$this->user_id,
             'thumbnail' => $this->thumbnail,
             'price' => $this->price,
             'featured' => $this->featured,
