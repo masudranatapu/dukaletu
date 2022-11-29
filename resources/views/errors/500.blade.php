@@ -27,7 +27,7 @@
     <section class="section error text-center">
         <div class="container">
             <div class="error__img-wrapper">
-                <img src="{{ asset($cms->e500_image) }}" alt="error" />
+                <img src="{{ asset($cms->e500_image) }}" style="width:400px" alt="error" />
             </div>
             <h2 class="error__title text--heading-1">{{ __($cms->e500_title) }}</h2>
             <p class="error__brief text--body-3">
@@ -39,12 +39,12 @@
                 </span>
                 {{ __('go_back_home') }}
             </a>
-            <a href="{{ url()->previous() }}" class="error__back-btn btn">
+           <!--  <a href="{{ url()->previous() }}" class="error__back-btn btn">
                 <span class="icon--left">
                     <x-svg.left-arrow-icon stroke="white" />
                 </span>
                 {{ __('back') }}
-            </a>
+            </a> -->
         </div>
     </section>
     <!-- Error section end   -->
