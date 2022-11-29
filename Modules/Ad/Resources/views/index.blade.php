@@ -108,6 +108,7 @@
                                         <option disabled selected>Ads Status</option>
                                         <option value="active">Active</option>
                                         <option value="inactive">Inactive</option>
+                                        <option value="sold">Sold</option>
                                     </select>
                                 </form>
                             </div>

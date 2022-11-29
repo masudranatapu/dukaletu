@@ -64,10 +64,11 @@ class AdController extends Controller
         }
         if($request->ad_status){
             if($request->adsid){
+
+                $adsid = explode(",", $request->adsid);
+
                 if($request->ad_status == 'active'){
-    
-                    $adsid = explode(",", $request->adsid);
-    
+                    
                     Ad::whereIn('id', $adsid)->update([
                         'status' => 'active',
                     ]);
@@ -75,10 +76,17 @@ class AdController extends Controller
                     flashSuccess('Ad Status Successfully Active.');
                     return redirect()->back();
     
+                }elseif ($request->ad_status == 'sold') {
+                    
+                    Ad::whereIn('id', $adsid)->update([
+                        'status' => 'sold',
+                    ]);
+                    
+                    flashSuccess('Ad Status Successfully Sold.');
+                    return redirect()->back();
+                    
                 }else {
-    
-                    $adsid = explode(",", $request->adsid);
-    
+
                     Ad::whereIn('id', $adsid)->update([
                         'status' => 'inactive',
                     ]);
