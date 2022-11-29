@@ -62,7 +62,36 @@ class AdController extends Controller
                 $q->where('slug', $brand);
             });
         }
+        if($request->ad_status){
+            if($request->adsid){
+                if($request->ad_status == 'active'){
+    
+                    $adsid = explode(",", $request->adsid);
+    
+                    Ad::whereIn('id', $adsid)->update([
+                        'status' => 'active',
+                    ]);
+    
+                    flashSuccess('Ad Status Successfully Active.');
+                    return redirect()->back();
+    
+                }else {
+    
+                    $adsid = explode(",", $request->adsid);
+    
+                    Ad::whereIn('id', $adsid)->update([
+                        'status' => 'inactive',
+                    ]);
+                    
+                    flashSuccess('Ad Status Successfully Inactive.');
+                    return redirect()->back();
+                }
+            }else {
+                flashWarning('First select ads to change status');
+                return redirect()->back();
+            }
 
+        };
         // filtering
         if (request()->has('filter_by') && request()->filter_by != null) {
             switch (request()->filter_by) {
@@ -71,6 +100,9 @@ class AdController extends Controller
                     break;
                 case 'active':
                     $query->where('status', 'active');
+                    break;
+                case 'inactive':
+                    $query->where('status', 'inactive');
                     break;
                 case 'pending':
                     $query->where('status', 'pending');
