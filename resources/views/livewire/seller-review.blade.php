@@ -4,9 +4,12 @@
             <h5>Total Review: <span style="color:#108AB1">({{ $total }})</span></h5>
         </div>
         @foreach ($reviews as $review)
+            @php
+                $user = DB::table('users')->where('id', $review->user_id)->first();
+            @endphp
             <div class="review-wrap d-flex">
                 <div class="profile-img" style="position: relative">
-                    <img src="@if($review->user->image) {{ $review->user->image }} @else {{asset('images/default.png')}} @endif" alt="{{ $review->user->name }}" class="seller-image">
+                    <img src="@if($user->image) {{ asset($user->image) }} @else {{asset('images/default.png')}} @endif" alt="{{ $user->name }}" class="seller-image">
                 </div>
                 <div class="review-info">
                     @if ($review->stars)
