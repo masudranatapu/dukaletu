@@ -5,6 +5,10 @@
 @endsection
 
 @section('post-ad-content')
+    @php
+        $adsinfo = DB::table('ads')->where('id', $ad->id)->first();
+        $user_plan = DB::table('user_plans')->where('user_id', Auth::user()->id)->first();
+    @endphp
     <!-- Step 01 -->
     <div class="tab-pane fade show active" id="pills-basic" role="tabpanel" aria-labelledby="pills-basic-tab">
         <div class="dashboard-post__information step-information">
@@ -71,18 +75,24 @@
                         </div>
                     </div>
                     <div class="row">
-                        @if ($ad->featured)
+                        @if ($adsinfo->is_featured == 'yes')
                             <div class="col-lg-3">
                                 <div class="form-check">
                                     <input name="featured" type="hidden" value="0">
-                                    <input {{ $ad->featured == 1 ? 'checked' : '' }} value="1" name="featured"
-                                        type="checkbox" class="form-check-input" id="featured" />
-                                    <x-forms.label name="featured" for="featured" class="form-check-label"
-                                        :required="false" />
+                                    <input {{ $ad->featured == 1 ? 'checked' : '' }} value="1" name="featured" type="checkbox" class="form-check-input" id="featured" />
+                                    <x-forms.label name="featured" for="featured" class="form-check-label" :required="false" />
                                 </div>
                             </div>
                         @else
-                            <input name="featured" type="hidden" value="0">
+                            @if($user_plan->featured_limit > 0)
+                                <div class="col-lg-3">
+                                    <div class="form-check">
+                                        <input name="featured" type="hidden" value="0">
+                                        <input value="1" name="featured" type="checkbox" class="form-check-input" id="featured" />
+                                        <x-forms.label name="featured" for="featured" class="form-check-label" :required="false" />
+                                    </div>
+                                </div>
+                            @endif
                         @endif
                     </div>
                 </div>

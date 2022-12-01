@@ -15,6 +15,7 @@ use Modules\Category\Entities\Category;
 use Modules\CustomField\Entities\CustomField;
 use Modules\CustomField\Entities\ProductCustomField;
 use File;
+use App\Models\UserPlan;
 
 class AdPostController extends Controller
 {
@@ -77,7 +78,6 @@ class AdPostController extends Controller
      */
     public function storePostStep1(Request $request)
     {
-
         $validatedData = $request->validate([
             'title' => 'required|unique:ads,title',
             'price' => 'required|numeric',
@@ -85,16 +85,26 @@ class AdPostController extends Controller
             'subcategory_id' => 'sometimes',
             'brand_id' => 'nullable',
         ]);
+        
+        if($request->featured) {
+            $isfeatured = 'yes';
+        }else {
+            $isfeatured = 'no';
+        }
 
         try {
             if (empty(session('ad'))) {
                 $ad = new Ad();
                 $ad['slug'] = Str::slug($request->title);
+                $ad['featured'] = $request->featured;
+                $ad['is_featured'] = $isfeatured;
                 $ad->fill($validatedData);
                 $request->session()->put('ad', $ad);
             } else {
                 $ad = session('ad');
                 $ad['slug'] = Str::slug($request->title);
+                $ad['featured'] = $request->featured;
+                $ad['is_featured'] = $isfeatured;
                 $ad->fill($validatedData);
                 $request->session()->put('ad', $ad);
             }
@@ -417,6 +427,35 @@ class AdPostController extends Controller
             'category_id' => 'required',
         ]);
 
+        if($ad->is_featured == 'yes'){
+
+            $isfeatured = 'yes';
+            if($request->featured){
+                $checkedfeatured = 1;
+            }else {
+                $checkedfeatured = 0;
+            }
+            
+        }else {
+
+            if($request->featured){
+                $isfeatured = 'yes';
+
+                $userplan = UserPlan::where('user_id', $ad->user_id)->first();
+                UserPlan::where('id', $userplan->id)->update([
+                    'featured_limit' => $userplan->featured_limit - 1,
+                ]);
+
+                $checkedfeatured = 1;
+
+            }else {
+
+                $isfeatured = 'no';
+                $checkedfeatured = 0;
+
+            }
+        }
+
         $ad->update([
             'title' => $request->title,
             'slug' => Str::slug($request->title),
@@ -424,7 +463,8 @@ class AdPostController extends Controller
             'subcategory_id' => $request->subcategory_id,
             'brand_id' => $request->brand_id,
             'price' => $request->price,
-            'featured' => $request->featured,
+            'featured' => $checkedfeatured,
+            'is_featured' => $isfeatured,
         ]);
 
 
