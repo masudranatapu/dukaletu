@@ -100,7 +100,11 @@
                         </div>
                     @endif
                     <div class="seller-details d-flex">
-                        <h2 class="name">{{ $review->user->name }}</h2>
+                        <h2 class="name">
+                            <a href="{{ route('frontend.seller.profile', $review->user->username) }}">
+                                {{ $review->user->name }}
+                            </a>
+                        </h2>
                     </div>
                     <p class="review-text">{{ $review->comment }}</p>
                 </div>
