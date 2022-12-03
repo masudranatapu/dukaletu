@@ -41,7 +41,7 @@
                                 class="@error('price') border-danger @enderror" />
                         </div>
                     </div>
-                    <div class="input-field__group">
+                    {{-- <div class="input-field__group">
                         <div class="input-select">
                             <x-forms.label name="category" for="allCategory" required="true" />
                             <select required name="category_id" id="ad_category"
@@ -52,21 +52,37 @@
                                         value="{{ $category->id }}">{{ $category->name }}</option>
                                 @endforeach
                             </select>
+                        </div> --}}
+                        <div class="input-field__group">
+                            <div class="input-select">
+                                <x-forms.label name="category" for="allCategory" required="true" />
+                                <select required name="category_id" id="ad_category"
+                                    class="form-control select-bg @error('category_id') border-danger @enderror">
+                                    <option value="" hidden>{{ __('select_category') }}</option>
+                                    @foreach ($categories as $category)
+                                        <option {{ $category->id == $ad->category_id ? 'selected' : '' }}
+                                            value="{{ $category->id }}" data-is_show_brand="{{ $category->is_show_brand }}">{{ $category->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="input-select">
+                                <x-forms.label name="subcategory" for="subcategory" required="true" />
+                                <select name="subcategory_id" id="ad_subcategory"
+                                    class="form-control select-bg @error('subcategory_id') border-danger @enderror">
+                                    <option value="" selected>{{ __('select_subcategory') }}</option>
+                                </select>
+                            </div>
+                            
                         </div>
-                        <div class="input-select">
-                            <x-forms.label name="subcategory" for="subcategory" required="true" />
-                            <select name="subcategory_id" id="ad_subcategory"
-                                class="form-control select-bg @error('subcategory_id') border-danger @enderror">
-                                <option value="" selected>{{ __('select_subcategory') }}</option>
-                            </select>
-                        </div>
+                        
                     </div>
-                    <div class="input-field__group">
+                  
+                    <div class="input-field__group" id="brand_div">
                         <div class="input-select">
-                            <x-forms.label name="brand" for="brand" required="" />
+                            <x-forms.label name="brand" for="brand" :required="false" />
                             <select name="brand_id" id="brandd"
                                 class="form-control select-bg @error('brand_id') border-danger @enderror">
-                                <option value="" hidden>{{ __('select_brand') }}</option>
+                                <option value="" >{{ __('select_brand') }}</option>
                                 @foreach ($brands as $brand)
                                     <option {{ $brand->id == $ad->brand_id ? 'selected' : '' }}
                                         value="{{ $brand->id }}">{{ $brand->name }}</option>

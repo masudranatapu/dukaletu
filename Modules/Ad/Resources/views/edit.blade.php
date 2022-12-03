@@ -31,7 +31,7 @@
                                                     <span class="invalid-feedback">{{ $message }}</span>
                                                 @enderror
                                             </div>
-                                            <div class="col-md-6 mb-3">
+                                            {{-- <div class="col-md-6 mb-3">
                                                 <x-forms.label name="brand" required="true" />
                                                 <select name="brand_id"
                                                     class="form-control @error('brand_id') is-invalid @enderror">
@@ -43,7 +43,23 @@
                                                 @error('brand_id')
                                                     <span class="invalid-feedback">{{ $message }}</span>
                                                 @enderror
+                                            </div> --}}
+                                            <div class="col-md-6 mb-3" id="brand_div">
+                                                <x-forms.label name="brand" required="" />
+                                                <select name="brand_id"
+                                                    class="form-control @error('brand_id') is-invalid @enderror">
+                                                    <option value="">Select One</option>
+                                                    @foreach ($brands as $brand)
+                                                        <option {{ $ad->brand_id == $brand->id ? 'selected' : '' }}
+                                                            value="{{ $brand->id }}">{{ $brand->name }}</option>
+                                                    @endforeach
+    
+                                                </select>
+                                                @error('brand_id')
+                                                    <span class="invalid-feedback">{{ $message }}</span>
+                                                @enderror
                                             </div>
+    
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6 mb-3">
@@ -75,13 +91,28 @@
 
 
                                         <div class="row">
-                                            <div class="col-md-6 mb-3">
+                                            {{-- <div class="col-md-6 mb-3">
                                                 <x-forms.label name="category" required="true" />
                                                 <select name="category_id" id="ad_category"
                                                     class="form-control @error('category_id') border-danger @enderror">
                                                     @foreach ($categories as $category)
                                                         <option {{ $category->id == $ad->category_id ? 'selected' : '' }}
                                                             value="{{ $category->id }}">{{ $category->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                                @error('category_id')
+                                                    <span class="invalid-feedback">{{ $message }}</span>
+                                                @enderror
+                                            </div> --}}
+                                            <div class="col-md-6 mb-3">
+                                                <x-forms.label name="category" required="true" />
+                                                <select name="category_id" id="ad_category"
+                                                    class="form-control @error('category_id') border-danger @enderror">
+                                                    @foreach ($categories as $category)
+                                                        <option {{ $category->id == $ad->category_id ? 'selected' : '' }}
+                                                            value="{{ $category->id }}"
+                                                            data-is_show_brand="{{ $category->is_show_brand }}">
+                                                            {{ $category->name }}</option>
                                                     @endforeach
                                                 </select>
                                                 @error('category_id')
@@ -366,6 +397,13 @@
         // Category wise subcategories dropdown
         $('#ad_category').on('change', function() {
             var categoryID = $(this).val();
+            var is_show_brand = $(this).find('option:selected').attr('data-is_show_brand');
+            $('#sub_cat_div').hide();
+            if (is_show_brand == '1') {
+                $('#brand_div').show();
+            } else {
+                $('#brand_div').hide();
+            }
             if (categoryID) {
                 cat_wise_subcat(categoryID);
             }

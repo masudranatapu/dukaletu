@@ -78,12 +78,13 @@ class AdPostController extends Controller
      */
     public function storePostStep1(Request $request)
     {
+        
         $validatedData = $request->validate([
             'title' => 'required|unique:ads,title',
             'price' => 'required|numeric',
             'category_id' => 'required',
             'subcategory_id' => 'sometimes',
-            'brand_id' => 'nullable',
+            'brand_id' => 'sometimes',
         ]);
         
         if($request->featured) {
@@ -96,14 +97,14 @@ class AdPostController extends Controller
             if (empty(session('ad'))) {
                 $ad = new Ad();
                 $ad['slug'] = Str::slug($request->title);
-                $ad['featured'] = $request->featured;
+                $ad['featured'] = $request->featured ?? 0;
                 $ad['is_featured'] = $isfeatured;
                 $ad->fill($validatedData);
                 $request->session()->put('ad', $ad);
             } else {
                 $ad = session('ad');
                 $ad['slug'] = Str::slug($request->title);
-                $ad['featured'] = $request->featured;
+                $ad['featured'] = $request->featured ?? 0;
                 $ad['is_featured'] = $isfeatured;
                 $ad->fill($validatedData);
                 $request->session()->put('ad', $ad);
@@ -213,6 +214,7 @@ class AdPostController extends Controller
      */
     public function storePostStep3(Request $request)
     {
+        //  dd($request->all());
         $maximum_ad_image_limit = setting('maximum_ad_image_limit');
 
         $validatedData = $request->validate([
@@ -425,6 +427,7 @@ class AdPostController extends Controller
             'title' => "required|unique:ads,title,$ad->id",
             'price' => 'required|numeric',
             'category_id' => 'required',
+            'brand_id' => 'sometimes',
         ]);
 
         if($ad->is_featured == 'yes'){
