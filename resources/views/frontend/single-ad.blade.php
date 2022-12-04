@@ -96,17 +96,24 @@
                             </div>
                         </div>
 
-                        <div class="product-item__sidebar-bottom">
+                        <div class="product-item__sidebar-bottom mb-4">
                             <div class="product-item__sidebar-item overview">
                                 {{-- ad overview --}}
                                 <x-frontend.ad-details.ad-overview :ad="$ad" :product_custom_field_groups="$product_custom_field_groups" />
+                            </div>
+                        </div>
 
-                                <p style="display-block;border-bottom: 1px solid #ebeef7"></p>
 
+                        <div class="product-item__sidebar-bottom">
+                            <div class="product-item__sidebar-item overview">
                                 {{-- ad share --}}
                                 <x-frontend.ad-details.ad-share :slug="$ad->slug" />
                             </div>
                         </div>
+
+
+
+
                     </div>
                 </div>
             </div>
