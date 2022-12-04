@@ -99,10 +99,12 @@
                         <div class="product-item__sidebar-bottom mb-4">
                             <div class="product-item__sidebar-item overview">
                                 {{-- ad overview --}}
-                                <x-frontend.ad-details.ad-overview :ad="$ad" :product_custom_field_groups="$product_custom_field_groups" />
+
+                                <x-frontend.ad-details.ad-overview :ad="$ad" />
                             </div>
                         </div>
 
+                              
 
                         <div class="product-item__sidebar-bottom">
                             <div class="product-item__sidebar-item overview">
