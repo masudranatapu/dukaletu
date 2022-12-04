@@ -99,7 +99,7 @@
                         <div class="product-item__sidebar-bottom">
                             <div class="product-item__sidebar-item overview">
                                 {{-- ad overview --}}
-                                <x-frontend.ad-details.ad-overview :ad="$ad" :product_custom_field_groups="$product_custom_field_groups" />
+                                <x-frontend.ad-details.ad-overview :ad="$ad" />
 
                                 <p style="display-block;border-bottom: 1px solid #ebeef7"></p>
 
