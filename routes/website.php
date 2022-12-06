@@ -23,9 +23,14 @@ Route::group(['as' => 'frontend.'], function () {
         Route::get('terms-conditions', 'terms')->name('terms');
         Route::get('get-membership', 'getMembership')->name('getmembership');
         Route::get('price-plan', 'pricePlan')->name('priceplan');
+        Route::get('price-plan-details/{plan_label}', 'pricePlanDetails')->name('priceplanDetails');
         Route::post('plan-purchase', 'planPurchase')->name('planPurchase');
 
-        Route::get('price-plan-details/{plan_label}', 'pricePlanDetails')->name('priceplanDetails');
+        Route::get('sms-price-plan', 'smsPricePlan')->name('smsPricePlan');
+        Route::get('sms-plan-details/{package}', 'smsPlanDetails')->name('smsPriceplanDetails');
+
+
+
         Route::get('contact', 'contact')->name('contact');
         Route::get('ad-list', 'adList')->name('adlist');
         Route::get('/ad/details/{ad:slug}', 'adDetails')->name('addetails');

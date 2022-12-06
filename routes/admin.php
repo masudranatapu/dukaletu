@@ -14,6 +14,8 @@ use App\Http\Controllers\Admin\CmsSettingController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\Auth\ResetPasswordController;
 use App\Http\Controllers\Admin\Auth\ForgotPasswordController;
+use App\Http\Controllers\AdminSms;
+use App\Http\Controllers\SmsPackageController;
 
 Route::prefix('admin')->group(function () {
     Route::middleware(['guest:admin'])->group(function () {
@@ -35,6 +37,9 @@ Route::prefix('admin')->group(function () {
             Route::get('/dashboard', 'dashboard')->name('admin.dashboard');
             Route::post('/admin/search', 'search')->name('admin.search');
         });
+
+
+
 
         //Profile Route
         Route::controller(ProfileController::class)->group(function () {
@@ -167,6 +172,12 @@ Route::prefix('admin')->group(function () {
             Route::put('/coming-soon', 'updateComingSoon')->name('admin.comingsoon.update');
             Route::put('/maintenance', 'updateMaintenance')->name('admin.maintenance.update');
             Route::put('/errorpages', 'updateErrorPages')->name('admin.errorpages.update');
+        });
+
+        Route::prefix('/sms')->name('admin.sms.')->group(function () {
+            Route::get('/', [AdminSms::class, 'index'])->name('dashboard');
+            Route::resource('/package', SmsPackageController::class);
+            Route::post('/package-staus-change', [SmsPackageController::class, 'statusChange'])->name('statusChange');
         });
     });
 });

@@ -19,6 +19,7 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Http\Controllers\Controller;
 use App\Http\Traits\PaymentTrait;
 use App\Models\MobileValidation;
+use App\Models\SmsPackage;
 use App\Models\UserPlan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
@@ -305,6 +306,7 @@ class FrontendController extends Controller
     }
 
 
+
     public function planPurchase(Request $request)
     {
 
@@ -323,6 +325,21 @@ class FrontendController extends Controller
         }
         DB::commit();
         return redirect()->route('frontend.dashboard');
+    }
+
+
+
+    public function smsPricePlan()
+    {
+
+
+        $packages = SmsPackage::where('status', true)->get();
+        return view('frontend.sms-price-plan', compact('packages'));
+    }
+    public function smsPlanDetails(SmsPackage $package)
+    {
+
+        return view('frontend.sms-plan-details', compact('package'));
     }
 
     /**

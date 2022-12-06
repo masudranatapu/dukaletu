@@ -95,7 +95,12 @@
                             {{ __('map') }}
                         </x-admin.sidebar-list>
                     @endif
-                    
+
+
+                    <x-admin.sidebar-list :linkActive="Route::is('admin.sms.*') ? true : false" route="admin.sms.dashboard" icon="fas fa-sms">
+                        {{ __('Sms') }}</x-admin.sidebar-list>
+
+
 
 
                     <li class="nav-header">{{ __('others') }}</li>
@@ -129,8 +134,11 @@
                                     </ul>
                                 @endif
 
+
                             </x-sidebar-dropdown>
+
                         @endif
+
                     @endif
 
                     {{-- Blog and Tag --}}
@@ -193,6 +201,7 @@
                             {{ __('pending_ads') }}
                         </button>
                     @endif
+
                 </ul>
             </nav>
             <!-- Sidebar Menu -->
@@ -222,6 +231,7 @@
                             @csrf
                         </form>
                     </li>
+
                 </ul>
             </nav>
         </div>
