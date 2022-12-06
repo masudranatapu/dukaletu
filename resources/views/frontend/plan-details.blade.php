@@ -343,6 +343,7 @@
             @csrf
             <input type="hidden" name="plan_id" value="{{ $plan->id }}">
             <input type="hidden" name="amount" value="{{ $plan->price }}">
+            <input type="hidden" name="type" value="plan">
         </form>
 
 

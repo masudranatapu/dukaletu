@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
 
 @section('title')
-    {{ __('Slider') }}
+    {{ __('Package Create') }}
 @endsection
 
 @section('breadcrumbs')
@@ -55,6 +55,15 @@
                                         <label for="name">Amount of Sms</label>
                                         <input type="number" name="amount" id="amount" class="form-control">
                                         @error('amount')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="name">Validity (in Days)</label>
+                                        <input type="number" name="validity" id="validity" class="form-control">
+                                        @error('validity')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>

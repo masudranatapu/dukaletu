@@ -21,6 +21,8 @@ use App\Http\Traits\PaymentTrait;
 use App\Models\MobileValidation;
 use App\Models\SmsPackage;
 use App\Models\UserPlan;
+use App\Models\UserSmsPlan;
+use App\Models\UserSmsStock;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use Modules\Faq\Entities\FaqCategory;
@@ -338,6 +340,8 @@ class FrontendController extends Controller
     }
     public function smsPlanDetails(SmsPackage $package)
     {
+
+
 
         return view('frontend.sms-plan-details', compact('package'));
     }

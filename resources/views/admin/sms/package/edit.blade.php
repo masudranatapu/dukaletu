@@ -63,6 +63,17 @@
                                         @enderror
                                     </div>
                                 </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="name">Validity (in Days)</label>
+                                        <input type="number" name="validity" id="validity"
+                                            value="{{ $package->validity }}" class="form-control">
+                                        @error('validity')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+
                                 <div class="col-md-1">
                                     <label for="status">Status</label>
                                     <div class="form-group ">

@@ -93,6 +93,7 @@
         @csrf
         <input type="hidden" name="plan_id" value="{{ $package->id }}">
         <input type="hidden" name="amount" value="{{ $package->price }}">
+        <input type="hidden" name="type" value="smsType">
     </form>
 @endsection
 @section('frontend_script')
