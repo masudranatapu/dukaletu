@@ -60,15 +60,15 @@
                             <div class="dashboard-card dashboard-card--benefits">
                                 <h2 class="dashboard-card__title">{{ __('plan_benefits') }}</h2>
                                 <ul class="dashboard__benefits">
-                                    <li class="dashboard__benefits-left">
+
+                                    <li class="dashboard__benefits-right">
                                         <ul>
                                             <li class="dashboard__benefits-item">
                                                 <span class="icon">
                                                     <x-svg.check-icon width="12" height="12" stroke="#3db83a" />
                                                 </span>
                                                 <p class="text--body-4">{{ __('ads_remaining') }}
-                                                    <span
-                                                        class="{{ $plan_info->ad_limit <= 5 ? 'text-danger' : 'text-success' }}">{{ $plan_info->ad_limit }}</span>
+                                                    <span class="text-success">{{ Auth::user()->user_sms_stock }}</span>
                                                 </p>
                                             </li>
                                         </ul>
@@ -79,19 +79,12 @@
                                                 <span class="icon">
                                                     <x-svg.check-icon width="12" height="12" stroke="#3db83a" />
                                                 </span>
-                                                <p class="text--body-4">{{ __('featured_ads_remaining') }}
-                                                    <span
-                                                        class="{{ $plan_info->featured_limit <= 2 ? 'text-danger' : 'text-success' }}">{{ $plan_info->featured_limit }}</span>
+                                                <p class="text--body-4">{{ __('package_name') }}
+                                                    <span class="text-danger">{{ $currentPackage->plan->name }}</span>
                                                 </p>
                                             </li>
-                                            @if ($plan_info->badge)
-                                                <li class="dashboard__benefits-item">
-                                                    <span class="icon">
-                                                        <x-svg.check-icon width="12" height="12" stroke="#3db83a" />
-                                                    </span>
-                                                    <p class="text--body-4">{{ __('special_membership_badge') }}</p>
-                                                </li>
-                                            @endif
+
+
                                         </ul>
                                     </li>
                                 </ul>
@@ -117,35 +110,52 @@
 
                     <div class="row dashboard__bill-three">
                         <div class="col-lg-12">
-                            <div class="invoice-table">
-                                <h4>{{ __('recent_invoice') }}</h4>
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>{{ __('order_id') }}</th>
-                                            <th>{{ __('plan_type') }}</th>
-                                            <th>{{ __('payment_provider') }}</th>
-                                            <th>{{ __('amount') }}</th>
-                                            <th>{{ __('date') }}</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {{-- @forelse ($transactions as $transaction)
-                                            <tr>
-                                                <td>{{ $transaction->order_id }}</td>
-                                                <td>{{ $transaction->plan->label }}</td>
-                                                <td>{{ ucfirst($transaction->payment_provider) }}</td>
-                                                <td>
-                                                    {{ $transaction->currency_symbol }}{{ $transaction->amount }}
-                                                </td>
-                                                <td>{{ Carbon\Carbon::parse($transaction->created_at)->format('M d, Y g:i A') }}
-                                                </td>
-                                            </tr>
-                                        @empty
-                                            <x-not-found2 message="{{ __('no_recent_invoice_found') }}" />
-                                        @endforelse --}}
-                                    </tbody>
-                                </table>
+                            <div class="dashboard-post m-0">
+
+                                <div class="tab-content dashboard-post__content" id="pills-tabContent">
+                                    <!-- Step 01 -->
+                                    <div class="tab-pane fade show active" id="pills-basic" role="tabpanel"
+                                        aria-labelledby="pills-basic-tab">
+                                        <div class="dashboard-post__information step-information">
+                                            <form action="{{ route('frontend.smsMarketing.sendSms') }}" method="POST">
+                                                @csrf
+                                                <div class="dashboard-post__information-form">
+                                                    <div class="input-field__group">
+                                                        <div class="input-field">
+                                                            <label class="" for="adname">
+                                                                Phone Number
+
+                                                                <span class="form-label-required text-danger">*</span>
+
+
+                                                            </label>
+                                                            <input required="" value="" name="phone"
+                                                                type="number" placeholder="Phone Number" id="adname"
+                                                                class="">
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="input-field__group">
+                                                        <div class="input-field--textarea">
+                                                            <x-forms.label name="Marketing Content" for="description" />
+                                                            <textarea required name="description" placeholder="{{ __('whats_your_thought') }}..." id="description"
+                                                                class="@error('description') border-danger @enderror"></textarea>
+                                                        </div>
+                                                    </div>
+
+
+                                                </div>
+                                                <div class="text-light">
+
+                                                    <button type="submit" class="btn btn--lg">
+                                                        Send
+
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

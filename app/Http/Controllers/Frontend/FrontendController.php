@@ -38,6 +38,8 @@ use Modules\CustomField\Entities\ProductCustomField;
 
 class FrontendController extends Controller
 {
+
+
     use PaymentTrait;
 
     /**
@@ -334,16 +336,22 @@ class FrontendController extends Controller
     public function smsPricePlan()
     {
 
+        if (!Auth::check()) {
+            return redirect()->route('users.login');
+        } else {
 
-        $packages = SmsPackage::where('status', true)->get();
-        return view('frontend.sms-price-plan', compact('packages'));
+            $packages = SmsPackage::where('status', true)->get();
+            return view('frontend.sms-price-plan', compact('packages'));
+        }
     }
     public function smsPlanDetails(SmsPackage $package)
     {
 
-
-
-        return view('frontend.sms-plan-details', compact('package'));
+        if (!Auth::check()) {
+            return redirect()->route('users.login');
+        } else {
+            return view('frontend.sms-plan-details', compact('package'));
+        }
     }
 
     /**

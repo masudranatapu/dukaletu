@@ -1048,5 +1048,11 @@
     "sms_price_plan": "Sms Price Plan",
     "package_details": "Package Details",
     "package_details_and_benefits": "Package Details And Benefits",
-    "current_package_benefits": "Current Package Benefits"
+    "current_package_benefits": "Current Package Benefits",
+    "remain_sms": "Remain SMS",
+    "sms_paln_billing": "SMS Plan & Billing",
+    "package_name": "Package Name",
+    "sms_used": "Sms Used",
+    "user_sms_package": "User Sms Package",
+    "sms_left": "SMS Left"
 }

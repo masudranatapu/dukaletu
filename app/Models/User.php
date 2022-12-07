@@ -84,7 +84,7 @@ class User extends Authenticatable implements JWTSubject
     public function setNameAttribute($value)
     {
         $this->attributes['name'] = $value;
-        $this->attributes['username'] = Str::slug($value).'_'.time();
+        $this->attributes['username'] = Str::slug($value) . '_' . time();
     }
 
 
@@ -140,5 +140,10 @@ class User extends Authenticatable implements JWTSubject
     public function deviceToken()
     {
         return $this->hasMany(UserDeviceToken::class, 'user_id', 'id');
+    }
+
+    public function smsPlan(): HasOne
+    {
+        return $this->hasOne(SmsPackage::class, 'id', 'sms_plan_id');
     }
 }

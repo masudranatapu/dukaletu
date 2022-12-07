@@ -74,7 +74,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-1">
+                                {{-- <div class="col-md-1">
                                     <label for="status">Status</label>
                                     <div class="form-group ">
                                         <input type="checkbox" data-on-color="success" data-off-color="danger"
@@ -84,7 +84,7 @@
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="col-md-12 d-flex justify-content-center">
                                     <button type="submit" class="btn btn-success">Save</button>
                                 </div>

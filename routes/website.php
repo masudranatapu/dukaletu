@@ -10,6 +10,7 @@ use App\Http\Controllers\Frontend\DashboardController;
 use App\Http\Controllers\Frontend\SellerDashboardController;
 use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\PaymentsController;
+use App\Http\Controllers\SmsMarketingController;
 
 // show website pages
 Route::group(['as' => 'frontend.'], function () {
@@ -98,7 +99,7 @@ Route::group(['as' => 'frontend.'], function () {
             Route::put('active-ad/{ad}', 'markActive')->name('myad.active');
             Route::get('favourites', 'favourites')->name('favourites');
             Route::get('plans-billing', 'plansBilling')->name('plans-billing');
-            Route::get('sms-marketing', 'marketing')->name('sms-marketing');
+            Route::get('sms-plan-billing', 'smsPlanBiling')->name('sms-plan-billing');
             Route::get('cancel/plan', 'cancelPlan')->name('cancel-plan');
             Route::get('account-setting', 'accountSetting')->name('account-setting');
             Route::put('profile', 'profileUpdate')->name('profile');
@@ -106,7 +107,11 @@ Route::group(['as' => 'frontend.'], function () {
             Route::put('social', 'socialUpdate')->name('social.update');
             Route::post('wishlist', 'addToWishlist')->name('add.wishlist');
             Route::delete('account-delete/{customer}', 'deleteAccount')->name('account.delete');
+
+
+            Route::get('sms-marketing', 'marketing')->name('sms-marketing');
         });
+        Route::post('sms/send', [SmsMarketingController::class, 'sendSms'])->name('smsMarketing.sendSms');
 
         Route::get('expired-plan', [DashboardController::class, 'expiredPlan'])->name('expiredPlan');
     });

@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Actions\Frontend\ProfileUpdate;
 use App\Models\Setting;
+use App\Models\SmsMarketing;
+use App\Models\UserSmsPlan;
 use Modules\Category\Entities\Category;
 use Modules\Wishlist\Entities\Wishlist;
 use App\Notifications\AdDeleteNotification;
@@ -180,6 +182,7 @@ class DashboardController extends Controller
 
         $data['plan_info'] = UserPlan::customerData()->firstOrFail();
         $data['transactions'] = Transaction::with('plan')->customerData()->latest()->get()->take(5);
+
 
         return view('frontend.plans-billing', $data);
     }
@@ -389,7 +392,10 @@ class DashboardController extends Controller
     {
 
 
+
         $data['user_plan'] = session('user_plan');
+        $data['currentPackage'] = UserSmsPlan::with('plan')->where('user_id', Auth::id())->orderBy('id', 'desc')->first();
+
 
         if ($data['user_plan']->subscription_type == 'recurring' && $data['user_plan']->current_plan_id) {
             $data['user_plan'] = $data['user_plan'];
@@ -403,5 +409,15 @@ class DashboardController extends Controller
     public function expiredPlan()
     {
         return view('frontend.add-plan');
+    }
+
+
+
+    public function smsPlanBiling()
+    {
+        $currentPackage = UserSmsPlan::with('plan')->where('user_id', Auth::id())->orderBy('id', 'desc')->first();
+
+        $transactions = Transaction::with('package')->whereNotNull('sms_plan_id')->where('user_id', Auth()->id())->latest()->get()->take(5);
+        return view('frontend.sms-plan-billing', compact('transactions', 'currentPackage'));
     }
 }

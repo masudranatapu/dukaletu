@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\SmsPackage;
 use Illuminate\Http\Request;
 
@@ -39,15 +40,17 @@ class SmsPackageController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'price' => 'required',
-            'amount' => 'required',
+            'price' => 'required|numeric',
+            'amount' => 'required|numeric',
+            'validity' => 'required|numeric',
 
         ]);
         $smsPackage = new SmsPackage();
         $smsPackage->name = $request->name;
         $smsPackage->price = $request->price;
         $smsPackage->amount_of_sms = $request->amount;
-        $smsPackage->status = isset($request->status) ? true : false;
+        $smsPackage->status = true;
+        $smsPackage->validity = $request->validity;
         $smsPackage->save();
         flashSuccess('Package Save Successfully');
         return redirect()->route('admin.sms.package.index');
@@ -87,15 +90,18 @@ class SmsPackageController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'price' => 'required',
-            'amount' => 'required',
+            'price' => 'required|numeric',
+            'amount' => 'required|numeric',
+            'validity' => 'required|numeric',
 
         ]);
 
         $package->name = $request->name;
         $package->price = $request->price;
         $package->amount_of_sms = $request->amount;
-        $package->status = isset($request->status) ? true : false;
+        $package->status = true;
+        $package->validity = $request->validity;
+
         $package->save();
         flashSuccess('Package Updated Successfully');
         return redirect()->route('admin.sms.package.index');

@@ -92,8 +92,17 @@
                 </a>
             </li>
             <li class="dashboard__nav-item">
+                <a href="{{ route('frontend.sms-plan-billing') }}"
+                    class="dashboard__nav-link  {{ request()->routeIs('frontend.sms-plan-billing') ? 'active' : '' }}">
+                    <span class="icon">
+                        <x-svg.message-icon width="24" height="24" stroke="currentColor" />
+                    </span>
+                    {{ __('sms_paln_billing') }}
+                </a>
+            </li>
+            <li class="dashboard__nav-item">
                 {{-- <a href="{{ route('frontend.sms-marketing') }}" --}}
-                <a onclick="return confirm('Coming...')" href="#"
+                <a href="{{ route('frontend.sms-marketing') }}"
                     class="dashboard__nav-link  {{ request()->routeIs('frontend.sms-marketing') ? 'active' : '' }}">
                     <span class="icon">
                         <x-svg.message-icon width="24" height="24" stroke="currentColor" />

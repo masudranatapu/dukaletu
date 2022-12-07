@@ -10,6 +10,7 @@ use App\Models\Transaction;
 use Illuminate\Http\Request;
 use App\Http\Traits\PaymentTrait;
 use App\Models\SmsPackage;
+use App\Models\User;
 use App\Models\UserSmsPlan;
 use App\Models\UserSmsStock;
 use Illuminate\Support\Facades\Auth;
@@ -131,6 +132,9 @@ class PaymentsController extends Controller
             } else {
                 $package = SmsPackage::where('id', $payments->sms_plan_id)->first();
 
+                $user = User::find(Auth::id());
+                $user->sms_plan_id = $package->id;
+                $user->save();
 
                 $userSmsPlan = new UserSmsPlan();
                 $userSmsPlan->sms_plan_id = $package->id;
@@ -140,7 +144,7 @@ class PaymentsController extends Controller
                 $userSmsStock = new UserSmsStock();
                 $userSmsStock->user_id = Auth::id();
                 $userSmsStock->stock = $package->amount_of_sms;
-                $userSmsStock->status = "in";
+                $userSmsStock->status = "In";
                 $userSmsStock->save();
                 return redirect()->route('frontend.dashboard')->with('success', 'Payment successfully done');
             }
@@ -156,6 +160,11 @@ class PaymentsController extends Controller
                 return redirect()->route('frontend.plans-billing')->with('success', 'Payment successfully done');
             } else {
                 $package = SmsPackage::where('id', $payments->sms_plan_id)->first();
+
+                $user = User::find(Auth::id());
+                $user->sms_plan_id = $package->id;
+                $user->save();
+
 
 
                 $userSmsPlan = new UserSmsPlan();
