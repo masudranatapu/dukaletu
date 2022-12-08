@@ -30,75 +30,84 @@
                     @include('layouts.frontend.partials.dashboard-sidebar')
                 </div>
                 <div class="col-xl-9">
-                    <div class="row dashboard__bill-two">
-                        <div class="col-lg-12">
-                            <div class="dashboard-card dashboard-card--benefits">
-                                <h2 class="dashboard-card__title">{{ __('plan_benefits') }}</h2>
-                                <ul class="dashboard__benefits">
-                                    <li class="dashboard__benefits-left">
-                                        <ul>
-                                            <li class="dashboard__benefits-item">
-                                                <span class="icon">
-                                                    <x-svg.check-icon width="12" height="12" stroke="#3db83a" />
-                                                </span>
-                                                <p class="text--body-4">{{ __('ads_remaining') }}
-                                                    <span class="text-success">{{ Auth::user()->user_sms_stock }}</span>
-                                                </p>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="dashboard__benefits-right">
-                                        <ul>
-                                            <li class="dashboard__benefits-item">
-                                                <span class="icon">
-                                                    <x-svg.check-icon width="12" height="12" stroke="#3db83a" />
-                                                </span>
-                                                <p class="text--body-4">{{ __('package_name') }}
-                                                    <span class="text-danger">{{ $currentPackage->plan->name }}</span>
-                                                </p>
-                                            </li>
+
+                    @if (isset($currentPackage->smsPlan))
+
+                        <div class="row dashboard__bill-two">
+                            <div class="col-lg-12">
+                                <div class="dashboard-card dashboard-card--benefits">
+                                    <h2 class="dashboard-card__title">{{ __('plan_benefits') }}</h2>
+                                    <ul class="dashboard__benefits">
+                                        <li class="dashboard__benefits-left">
+                                            <ul>
+                                                <li class="dashboard__benefits-item">
+                                                    <span class="icon">
+                                                        <x-svg.check-icon width="12" height="12" stroke="#3db83a" />
+                                                    </span>
+                                                    <p class="text--body-4">{{ __('ads_remaining') }}
+                                                        <span class="text-success">{{ Auth::user()->user_sms_stock }}</span>
+                                                    </p>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="dashboard__benefits-right">
+                                            <ul>
+                                                <li class="dashboard__benefits-item">
+                                                    <span class="icon">
+                                                        <x-svg.check-icon width="12" height="12" stroke="#3db83a" />
+                                                    </span>
+                                                    <p class="text--body-4">{{ __('package_name') }}
+                                                        <span
+                                                            class="text-danger">{{ $currentPackage->smsPlan->name }}</span>
+                                                    </p>
+                                                </li>
 
 
-                                        </ul>
-                                    </li>
-                                </ul>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
 
 
-                    <div class="row dashboard__bill-three">
-                        <div class="col-lg-12">
-                            <div class="invoice-table">
-                                <h4>{{ __('recent_invoice') }}</h4>
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>{{ __('order_id') }}</th>
-                                            <th>{{ __('plan_type') }}</th>
-                                            <th>{{ __('payment_provider') }}</th>
-                                            <th>{{ __('amount') }}</th>
-                                            <th>{{ __('date') }}</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-
-                                        @foreach ($transactions as $transaction)
+                        <div class="row dashboard__bill-three">
+                            <div class="col-lg-12">
+                                <div class="invoice-table">
+                                    <h4>{{ __('recent_invoice') }}</h4>
+                                    <table>
+                                        <thead>
                                             <tr>
-                                                <td>{{ $transaction->order_id }}</td>
-                                                <td>{{ $transaction->package->name }}</td>
-                                                <td>{{ ucfirst($transaction->payment_provider) }}</td>
-                                                <td>{{ $transaction->amount }}</td>
-                                                <td>{{ Carbon\Carbon::parse($transaction->created_at)->format('M d, Y g:i A') }}
-                                                </td>
+                                                <th>{{ __('order_id') }}</th>
+                                                <th>{{ __('plan_type') }}</th>
+                                                <th>{{ __('payment_provider') }}</th>
+                                                <th>{{ __('amount') }}</th>
+                                                <th>{{ __('date') }}</th>
                                             </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
+                                        </thead>
+                                        <tbody>
+
+                                            @foreach ($transactions as $transaction)
+                                                <tr>
+                                                    <td>{{ $transaction->order_id }}</td>
+                                                    <td>{{ $transaction->package->name }}</td>
+                                                    <td>{{ ucfirst($transaction->payment_provider) }}</td>
+                                                    <td>{{ $transaction->amount }}</td>
+                                                    <td>{{ Carbon\Carbon::parse($transaction->created_at)->format('M d, Y g:i A') }}
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    @else
+                        <div class="text-center">
+                            <a href="{{ route('frontend.smsPricePlan') }}" class="btn">Purchesed Package</a>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>

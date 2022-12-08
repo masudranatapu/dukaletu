@@ -393,17 +393,10 @@ class DashboardController extends Controller
 
 
 
-        $data['user_plan'] = session('user_plan');
-        $data['currentPackage'] = UserSmsPlan::with('plan')->where('user_id', Auth::id())->orderBy('id', 'desc')->first();
 
 
-        if ($data['user_plan']->subscription_type == 'recurring' && $data['user_plan']->current_plan_id) {
-            $data['user_plan'] = $data['user_plan'];
-            $data['current_plan'] = Plan::find($data['user_plan']->current_plan_id);
-        }
-
-
-        $data['plan_info'] = UserPlan::customerData()->firstOrFail();
+        $data['currentPackage'] = User::with('smsPlan')->where('id', Auth::id())->first();
+        // dd($data['currentPackage']);
         return view('frontend.sms-merketing', $data);
     }
     public function expiredPlan()
@@ -415,7 +408,7 @@ class DashboardController extends Controller
 
     public function smsPlanBiling()
     {
-        $currentPackage = UserSmsPlan::with('plan')->where('user_id', Auth::id())->orderBy('id', 'desc')->first();
+        $currentPackage = User::with('smsPlan')->where('id', Auth::id())->first();
 
         $transactions = Transaction::with('package')->whereNotNull('sms_plan_id')->where('user_id', Auth()->id())->latest()->get()->take(5);
         return view('frontend.sms-plan-billing', compact('transactions', 'currentPackage'));

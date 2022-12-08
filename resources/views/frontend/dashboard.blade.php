@@ -117,7 +117,8 @@
                                 <div class="col-lg-4">
                                     <div class="dashboard-card dashboard-card--count bgcolor--primary-9">
                                         <div class="dashboard-card--count__info">
-                                            <span class="counter-number text--heading-2"> {{ $user_plan->featured_limit }}
+                                            <span class="counter-number text--heading-2">
+                                                {{ Auth::user()->user_sms_stock }}
                                             </span>
                                             <h2 class="counter-title text--body-3">{{ __('remain_sms') }}</h2>
                                         </div>

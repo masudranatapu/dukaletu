@@ -30,135 +30,120 @@
                     @include('layouts.frontend.partials.dashboard-sidebar')
                 </div>
                 <div class="col-xl-9">
-                    @if ($user_plan->subscription_type == 'recurring' && isset($current_plan))
-                        <div class="dashboard-card dashboard__upgrade">
-                            <h2 class="dashboard-card__title">{{ __('current_plan') }}</h2>
-                            <div class="dashboard__upgrade-content">
-                                <div class="info">
-                                    <h2 class="text--heading-1">{{ $current_plan->label }}</h2>
-                                    <p
-                                        class="text--body-3 {{ formatDateTime($user_plan->expired_date)->isPast() ? 'text-danger' : 'text-success' }}">
-                                        {{ __('expired_date') }}:
-                                        {{ formatDate($user_plan->expired_date, 'M d, Y') }}
-                                    </p>
-                                </div>
-                                <div class="action">
-                                    @if (!formatDateTime($user_plan->expired_date)->isPast())
-                                        <a onclick="return confirm('{{ __('are_you_sure_to_cancel_plan') }} ? {{ __('it_will_restore_current_plan_benefits') }}.')"
-                                            class="btn btn--outline"
-                                            href="{{ route('frontend.cancel-plan') }}">{{ __('cancel_plan') }}</a>
-                                    @endif
-                                    <a href="{{ route('frontend.priceplan') }}"
-                                        class="btn text-light">{{ __('upgrade_plan') }}</a>
+                    @if (isset($currentPackage->smsPlan))
+
+
+                        <div class="row dashboard__bill-two">
+                            <div class="col-lg-12">
+                                <div class="dashboard-card dashboard-card--benefits">
+                                    <h2 class="dashboard-card__title">{{ __('plan_benefits') }}</h2>
+                                    <ul class="dashboard__benefits">
+
+                                        <li class="dashboard__benefits-right">
+                                            <ul>
+                                                <li class="dashboard__benefits-item">
+                                                    <span class="icon">
+                                                        <x-svg.check-icon width="12" height="12" stroke="#3db83a" />
+                                                    </span>
+                                                    <p class="text--body-4">{{ __('ads_remaining') }}
+                                                        <span
+                                                            class="text-success">{{ Auth::user()->user_sms_stock ?? 0 }}</span>
+                                                    </p>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="dashboard__benefits-right">
+                                            <ul>
+                                                <li class="dashboard__benefits-item">
+                                                    <span class="icon">
+                                                        <x-svg.check-icon width="12" height="12" stroke="#3db83a" />
+                                                    </span>
+                                                    <p class="text--body-4">{{ __('package_name') }}
+                                                        <span
+                                                            class="text-danger">{{ $currentPackage->smsPlan->name }}</span>
+                                                    </p>
+                                                </li>
+
+
+                                            </ul>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
+                            @if ($setting->subscription_type == 'one_time')
+                                <div class="col-lg-5">
+                                    <div class="dashboard-card dashboard-card--invoice">
+                                        <h2 class="dashboard-card__title">{{ __('upgrade_plan') }}</h2>
+                                        <div class="dashboard-card--invoice-info">
+                                            <div class="action">
+                                                <a href="{{ route('frontend.priceplan') }}"
+                                                    class="btn">{{ __('upgrade_plan') }}</a>
+                                            </div>
+                                        </div>
+                                        <span class="dashboard-card--invoice__icon">
+                                            <x-svg.invoice-icon />
+                                        </span>
+                                    </div>
+                                </div>
+                            @endif
+                        </div>
+
+                        <div class="row dashboard__bill-three">
+                            <div class="col-lg-12">
+                                <div class="dashboard-post m-0">
+
+                                    <div class="tab-content dashboard-post__content" id="pills-tabContent">
+                                        <!-- Step 01 -->
+                                        <div class="tab-pane fade show active" id="pills-basic" role="tabpanel"
+                                            aria-labelledby="pills-basic-tab">
+                                            <div class="dashboard-post__information step-information">
+                                                <form action="{{ route('frontend.smsMarketing.sendSms') }}" method="POST">
+                                                    @csrf
+                                                    <div class="dashboard-post__information-form">
+                                                        <div class="input-field__group">
+                                                            <div class="input-field">
+                                                                <label class="" for="adname">
+                                                                    Phone Number
+
+                                                                    <span class="form-label-required text-danger">*</span>
+
+
+                                                                </label>
+                                                                <input required="" value="" name="phone"
+                                                                    type="number" placeholder="Phone Number" id="adname"
+                                                                    class="">
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="input-field__group">
+                                                            <div class="input-field--textarea">
+                                                                <x-forms.label name="Marketing Content" for="description" />
+                                                                <textarea required name="description" placeholder="{{ __('whats_your_thought') }}..." id="description"
+                                                                    class="@error('description') border-danger @enderror"></textarea>
+                                                            </div>
+                                                        </div>
+
+
+                                                    </div>
+                                                    <div class="text-light">
+
+                                                        <button type="submit" class="btn btn--lg">
+                                                            Send
+
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @else
+                        <div class="text-center">
+                            <a href="{{ route('frontend.smsPricePlan') }}" class="btn">Purchase Package</a>
                         </div>
                     @endif
-
-                    <div class="row dashboard__bill-two">
-                        <div class="col-lg-{{ $setting->subscription_type == 'one_time' ? '7' : '12' }}">
-                            <div class="dashboard-card dashboard-card--benefits">
-                                <h2 class="dashboard-card__title">{{ __('plan_benefits') }}</h2>
-                                <ul class="dashboard__benefits">
-
-                                    <li class="dashboard__benefits-right">
-                                        <ul>
-                                            <li class="dashboard__benefits-item">
-                                                <span class="icon">
-                                                    <x-svg.check-icon width="12" height="12" stroke="#3db83a" />
-                                                </span>
-                                                <p class="text--body-4">{{ __('ads_remaining') }}
-                                                    <span class="text-success">{{ Auth::user()->user_sms_stock }}</span>
-                                                </p>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="dashboard__benefits-right">
-                                        <ul>
-                                            <li class="dashboard__benefits-item">
-                                                <span class="icon">
-                                                    <x-svg.check-icon width="12" height="12" stroke="#3db83a" />
-                                                </span>
-                                                <p class="text--body-4">{{ __('package_name') }}
-                                                    <span class="text-danger">{{ $currentPackage->plan->name }}</span>
-                                                </p>
-                                            </li>
-
-
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        @if ($setting->subscription_type == 'one_time')
-                            <div class="col-lg-5">
-                                <div class="dashboard-card dashboard-card--invoice">
-                                    <h2 class="dashboard-card__title">{{ __('upgrade_plan') }}</h2>
-                                    <div class="dashboard-card--invoice-info">
-                                        <div class="action">
-                                            <a href="{{ route('frontend.priceplan') }}"
-                                                class="btn">{{ __('upgrade_plan') }}</a>
-                                        </div>
-                                    </div>
-                                    <span class="dashboard-card--invoice__icon">
-                                        <x-svg.invoice-icon />
-                                    </span>
-                                </div>
-                            </div>
-                        @endif
-                    </div>
-
-                    <div class="row dashboard__bill-three">
-                        <div class="col-lg-12">
-                            <div class="dashboard-post m-0">
-
-                                <div class="tab-content dashboard-post__content" id="pills-tabContent">
-                                    <!-- Step 01 -->
-                                    <div class="tab-pane fade show active" id="pills-basic" role="tabpanel"
-                                        aria-labelledby="pills-basic-tab">
-                                        <div class="dashboard-post__information step-information">
-                                            <form action="{{ route('frontend.smsMarketing.sendSms') }}" method="POST">
-                                                @csrf
-                                                <div class="dashboard-post__information-form">
-                                                    <div class="input-field__group">
-                                                        <div class="input-field">
-                                                            <label class="" for="adname">
-                                                                Phone Number
-
-                                                                <span class="form-label-required text-danger">*</span>
-
-
-                                                            </label>
-                                                            <input required="" value="" name="phone"
-                                                                type="number" placeholder="Phone Number" id="adname"
-                                                                class="">
-                                                        </div>
-
-                                                    </div>
-                                                    <div class="input-field__group">
-                                                        <div class="input-field--textarea">
-                                                            <x-forms.label name="Marketing Content" for="description" />
-                                                            <textarea required name="description" placeholder="{{ __('whats_your_thought') }}..." id="description"
-                                                                class="@error('description') border-danger @enderror"></textarea>
-                                                        </div>
-                                                    </div>
-
-
-                                                </div>
-                                                <div class="text-light">
-
-                                                    <button type="submit" class="btn btn--lg">
-                                                        Send
-
-                                                    </button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
