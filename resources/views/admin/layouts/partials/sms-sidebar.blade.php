@@ -26,7 +26,7 @@
 
                         <x-admin.sidebar-list :linkActive="Route::is('admin.sms.userPackage.*') ? true : false" route="admin.sms.userPackage.index"
                             icon="fas fa-money-check-alt">
-                            {{ __('user_sms_package') }}</x-admin.sidebar-list>
+                            {{ __('user_sms_history') }}</x-admin.sidebar-list>
                     </li>
 
                 </ul>

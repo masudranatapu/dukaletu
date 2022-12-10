@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
 
 @section('title')
-    {{ __('Sms Package') }}
+    {{ __('User Sms History') }}
 @endsection
 
 @section('breadcrumbs')
@@ -19,7 +19,7 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="d-flex align-items-center justify-content-between">
-                            <h3 class="card-title" style="line-height: 36px;">{{ __('Sms Purchased Transaction History') }}
+                            <h3 class="card-title" style="line-height: 36px;">{{ __('User Sms History') }}
                             </h3>
                         </div>
                     </div>
@@ -38,10 +38,10 @@
                             <tbody>
                                 @foreach ($users as $user)
                                     <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $user->username }}</td>
                                     <td>{{ $user->smsPlan->name }}</td>
                                     <td>{{ $user->user_sms_stock }}</td>
                                     <td>{{ $user->used_sms }}</td>
-                                    <td>{{ $user->user_sms_stock }}</td>
                                 @endforeach
                             </tbody>
 

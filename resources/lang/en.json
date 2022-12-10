@@ -1054,5 +1054,6 @@
     "package_name": "Package Name",
     "sms_used": "Sms Used",
     "user_sms_package": "User Sms Package",
+    "user_sms_history": "User Sms History",
     "sms_left": "SMS Left"
 }
