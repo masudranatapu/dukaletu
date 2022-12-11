@@ -130,8 +130,23 @@ class AdPostController extends Controller
         $validatedData = $request->validate([
             'phone' => 'sometimes',
             'show_phone' => 'sometimes',
-            // 'phone_2' => 'sometimes',
+
             'whatsapp' => 'nullable',
+            'location.neighborhood' => 'required',
+            'location.locality' => 'required',
+            'location.place' => 'required',
+            'location.district' => 'required',
+            'location.postcode' => 'required',
+            'location.region' => 'required',
+            'location.country' => 'required',
+        ], [
+            'location.neighborhood.required' => 'The neighborhood field isrequired',
+            'location.locality.required' => 'The locality field isrequired',
+            'location.place.required' => 'The place field isrequired',
+            'location.district.required' => 'The district field isrequired',
+            'location.postcode.required' => 'The postcode field isrequired',
+            'location.region.required' => 'The region field isrequired',
+            'location.country.required' => 'The country field isrequired',
         ]);
 
         $location = session()->get('location');
@@ -501,6 +516,22 @@ class AdPostController extends Controller
         $request->validate([
             'phone' => 'sometimes',
             // 'phone_2' => 'sometimes',
+            'location.neighborhood' => 'required',
+            'location.locality' => 'required',
+            'location.place' => 'required',
+            'location.district' => 'required',
+            'location.postcode' => 'required',
+            'location.region' => 'required',
+            'location.country' => 'required',
+        ], [
+            'location.neighborhood.required' => 'The neighborhood field isrequired',
+            'location.locality.required' => 'The locality field isrequired',
+            'location.place.required' => 'The place field isrequired',
+            'location.district.required' => 'The district field isrequired',
+            'location.postcode.required' => 'The postcode field isrequired',
+            'location.region.required' => 'The region field isrequired',
+            'location.country.required' => 'The country field isrequired',
+
         ]);
 
         $this->updateCustomField($request, $ad);

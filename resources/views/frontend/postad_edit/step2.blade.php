@@ -55,9 +55,9 @@
                         <div class="col-md-12 mb-3">
                             <x-forms.label name="location" required="true" />
                             <!-- <span data-toggle="tooltip" title="Drag the pointer Or click your location"
-                                                                data-original-title="Drag the pointer Or click your location">
-                                                                <x-svg.exclamation />
-                                                            </span> -->
+                                                                    data-original-title="Drag the pointer Or click your location">
+                                                                    <x-svg.exclamation />
+                                                                </span> -->
                             {{-- <span class="text-danger"><strong>(Drag the pointer Or click your location)</strong></span>
                             @php
                                 $map = setting('default_map');
