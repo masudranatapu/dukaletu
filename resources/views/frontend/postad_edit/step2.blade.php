@@ -55,9 +55,9 @@
                         <div class="col-md-12 mb-3">
                             <x-forms.label name="location" required="true" />
                             <!-- <span data-toggle="tooltip" title="Drag the pointer Or click your location"
-                                                                    data-original-title="Drag the pointer Or click your location">
-                                                                    <x-svg.exclamation />
-                                                                </span> -->
+                                                                                                                                                    data-original-title="Drag the pointer Or click your location">
+                                                                                                                                                    <x-svg.exclamation />
+                                                                                                                                                </span> -->
                             {{-- <span class="text-danger"><strong>(Drag the pointer Or click your location)</strong></span>
                             @php
                                 $map = setting('default_map');
@@ -78,7 +78,7 @@
 
 
 
-                            <div class="input-field__group">
+                            {{-- <div class="input-field__group">
                                 <div class="input-field">
                                     <x-forms.label name="neighborhood" for="neighborhood" :required="true" />
                                     <input name="location[neighborhood]" id="" type="text" class="backupPhone"
@@ -86,19 +86,16 @@
                                         value="{{ Session::has('location') ? Session::get('location')['neighborhood'] : $ad->neighborhood }}"
                                         required />
                                 </div>
-
-
-
-                                <div class="input-field">
+                                 <div class="input-field">
                                     <x-forms.label name="locality" for="locality" :required="true" />
                                     <input name="location[locality]" id="" type="text" class="backupPhone"
                                         placeholder=""
                                         value="{{ Session::has('location') ? Session::get('location')['locality'] : $ad->locality }}"
                                         required />
                                 </div>
-                            </div>
+                            </div> --}}
 
-                            <div class="input-field__group">
+                            {{-- <div class="input-field__group">
 
                                 <div class="input-field">
                                     <x-forms.label name="place" for="place" :required="true" />
@@ -108,7 +105,13 @@
                                         required />
                                 </div>
 
-
+                                <div class="input-field">
+                                    <x-forms.label name="postcode" for="postcode" :required="true" />
+                                    <input name="location[postcode]" id="" type="text" class="backupPhone"
+                                        placeholder=""
+                                        value="{{ Session::has('location') ? Session::get('location')['postcode'] : $ad->postcode }}"
+                                        required />
+                                </div>
 
                                 <div class="input-field">
                                     <x-forms.label name="district" for="district" :required="true" />
@@ -118,35 +121,33 @@
                                         required />
                                 </div>
 
-                            </div>
+                            </div> --}}
                             <div class="input-field__group">
-                                <div class="input-field">
-                                    <x-forms.label name="postcode" for="postcode" :required="true" />
-                                    <input name="location[postcode]" id="" type="text" class="backupPhone"
-                                        placeholder=""
-                                        value="{{ Session::has('location') ? Session::get('location')['postcode'] : $ad->postcode }}"
-                                        required />
-                                </div>
 
-
-
-                                <div class="input-field">
-                                    <x-forms.label name="region" for="region" :required="true" />
-                                    <input name="location[region]" id="" type="text" class="backupPhone"
-                                        placeholder=""
-                                        value="{{ Session::has('location') ? Session::get('location')['region'] : $ad->region }}"
-                                        required />
-                                </div>
-
-                            </div>
-
-                            <div class="input-field__group">
                                 <div class="input-field">
                                     <x-forms.label name="country" for="country" :required="true" />
-                                    <input name="location[country]" id="" type="text" class="backupPhone"
-                                        placeholder=""
+                                    <input name="location[country]" id="" type="text"
+                                        class="backupPhone @error('address') border-danger @enderror" placeholder=""
                                         value="{{ Session::has('location') ? Session::get('location')['country'] : $ad->country }}"
                                         required />
+                                </div>
+                                <div class="input-field">
+                                    <x-forms.label name="city" for="district" :required="true" />
+                                    <input name="location[district]" id="" type="text"
+                                        class="backupPhone @error('address') border-danger @enderror" placeholder=""
+                                        value="{{ Session::has('location') ? Session::get('location')['district'] : $ad->district }}"
+                                        required />
+                                </div>
+
+
+
+                            </div>
+
+                            <div class="input-field__group">
+                                <div class="input-field--textarea">
+                                    <x-forms.label name="Address" for="address" />
+                                    <textarea required name="location[address]" placeholder="{{ __('address') }}..." id="address"
+                                        class="@error('address') border-danger @enderror">{{ Session::has('location') ? Session::get('location')['address'] : $ad->address }}</textarea>
                                 </div>
                             </div>
 
@@ -182,8 +183,7 @@
                                 <div class="col-md-6 input-field__group">
                                     <div class="input-select">
                                         <x-forms.label name="{{ $field->customField->name }}" :required="$field->customField->required" />
-                                        <select id="select" class="form-control"
-                                            name="{{ $field->customField->slug }}">
+                                        <select id="select" class="form-control" name="{{ $field->customField->slug }}">
                                             @foreach ($field->customField->values as $value)
                                                 <option
                                                     {{ ucfirst($field->value) == ucfirst($value->value) ? 'selected' : '' }}

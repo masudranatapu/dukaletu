@@ -77,7 +77,7 @@
                                 :link="$ad->website_link" />
                         </div>
 
-                        <div class="product-item__sidebar-bottom mb-4">
+                        {{-- <div class="product-item__sidebar-bottom mb-4">
                             <div class="product-item__sidebar-item overview">
                                 <div>
                                     <div class="location-text">{{ __('location') }}</div>
@@ -94,7 +94,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
 
                         <div class="product-item__sidebar-bottom mb-4">
                             <div class="product-item__sidebar-item overview">
@@ -179,7 +179,7 @@
         });
     </script>
 
-    @stack('ad_scripts')
+    {{-- @stack('ad_scripts')
     <!-- ================ mapbox map ============== -->
     <script>
         mapboxgl.accessToken = "{{ setting('map_box_key') }}";
@@ -259,6 +259,6 @@
             $scr = $link1 . $link2 . $Link3;
         @endphp;
     </script>
-    <script src="{{ $scr }}" async defer></script>
+    <script src="{{ $scr }}" async defer></script> --}}
     <!-- ================ google map ============== -->
 @endsection
