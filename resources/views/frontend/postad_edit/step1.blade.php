@@ -6,8 +6,12 @@
 
 @section('post-ad-content')
     @php
-        $adsinfo = DB::table('ads')->where('id', $ad->id)->first();
-        $user_plan = DB::table('user_plans')->where('user_id', Auth::user()->id)->first();
+        $adsinfo = DB::table('ads')
+            ->where('id', $ad->id)
+            ->first();
+        $user_plan = DB::table('user_plans')
+            ->where('user_id', Auth::user()->id)
+            ->first();
     @endphp
     <!-- Step 01 -->
     <div class="tab-pane fade show active" id="pills-basic" role="tabpanel" aria-labelledby="pills-basic-tab">
@@ -53,31 +57,32 @@
                                 @endforeach
                             </select>
                         </div> --}}
-                        <div class="input-field__group">
-                            <div class="input-select">
-                                <x-forms.label name="category" for="allCategory" required="true" />
-                                <select required name="category_id" id="ad_category"
-                                    class="form-control select-bg @error('category_id') border-danger @enderror">
-                                    <option value="" hidden>{{ __('select_category') }}</option>
-                                    @foreach ($categories as $category)
-                                        <option {{ $category->id == $ad->category_id ? 'selected' : '' }}
-                                            value="{{ $category->id }}" data-is_show_brand="{{ $category->is_show_brand }}">{{ $category->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="input-select">
-                                <x-forms.label name="subcategory" for="subcategory" required="true" />
-                                <select name="subcategory_id" id="ad_subcategory"
-                                    class="form-control select-bg @error('subcategory_id') border-danger @enderror">
-                                    <option value="" selected>{{ __('select_subcategory') }}</option>
-                                </select>
-                            </div>
-                            
+                    <div class="input-field__group">
+                        <div class="input-select">
+                            <x-forms.label name="category" for="allCategory" required="true" />
+                            <select required name="category_id" id="ad_category"
+                                class="form-control select-bg @error('category_id') border-danger @enderror">
+                                <option value="" hidden>{{ __('select_category') }}</option>
+                                @foreach ($categories as $category)
+                                    <option {{ $category->id == $ad->category_id ? 'selected' : '' }}
+                                        value="{{ $category->id }}" data-is_show_brand="{{ $category->is_show_brand }}">
+                                        {{ $category->name }}</option>
+                                @endforeach
+                            </select>
                         </div>
-                        
+                        <div class="input-select">
+                            <x-forms.label name="subcategory" for="subcategory" required="true" />
+                            <select name="subcategory_id" id="ad_subcategory"
+                                class="form-control select-bg @error('subcategory_id') border-danger @enderror">
+                                <option value="" selected>{{ __('select_subcategory') }}</option>
+                            </select>
+                        </div>
+
                     </div>
-                  
-                    <div class="input-field__group" id="brand_div">
+
+                </div>
+
+                {{-- <div class="input-field__group" id="brand_div">
                         <div class="input-select">
                             <x-forms.label name="brand" for="brand" :required="false" />
                             <select name="brand_id" id="brandd"
@@ -89,52 +94,55 @@
                                 @endforeach
                             </select>
                         </div>
-                    </div>
-                    <div class="row">
-                        @if ($adsinfo->is_featured == 'yes')
+                    </div> --}}
+                <div class="row">
+                    @if ($adsinfo->featured)
+                        <div class="col-lg-3">
+                            <div class="form-check">
+                                <input name="featured" type="hidden" value="0">
+                                <input {{ $ad->featured == 1 ? 'checked' : '' }} value="1" name="featured"
+                                    type="checkbox" class="form-check-input" id="featured" />
+                                <x-forms.label name="featured" for="featured" class="form-check-label" :required="false" />
+                            </div>
+                        </div>
+                    @else
+                        @if ($user_plan->featured_limit > 0)
                             <div class="col-lg-3">
                                 <div class="form-check">
                                     <input name="featured" type="hidden" value="0">
-                                    <input {{ $ad->featured == 1 ? 'checked' : '' }} value="1" name="featured" type="checkbox" class="form-check-input" id="featured" />
-                                    <x-forms.label name="featured" for="featured" class="form-check-label" :required="false" />
+                                    <input value="1" name="featured" type="checkbox" class="form-check-input"
+                                        id="featured" />
+                                    <x-forms.label name="featured" for="featured" class="form-check-label"
+                                        :required="false" />
                                 </div>
                             </div>
-                        @else
-                            @if($user_plan->featured_limit > 0)
-                                <div class="col-lg-3">
-                                    <div class="form-check">
-                                        <input name="featured" type="hidden" value="0">
-                                        <input value="1" name="featured" type="checkbox" class="form-check-input" id="featured" />
-                                        <x-forms.label name="featured" for="featured" class="form-check-label" :required="false" />
-                                    </div>
-                                </div>
-                            @endif
                         @endif
-                    </div>
+                    @endif
                 </div>
-                <div class="dashboard-post__action-btns">
-                    <a href="{{ route('frontend.post.cancel.edit') }}" class="btn btn--lg bg-danger text-light">
-                        {{ __('cancel_edit') }}
-                        <span class="icon--right">
-                            <x-svg.cross-icon />
-                        </span>
-                    </a>
-                    <button type="button" onclick="updateCancelEdit()" class="btn btn--lg bg-warning text-light">
-                        {{ __('update_cancel_edit') }}
-                        <span class="icon--right">
-                            <x-svg.cross-icon />
-                        </span>
-                    </button>
-                    <button type="submit" class="btn btn--lg">
-                        {{ __('update_next_step') }}
-                        <span class="icon--right">
-                            <x-svg.right-arrow-icon />
-                        </span>
-                    </button>
-                </div>
-                <input type="hidden" id="cancel_edit_input" name="cancel_edit" value="0">
-            </form>
         </div>
+        <div class="dashboard-post__action-btns">
+            <a href="{{ route('frontend.post.cancel.edit') }}" class="btn btn--lg bg-danger text-light">
+                {{ __('cancel_edit') }}
+                <span class="icon--right">
+                    <x-svg.cross-icon />
+                </span>
+            </a>
+            <button type="button" onclick="updateCancelEdit()" class="btn btn--lg bg-warning text-light">
+                {{ __('update_cancel_edit') }}
+                <span class="icon--right">
+                    <x-svg.cross-icon />
+                </span>
+            </button>
+            <button type="submit" class="btn btn--lg">
+                {{ __('update_next_step') }}
+                <span class="icon--right">
+                    <x-svg.right-arrow-icon />
+                </span>
+            </button>
+        </div>
+        <input type="hidden" id="cancel_edit_input" name="cancel_edit" value="0">
+        </form>
+    </div>
     </div>
 @endsection
 

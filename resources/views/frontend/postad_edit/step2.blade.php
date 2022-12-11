@@ -34,11 +34,11 @@
                         <input name="phone" id="phoneNumber" type="tel" placeholder="{{ __('phone') }}"
                             value="{{ $ad->phone }}" class="@error('phone') border-danger @enderror" />
                     </div>
-                    <div class="input-field">
+                    {{-- <div class="input-field">
                         <x-forms.label name="backup_phone_number" for="backupPhone" :required="false" />
                         <input name="phone_2" id="backupPhone" type="tel" class="backupPhone"
                             placeholder="{{ __('phone_number') }}" value="{{ $ad->phone_2 }}" />
-                    </div>
+                    </div> --}}
                 </div>
                 <div class="input-field__group">
                     <div class="input-field">
@@ -55,10 +55,10 @@
                         <div class="col-md-12 mb-3">
                             <x-forms.label name="location" required="true" />
                             <!-- <span data-toggle="tooltip" title="Drag the pointer Or click your location"
-                                data-original-title="Drag the pointer Or click your location">
-                                <x-svg.exclamation />
-                            </span> -->
-                            <span class="text-danger"><strong>(Drag the pointer Or click your location)</strong></span>
+                                                                data-original-title="Drag the pointer Or click your location">
+                                                                <x-svg.exclamation />
+                                                            </span> -->
+                            {{-- <span class="text-danger"><strong>(Drag the pointer Or click your location)</strong></span>
                             @php
                                 $map = setting('default_map');
                             @endphp
@@ -74,92 +74,173 @@
                             @endif
                             @error('location')
                                 <span class="text-md text-danger">{{ $message }}</span>
-                            @enderror
+                            @enderror --}}
+
+
+
+                            <div class="input-field__group">
+                                <div class="input-field">
+                                    <x-forms.label name="neighborhood" for="neighborhood" :required="true" />
+                                    <input name="location[neighborhood]" id="" type="text" class="backupPhone"
+                                        placeholder=""
+                                        value="{{ Session::has('location') ? Session::get('location')['neighborhood'] : $ad->neighborhood }}"
+                                        required />
+                                </div>
+
+
+
+                                <div class="input-field">
+                                    <x-forms.label name="locality" for="locality" :required="true" />
+                                    <input name="location[locality]" id="" type="text" class="backupPhone"
+                                        placeholder=""
+                                        value="{{ Session::has('location') ? Session::get('location')['locality'] : $ad->locality }}"
+                                        required />
+                                </div>
+                            </div>
+
+                            <div class="input-field__group">
+
+                                <div class="input-field">
+                                    <x-forms.label name="place" for="place" :required="true" />
+                                    <input name="location[place]" id="" type="text" class="backupPhone"
+                                        placeholder=""
+                                        value="{{ Session::has('location') ? Session::get('location')['place'] : $ad->place }}"
+                                        required />
+                                </div>
+
+
+
+                                <div class="input-field">
+                                    <x-forms.label name="district" for="district" :required="true" />
+                                    <input name="location[district]" id="" type="text" class="backupPhone"
+                                        placeholder=""
+                                        value="{{ Session::has('location') ? Session::get('location')['district'] : $ad->district }}"
+                                        required />
+                                </div>
+
+                            </div>
+                            <div class="input-field__group">
+                                <div class="input-field">
+                                    <x-forms.label name="postcode" for="postcode" :required="true" />
+                                    <input name="location[postcode]" id="" type="text" class="backupPhone"
+                                        placeholder=""
+                                        value="{{ Session::has('location') ? Session::get('location')['postcode'] : $ad->postcode }}"
+                                        required />
+                                </div>
+
+
+
+                                <div class="input-field">
+                                    <x-forms.label name="region" for="region" :required="true" />
+                                    <input name="location[region]" id="" type="text" class="backupPhone"
+                                        placeholder=""
+                                        value="{{ Session::has('location') ? Session::get('location')['region'] : $ad->region }}"
+                                        required />
+                                </div>
+
+                            </div>
+
+                            <div class="input-field__group">
+                                <div class="input-field">
+                                    <x-forms.label name="country" for="country" :required="true" />
+                                    <input name="location[country]" id="" type="text" class="backupPhone"
+                                        placeholder=""
+                                        value="{{ Session::has('location') ? Session::get('location')['country'] : $ad->country }}"
+                                        required />
+                                </div>
+                            </div>
+
+
+
                         </div>
                     </div>
                 </div>
-                <h5 class="mt-3">
-                    {{ __('custom_fields') }}
-                </h5>
-                <hr>
-                <div class="row dashboard-post__information-form">
-                    @foreach ($fields as $field)
-                        @if ($field->customField->type == 'text')
-                            <div class="col-md-6 input-field__group">
-                                <div class="input-field">
-                                    <x-forms.label name="{{ $field->customField->name }}" :required="$field->customField->required" />
-                                    <input value="{{ $field->value }}" type="text"
-                                        name="{{ $field->customField->slug }}"
-                                        placeholder="{{ $field->customField->name }}"
-                                        class="form-control @error($field->customField->slug) border-danger @enderror" />
-                                    @error($field->customField->slug)
-                                        <span class="invalid-feedback">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-                        @endif
-                        @if ($field->customField->type == 'select')
-                            <div class="col-md-6 input-field__group">
-                                <div class="input-select">
-                                    <x-forms.label name="{{ $field->customField->name }}" :required="$field->customField->required" />
-                                    <select id="select" class="form-control" name="{{ $field->customField->slug }}">
-                                        @foreach ($field->customField->values as $value)
-                                            <option
-                                                {{ ucfirst($field->value) == ucfirst($value->value) ? 'selected' : '' }}
-                                                value="{{ $value->value }}">
-                                                {{ ucfirst($value->value) }}</option>
-                                        @endforeach
-                                    </select>
-                                    @error($field->customField->slug)
-                                        <span class="invalid-feedback">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-                        @endif
-                        @if ($field->customField->type == 'file')
-                            <div class="col-md-6 input-field__group">
-                                <div class="input-field">
-                                    <x-forms.label name="{{ $field->customField->name }}" :required="$field->customField->required" />
-                                    <input type="file" name="{{ $field->customField->slug }}"
-                                        class="form-control @error($field->customField->slug) is-invalid @enderror custom-file-input"
-                                        id="customFile">
-                                    @error($field->customField->slug)
-                                        <span class="invalid-feedback">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-                        @endif
-                        @if ($field->customField->type == 'textarea')
-                            <div class="col-md-6 input-field__group">
-                                <div class="input-field">
-                                    <x-forms.label name="{{ $field->customField->name }}" :required="$field->customField->required" />
-                                    <textarea name="{{ $field->customField->slug }}" placeholder="{{ $field->customField->name }}" cols="12"
-                                        rows="2" id="description" class="form-control @error($field->customField->slug) border-danger @enderror ">{{ $field->customField->slug }}</textarea>
-                                    @error($field->customField->slug)
-                                        <span class="invalid-feedback">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-                        @endif
-                        @if ($field->customField->type == 'radio')
-                            <div class="col-md-6">
-                                <x-forms.label name="{{ $field->customField->name }}" :required="$field->customField->required" />
-                                @foreach ($field->customField->values as $value)
-                                    <div class="form-check">
-                                        <input {{ ucfirst($field->value) == ucfirst($value->value) ? 'checked' : '' }}
-                                            value="{{ ucfirst($value->value) }}"
-                                            name="{{ $field->customField->slug }}" type="radio"
-                                            class="form-check-input" id="checkme{{ $value->id }}" />
-                                        <x-forms.label name="{{ $value->value }}" :required="false"
-                                            class="form-check-label" for="checkme{{ $value->id }}" />
+
+
+                @if (isset($fields) && count($fields) > 0)
+                    <h5 class="mt-3">
+                        {{ __('custom_fields') }}
+                    </h5>
+                    <hr>
+                    <div class="row dashboard-post__information-form">
+                        @foreach ($fields as $field)
+                            @if ($field->customField->type == 'text')
+                                <div class="col-md-6 input-field__group">
+                                    <div class="input-field">
+                                        <x-forms.label name="{{ $field->customField->name }}" :required="$field->customField->required" />
+                                        <input value="{{ $field->value }}" type="text"
+                                            name="{{ $field->customField->slug }}"
+                                            placeholder="{{ $field->customField->name }}"
+                                            class="form-control @error($field->customField->slug) border-danger @enderror" />
+                                        @error($field->customField->slug)
+                                            <span class="invalid-feedback">{{ $message }}</span>
+                                        @enderror
                                     </div>
-                                @endforeach
-                                @error($field->customField->slug)
-                                    <span class="invalid-feedback">{{ $message }}</span>
-                                @enderror
-                            </div>
-                        @endif
-                        {{-- @if ($field->customField->type == 'url')
+                                </div>
+                            @endif
+                            @if ($field->customField->type == 'select')
+                                <div class="col-md-6 input-field__group">
+                                    <div class="input-select">
+                                        <x-forms.label name="{{ $field->customField->name }}" :required="$field->customField->required" />
+                                        <select id="select" class="form-control"
+                                            name="{{ $field->customField->slug }}">
+                                            @foreach ($field->customField->values as $value)
+                                                <option
+                                                    {{ ucfirst($field->value) == ucfirst($value->value) ? 'selected' : '' }}
+                                                    value="{{ $value->value }}">
+                                                    {{ ucfirst($value->value) }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error($field->customField->slug)
+                                            <span class="invalid-feedback">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                            @endif
+                            @if ($field->customField->type == 'file')
+                                <div class="col-md-6 input-field__group">
+                                    <div class="input-field">
+                                        <x-forms.label name="{{ $field->customField->name }}" :required="$field->customField->required" />
+                                        <input type="file" name="{{ $field->customField->slug }}"
+                                            class="form-control @error($field->customField->slug) is-invalid @enderror custom-file-input"
+                                            id="customFile">
+                                        @error($field->customField->slug)
+                                            <span class="invalid-feedback">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                            @endif
+                            @if ($field->customField->type == 'textarea')
+                                <div class="col-md-6 input-field__group">
+                                    <div class="input-field">
+                                        <x-forms.label name="{{ $field->customField->name }}" :required="$field->customField->required" />
+                                        <textarea name="{{ $field->customField->slug }}" placeholder="{{ $field->customField->name }}" cols="12"
+                                            rows="2" id="description" class="form-control @error($field->customField->slug) border-danger @enderror ">{{ $field->customField->slug }}</textarea>
+                                        @error($field->customField->slug)
+                                            <span class="invalid-feedback">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                            @endif
+                            @if ($field->customField->type == 'radio')
+                                <div class="col-md-6">
+                                    <x-forms.label name="{{ $field->customField->name }}" :required="$field->customField->required" />
+                                    @foreach ($field->customField->values as $value)
+                                        <div class="form-check">
+                                            <input {{ ucfirst($field->value) == ucfirst($value->value) ? 'checked' : '' }}
+                                                value="{{ ucfirst($value->value) }}"
+                                                name="{{ $field->customField->slug }}" type="radio"
+                                                class="form-check-input" id="checkme{{ $value->id }}" />
+                                            <x-forms.label name="{{ $value->value }}" :required="false"
+                                                class="form-check-label" for="checkme{{ $value->id }}" />
+                                        </div>
+                                    @endforeach
+                                    @error($field->customField->slug)
+                                        <span class="invalid-feedback">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            @endif
+                            {{-- @if ($field->customField->type == 'url')
                             <div class="col-md-6 input-field__group">
                                 <div class="input-field">
                                     <x-forms.label name="{{ $field->customField->name }}" :required="$field->customField->required" />
@@ -171,111 +252,113 @@
                                 </div>
                             </div>
                         @endif --}}
-                        @if ($field->customField->type == 'url')
-                            <div class="col-sm-6">
-                                <div class="input-field">
-                                    <x-forms.label name="{{ $field->customField->name }}" :required="$field->customField->required" />
-                                    <input type="url" name="{{ $field->customField->slug }}"
-                                        class="form-control @error($field->customField->slug) border-danger @enderror"
-                                        value="{{ old($field->customField->slug, $field->value) }}"
-                                        placeholder="{{ $field->customField->name }}">
-                                    @error($field->customField->slug)
-                                        <span class="invalid-feedback">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-                        @endif
-                        @if ($field->customField->type == 'number')
-                            <div class="col-sm-6">
-                                <div class="input-field">
-                                    <x-forms.label name="{{ $field->customField->name }}" :required="$field->customField->required" />
-                                    <input min="1" type="number" name="{{ $field->customField->slug }}"
-                                        class="form-control @error($field->customField->slug) border-danger @enderror"
-                                        value="{{ old($field->customField->slug, $field->value) }}"
-                                        placeholder="{{ $field->customField->name }}">
-                                    @error($field->customField->slug)
-                                        <span class="invalid-feedback">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-                        @endif
-                        @if ($field->customField->type == 'date')
-                            <div class="col-sm-6">
-                                <div class="input-field">
-                                    <x-forms.label name="{{ $field->customField->name }}" :required="$field->customField->required" />
-                                    <input type="date" name="{{ $field->customField->slug }}"
-                                        class="form-control @error($field->customField->slug) border-danger @enderror"
-                                        value="{{ old($field->customField->slug, $field->value) }}"
-                                        placeholder="{{ $field->customField->name }}">
-                                    @error($field->customField->slug)
-                                        <span class="invalid-feedback">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-                        @endif
-                        @php
-                            $fieldId = 'cf.' . $field->customField->id;
-                            $fieldName = 'cf[' . $field->customField->id . ']';
-                            $fieldOld = 'cf.' . $field->customField->id;
-                        @endphp
-
-                        @if ($field->customField->type == 'checkbox')
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <x-forms.label name="{{ $field->customField->name }}" :required="$field->customField->required" />
-                                    <div class="row">
-                                        @foreach ($field->customField->values as $value)
-                                            @if ($loop->first)
-                                                <input type="hidden" value="0" name="{{ $fieldName }}">
-                                                <div class="col-md-3 mb-1">
-                                                    <div class="icheck-success d-inline">
-                                                        <input {{ $field->value ? 'checked' : '' }} value="1"
-                                                            name="{{ $fieldName }}" type="checkbox"
-                                                            class="form-check-input" id="{{ $fieldId }}" />
-                                                        <label class="form-check-label"
-                                                            for="{{ $fieldId }}">{{ $value->value }}
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            @endif
-                                        @endforeach
+                            @if ($field->customField->type == 'url')
+                                <div class="col-sm-6">
+                                    <div class="input-field">
+                                        <x-forms.label name="{{ $field->customField->name }}" :required="$field->customField->required" />
+                                        <input type="url" name="{{ $field->customField->slug }}"
+                                            class="form-control @error($field->customField->slug) border-danger @enderror"
+                                            value="{{ old($field->customField->slug, $field->value) }}"
+                                            placeholder="{{ $field->customField->name }}">
+                                        @error($field->customField->slug)
+                                            <span class="invalid-feedback">{{ $message }}</span>
+                                        @enderror
                                     </div>
-                                    @error($field->customField->slug)
-                                        <span class="invalid-feedback">{{ $message }}</span>
-                                    @enderror
                                 </div>
-                            </div>
-                        @endif
-                        @if ($field->customField->type == 'checkbox_multiple')
+                            @endif
+                            @if ($field->customField->type == 'number')
+                                <div class="col-sm-6">
+                                    <div class="input-field">
+                                        <x-forms.label name="{{ $field->customField->name }}" :required="$field->customField->required" />
+                                        <input min="1" type="number" name="{{ $field->customField->slug }}"
+                                            class="form-control @error($field->customField->slug) border-danger @enderror"
+                                            value="{{ old($field->customField->slug, $field->value) }}"
+                                            placeholder="{{ $field->customField->name }}">
+                                        @error($field->customField->slug)
+                                            <span class="invalid-feedback">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                            @endif
+                            @if ($field->customField->type == 'date')
+                                <div class="col-sm-6">
+                                    <div class="input-field">
+                                        <x-forms.label name="{{ $field->customField->name }}" :required="$field->customField->required" />
+                                        <input type="date" name="{{ $field->customField->slug }}"
+                                            class="form-control @error($field->customField->slug) border-danger @enderror"
+                                            value="{{ old($field->customField->slug, $field->value) }}"
+                                            placeholder="{{ $field->customField->name }}">
+                                        @error($field->customField->slug)
+                                            <span class="invalid-feedback">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                            @endif
                             @php
-                                $exploded_values = explode(', ', $field->value);
+                                $fieldId = 'cf.' . $field->customField->id;
+                                $fieldName = 'cf[' . $field->customField->id . ']';
+                                $fieldOld = 'cf.' . $field->customField->id;
                             @endphp
 
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <x-forms.label name="{{ $field->customField->name }}" :required="$field->customField->required" />
-                                    @foreach ($field->customField->values as $key => $value)
-                                        <div class="icheck-success ">
-                                            <input id="{{ $fieldId . '.' . $value->id }}"
-                                                name="{{ $fieldName . '[' . $value->id . ']' }}" type="checkbox"
-                                                value="{{ $value->id }}" class="form-check-input"
-                                                {{ in_array($value->id, $exploded_values) ? 'checked' : '' }} />
-                                            <label class="form-check-label" for="{{ $fieldId . '.' . $value->id }}">
-                                                {{ $value->value }}
-                                            </label>
+                            @if ($field->customField->type == 'checkbox')
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <x-forms.label name="{{ $field->customField->name }}" :required="$field->customField->required" />
+                                        <div class="row">
+                                            @foreach ($field->customField->values as $value)
+                                                @if ($loop->first)
+                                                    <input type="hidden" value="0" name="{{ $fieldName }}">
+                                                    <div class="col-md-3 mb-1">
+                                                        <div class="icheck-success d-inline">
+                                                            <input {{ $field->value ? 'checked' : '' }} value="1"
+                                                                name="{{ $fieldName }}" type="checkbox"
+                                                                class="form-check-input" id="{{ $fieldId }}" />
+                                                            <label class="form-check-label"
+                                                                for="{{ $fieldId }}">{{ $value->value }}
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                @endif
+                                            @endforeach
                                         </div>
-                                    @endforeach
-
-                                    @error($field->customField->slug)
-                                        <span class="invalid-feedback">{{ $message }}</span>
-                                    @enderror
+                                        @error($field->customField->slug)
+                                            <span class="invalid-feedback">{{ $message }}</span>
+                                        @enderror
+                                    </div>
                                 </div>
-                            </div>
-                        @endif
-                    @endforeach
-                </div>
+                            @endif
+                            @if ($field->customField->type == 'checkbox_multiple')
+                                @php
+                                    $exploded_values = explode(', ', $field->value);
+                                @endphp
+
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <x-forms.label name="{{ $field->customField->name }}" :required="$field->customField->required" />
+                                        @foreach ($field->customField->values as $key => $value)
+                                            <div class="icheck-success ">
+                                                <input id="{{ $fieldId . '.' . $value->id }}"
+                                                    name="{{ $fieldName . '[' . $value->id . ']' }}" type="checkbox"
+                                                    value="{{ $value->id }}" class="form-check-input"
+                                                    {{ in_array($value->id, $exploded_values) ? 'checked' : '' }} />
+                                                <label class="form-check-label" for="{{ $fieldId . '.' . $value->id }}">
+                                                    {{ $value->value }}
+                                                </label>
+                                            </div>
+                                        @endforeach
+
+                                        @error($field->customField->slug)
+                                            <span class="invalid-feedback">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                            @endif
+                        @endforeach
+                    </div>
+                @endif
                 <div class="dashboard-post__action-btns">
-                    <a href="{{ route('frontend.post.step1.back', $ad->slug) }}" class="btn btn--lg btn--outline text-white">
+                    <a href="{{ route('frontend.post.step1.back', $ad->slug) }}"
+                        class="btn btn--lg btn--outline text-white">
                         {{ __('previous') }}
                     </a>
                     <button type="button" onclick="updateCancelEdit()" class="btn btn--lg bg-warning text-light">
