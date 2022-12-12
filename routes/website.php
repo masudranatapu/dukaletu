@@ -110,6 +110,7 @@ Route::group(['as' => 'frontend.'], function () {
 
 
             Route::get('sms-marketing', 'marketing')->name('sms-marketing');
+            Route::post('sms-marketing-get-number', 'marketingGetNumber')->name('sms-marketing-getNumber');
         });
         Route::post('sms/send', [SmsMarketingController::class, 'sendSms'])->name('smsMarketing.sendSms');
 

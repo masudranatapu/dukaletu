@@ -12,6 +12,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Actions\Frontend\ProfileUpdate;
+use App\Imports\SmsMarketingImport;
 use App\Models\Setting;
 use App\Models\SmsMarketing;
 use App\Models\UserSmsPlan;
@@ -20,7 +21,12 @@ use Modules\Wishlist\Entities\Wishlist;
 use App\Notifications\AdDeleteNotification;
 use App\Notifications\AdWishlistNotification;
 use App\Rules\MatchOldPassword;
+use Exception;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Log;
+use Maatwebsite\Excel\Facades\Excel;
 use Modules\Plan\Entities\Plan;
+use Rap2hpoutre\FastExcel\Facades\FastExcel;
 
 class DashboardController extends Controller
 {
@@ -412,5 +418,28 @@ class DashboardController extends Controller
 
         $transactions = Transaction::with('package')->whereNotNull('sms_plan_id')->where('user_id', Auth()->id())->latest()->get()->take(5);
         return view('frontend.sms-plan-billing', compact('transactions', 'currentPackage'));
+    }
+
+
+    public function marketingGetNumber(Request $request)
+    {
+        $request->validate([
+
+            'file' => 'required|mimes:xlsx,csv,tsv,ods,xls,slk,xml|max:2048',
+
+        ]);
+
+
+
+        try {
+
+            $fileName = time() . '.' . $request->file->extension();
+            $array = $request->file->move(public_path('file'), $fileName);
+            $users = FastExcel::import(public_path('file/') . $fileName);
+
+            return response()->json($users);
+        } catch (Exception $th) {
+            return response()->json($th);
+        }
     }
 }

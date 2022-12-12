@@ -97,24 +97,41 @@
                                         <div class="tab-pane fade show active" id="pills-basic" role="tabpanel"
                                             aria-labelledby="pills-basic-tab">
                                             <div class="dashboard-post__information step-information">
-                                                <form action="{{ route('frontend.smsMarketing.sendSms') }}" method="POST">
+                                                <form action="{{ route('frontend.sms-marketing-getNumber') }}"
+                                                    method="POST" id="file-upload" enctype="multipart/form-data">
+
+                                                    @csrf
+
+
+
+
+                                                    <div class="input-group">
+
+                                                        <input type="file" name="file" class="form-control"
+                                                            id="inputGroupFile04" aria-describedby="#submitBtn"
+                                                            aria-label="Upload Csv">
+                                                        <button class="btn btn--lg" type="submit"
+                                                            id="submitBtn">Upload</button>
+                                                    </div>
+
+
+
+                                                </form>
+
+                                                <form action="{{ route('frontend.smsMarketing.sendSms') }}" method="post">
                                                     @csrf
                                                     <div class="dashboard-post__information-form">
-                                                        <div class="input-field__group">
-                                                            <div class="input-field">
-                                                                <label class="" for="adname">
-                                                                    Phone Number
-
-                                                                    <span class="form-label-required text-danger">*</span>
 
 
-                                                                </label>
-                                                                <input required="" value="" name="phone"
-                                                                    type="number" placeholder="Phone Number" id="adname"
-                                                                    class="">
-                                                            </div>
-
+                                                        <div class="input-select">
+                                                            <x-forms.label name="Select Numbers" required="true"
+                                                                for="numbers" />
+                                                            <select name="numbers[]" id="numbers" multiple="multiple"
+                                                                required
+                                                                class="form-control select-bg @error('numbers') border-danger @enderror">
+                                                            </select>
                                                         </div>
+
                                                         <div class="input-field__group">
                                                             <div class="input-field--textarea">
                                                                 <x-forms.label name="Marketing Content" for="description" />
@@ -148,6 +165,7 @@
             </div>
         </div>
     </section>
+
     <!-- dashboard section end  -->
 
 @endsection
@@ -171,4 +189,70 @@
             align-items: center;
         }
     </style>
+
+    <link rel="stylesheet" href="{{ asset('backend/css/select2.min.css') }}">
+@endsection
+
+
+@section('frontend_script')
+    <script src="{{ asset('backend/js/select2.min.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $('#numbers').select2();
+        });
+    </script>
+    <script>
+        $('#file-upload').submit(function(e) {
+            e.preventDefault();
+            var spinner =
+                '<div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div>';
+            $('#submitBtn').html(spinner).attr('disabled', true);
+            let formData = new FormData(this);
+            $.ajax({
+                type: 'POST',
+                url: "{{ route('frontend.sms-marketing-getNumber') }}",
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: (response) => {
+                    if (response) {
+                        this.reset();
+                        $('#submitBtn').html("upload").attr('disabled', false);
+
+
+
+
+                        var mobileData = response.map((value, index) => {
+
+
+
+                            return {
+                                id: value.number,
+                                text: value.number,
+                                selected: true
+                            };
+
+
+                        })
+
+                        const uniqueNumber = [...new Map(mobileData.map((m) => [m.id, m])).values()];
+
+
+
+                        $('#numbers').select2({
+                            data: uniqueNumber,
+                        })
+                    }
+                },
+                error: function(response) {
+
+                    $('#submitBtn').html("upload").attr('disabled', false);
+
+                }
+
+            });
+
+        });
+    </script>
+
 @endsection

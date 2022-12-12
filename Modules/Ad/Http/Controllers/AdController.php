@@ -62,43 +62,40 @@ class AdController extends Controller
                 $q->where('slug', $brand);
             });
         }
-        if($request->ad_status){
-            if($request->adsid){
+        if ($request->ad_status) {
+            if ($request->adsid) {
 
                 $adsid = explode(",", $request->adsid);
 
-                if($request->ad_status == 'active'){
-                    
+                if ($request->ad_status == 'active') {
+
                     Ad::whereIn('id', $adsid)->update([
                         'status' => 'active',
                     ]);
-    
+
                     flashSuccess('Ad Status Successfully Active.');
                     return redirect()->back();
-    
-                }elseif ($request->ad_status == 'sold') {
-                    
+                } elseif ($request->ad_status == 'sold') {
+
                     Ad::whereIn('id', $adsid)->update([
                         'status' => 'sold',
                     ]);
-                    
+
                     flashSuccess('Ad Status Successfully Sold.');
                     return redirect()->back();
-                    
-                }else {
+                } else {
 
                     Ad::whereIn('id', $adsid)->update([
                         'status' => 'inactive',
                     ]);
-                    
+
                     flashSuccess('Ad Status Successfully Inactive.');
                     return redirect()->back();
                 }
-            }else {
+            } else {
                 flashWarning('First select ads to change status');
                 return redirect()->back();
             }
-
         };
         // filtering
         if (request()->has('filter_by') && request()->filter_by != null) {
@@ -195,6 +192,7 @@ class AdController extends Controller
         if (!userCan('ad.create')) {
             return abort(403);
         }
+        session()->put('location', $request->location);
 
         $location = session()->get('location');
         if (!$location) {
@@ -210,7 +208,7 @@ class AdController extends Controller
         $ad->user_id = $request->user_id;
         $ad->category_id = $request->category_id;
         $ad->subcategory_id = $request->subcategory_id;
-        $ad->brand_id = $request->brand_id;
+        // $ad->brand_id = $request->brand_id;
         $ad->price = $request->price;
         $ad->description = $request->description;
         $ad->show_phone = $request->show_phone;
@@ -240,18 +238,18 @@ class AdController extends Controller
         // <!--  location  -->
         $location = session()->get('location');
 
-        $region = array_key_exists("region", $location) ? $location['region'] : '';
-        $country = array_key_exists("country", $location) ? $location['country'] : '';
-        $address = Str::slug($region . '-' . $country);
+        // $region = array_key_exists("region", $location) ? $location['region'] : '';
+        // $country = array_key_exists("country", $location) ? $location['country'] : '';
+        // $address = Str::slug($region . '-' . $country);
 
         $ad->update([
-            'address' => $address,
-            'neighborhood' => array_key_exists("neighborhood", $location) ? $location['neighborhood'] : '',
-            'locality' => array_key_exists("locality", $location) ? $location['locality'] : '',
-            'place' => array_key_exists("place", $location) ? $location['place'] : '',
+            // 'neighborhood' => array_key_exists("neighborhood", $location) ? $location['neighborhood'] : '',
+            // 'locality' => array_key_exists("locality", $location) ? $location['locality'] : '',
+            // 'place' => array_key_exists("place", $location) ? $location['place'] : '',
+            // 'postcode' => array_key_exists("postcode", $location) ? $location['postcode'] : '',
+            // 'region' => array_key_exists("region", $location) ? $location['region'] : '',
+            'address' => array_key_exists("address", $location) ? $location['address'] : '',
             'district' => array_key_exists("district", $location) ? $location['district'] : '',
-            'postcode' => array_key_exists("postcode", $location) ? $location['postcode'] : '',
-            'region' => array_key_exists("region", $location) ? $location['region'] : '',
             'country' => array_key_exists("country", $location) ? $location['country'] : '',
             'long' => array_key_exists("lng", $location) ? $location['lng'] : '',
             'lat' => array_key_exists("lat", $location) ? $location['lat'] : '',
@@ -301,7 +299,7 @@ class AdController extends Controller
 
         $ad->update([
             'title' => $request->title,
-            'slug' => Str::slug($request->title),
+            // 'slug' => Str::slug($request->title),
             'user_id' => $request->user_id,
             'category_id' => $request->category_id,
             'subcategory_id' => $request->subcategory_id,
@@ -332,7 +330,9 @@ class AdController extends Controller
         }
 
         // <!--  location  -->
+        session()->put('location', $request->location);
         $location = session()->get('location');
+
         if ($location) {
 
             $region = array_key_exists("region", $location) ? $location['region'] : '';
@@ -340,16 +340,16 @@ class AdController extends Controller
             $address = Str::slug($region . '-' . $country);
 
             $ad->update([
-                'address' => $address,
-                'neighborhood' => array_key_exists("neighborhood", $location) ? $location['neighborhood'] : '',
-                'locality' => array_key_exists("locality", $location) ? $location['locality'] : '',
-                'place' => array_key_exists("place", $location) ? $location['place'] : '',
+                // 'neighborhood' => array_key_exists("neighborhood", $location) ? $location['neighborhood'] : '',
+                // 'locality' => array_key_exists("locality", $location) ? $location['locality'] : '',
+                // 'place' => array_key_exists("place", $location) ? $location['place'] : '',
+                // 'postcode' => array_key_exists("postcode", $location) ? $location['postcode'] : '',
+                // 'region' => array_key_exists("region", $location) ? $location['region'] : '',
+                'address' => array_key_exists("address", $location) ? $location['address'] : '',
                 'district' => array_key_exists("district", $location) ? $location['district'] : '',
-                'postcode' => array_key_exists("postcode", $location) ? $location['postcode'] : '',
-                'region' => array_key_exists("region", $location) ? $location['region'] : '',
                 'country' => array_key_exists("country", $location) ? $location['country'] : '',
-                'long' => array_key_exists("lng", $location) ? $location['lng'] : '',
-                'lat' => array_key_exists("lat", $location) ? $location['lat'] : '',
+                'long' => 0,
+                'lat' => 0,
             ]);
 
             session()->forget('location');

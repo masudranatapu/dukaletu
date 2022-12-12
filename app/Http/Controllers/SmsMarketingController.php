@@ -15,9 +15,11 @@ class SmsMarketingController extends Controller
     public function sendSms(Request $request)
     {
         $request->validate([
-            'phone' => 'required|numeric',
+            'numbers' => 'required|array',
             'description' => 'required'
         ]);
+
+        dd($request->numbers);
 
         $stock = (int) Auth::user()->user_sms_stock;
         $message = $request->description;
