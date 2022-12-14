@@ -63,19 +63,33 @@
                                         </ul>
                                     </li>
                                 </ul>
+                                <hr>
+                                <form action="{{ route('frontend.sms-marketing-getNumber') }}"
+                                    method="POST" id="file-upload" enctype="multipart/form-data">
+                                    @csrf
+                                    <div class="input-group">
+                                        <input type="file" name="file" class="form-control"
+                                            id="file" aria-describedby="#submitBtn"
+                                            aria-label="Upload Csv">
+                                        <button class="btn btn--lg" type="submit"
+                                            id="submitBtn">Upload CSV File</button>
+                                    </div>
+                                    <span class="text-danger" id="file-validation"></span>
+                                </form>
+
                             </div>
                         </div>
                     </div>
                     <div class="row dashboard__bill-three">
                         <div class="col-lg-12">
                             <div class="invoice-table">
-                                <h4>{{ __('user_phone_book') }}</h4>
+                                <h4>{{ __('phone_book') }}</h4>
                                 <table>
                                     <thead>
                                         <tr>
                                             <th>#</th>
                                             <th>{{ __('phone_number') }}</th>
-                                            <th class="d-flex justify-content-end">{{ __('send_message') }}</th>
+                                            <th class="float-end">{{ __('Action') }}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -83,9 +97,14 @@
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $phoneBooks->phone_number }}</td>
-                                                <td class="d-flex justify-content-end">
-                                                    <a href="{{ route('frontend.send-sms-single', ['phone' => $phoneBooks->phone_number, 'page' => request()->page ?? 1]) }}"
-                                                        class="btn btn-main">{{ __('send_message') }}</a>
+                                                <td class="">
+
+                                                    <div class="float-end">
+                                                        <a href="{{ route('frontend.send-sms-single', ['phone' => $phoneBooks->phone_number, 'page' => request()->page ?? 1]) }}"
+                                                            class="">{{ __('send_message') }}</a> |
+                                                            <a href=""> Remove</a>
+                                                    </div>
+
                                                 </td>
                                             </tr>
                                         @empty
@@ -127,4 +146,76 @@
             align-items: center;
         }
     </style>
+@endsection
+
+
+@section('frontend_script')
+
+
+    <script>
+        $('#file-upload').submit(function(e) {
+            e.preventDefault();
+            var spinner =
+                '<div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div>';
+            $('#submitBtn').html(spinner).attr('disabled', true);
+            let formData = new FormData(this);
+            var fileInput =
+                document.getElementById('file');
+
+            var filePath = fileInput.value;
+
+
+            console.log(filePath);
+
+
+            if (filePath.length > 0) {
+                $('#file-validation').html("");
+
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ route('frontend.sms-marketing-getNumber') }}",
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: (response) => {
+                        if (response) {
+                            this.reset();
+                            $('#submitBtn').html("upload").attr('disabled', false);
+                            var mobileData = response.map((value, index) => {
+                                return {
+                                    id: value.phone_number,
+                                    text: value.phone_number,
+                                    selected: true
+                                };
+                            })
+                            const uniqueNumber = [...new Map(mobileData.map((m) => [m.id, m]))
+                                .values()
+                            ];
+                            console.log(uniqueNumber);
+
+                            $('#numbers').select2({
+                                data: uniqueNumber,
+                                placeholder: "Select a Number",
+                                allowClear: true,
+                                debug: true
+                            });
+                        }
+                    },
+                    error: function(response) {
+
+                        $('#submitBtn').html("upload").attr('disabled', false);
+
+                    }
+
+                });
+            } else {
+                $('#file-validation').html("Please select a file");
+                $('#submitBtn').html("upload").attr('disabled', false);
+
+            }
+
+
+        });
+    </script>
+
 @endsection

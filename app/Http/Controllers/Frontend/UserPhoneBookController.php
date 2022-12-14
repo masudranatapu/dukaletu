@@ -21,7 +21,7 @@ class UserPhoneBookController extends Controller
     public function index()
     {
         $data['currentPackage'] = User::with('smsPlan')->where('id', Auth::id())->first();
-        $data['userPhoneBooks'] = UserPhoneBook::where('user_id', Auth::id())->paginate(6);
+        $data['userPhoneBooks'] = UserPhoneBook::where('user_id', Auth::id())->orderBy('phone_number','asc')->paginate(50);
 
 
         return view('frontend.phonebook.index', $data);

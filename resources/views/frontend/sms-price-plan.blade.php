@@ -57,7 +57,9 @@
                                             {{ $package->description }}
                                         </p> --}}
                                         <div class="plan-card__price">
-                                            <h5 class="text--display-3"> {{ changeCurrency($package->price) }}</h5>
+                                            <h3 style="color: #3db83a;">{{ $package->amount_of_sms }} SMS
+                                                 / <small style="font-size: 16px;" >{{ changeCurrency($package->price) }}</small>
+                                                </h3>
                                         </div>
                                         @if (auth('user')->check())
                                             <a href="{{ route('frontend.smsPriceplanDetails', ['package' => $package->id]) }}"
@@ -77,7 +79,7 @@
                                             </a>
                                         @endif
                                     </div>
-                                    <div class="plan-card__bottom">
+                                    {{-- <div class="plan-card__bottom">
                                         <div class="plan-card__package">
                                             <div class="plan-card__package-list active">
                                                 <span class="icon">
@@ -87,7 +89,7 @@
                                                     {{ __('sms') }}</h5>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
 

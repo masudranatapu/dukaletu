@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 14, 2022 at 01:07 PM
+-- Generation Time: Dec 14, 2022 at 03:31 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -751,7 +751,8 @@ CREATE TABLE `mobile_validations` (
 
 INSERT INTO `mobile_validations` (`id`, `phone_number`, `otp_code`, `expired_in`, `attempt`, `created_at`, `updated_at`) VALUES
 (1, '01794798227', '548697', '2022-11-17 15:13:06', 4, '2022-11-17 15:11:11', '2022-11-17 15:12:36'),
-(2, '+254718438984', '178795', '2022-11-23 13:07:12', 1, '2022-11-23 13:06:42', '2022-11-23 13:06:42');
+(2, '+254718438984', '178795', '2022-11-23 13:07:12', 1, '2022-11-23 13:06:42', '2022-11-23 13:06:42'),
+(3, '0191899327', '284334', '2022-12-14 17:59:54', 1, '2022-12-14 17:59:24', '2022-12-14 17:59:24');
 
 -- --------------------------------------------------------
 
@@ -864,8 +865,10 @@ INSERT INTO `notifications` (`id`, `type`, `notifiable_type`, `notifiable_id`, `
 ('6c6d2eb1-521a-4897-a362-f8723bb1dfce', 'App\\Notifications\\AdWishlistNotification', 'App\\Models\\User', 9, '{\"msg\":\"Added a ad to favourite list\",\"type\":\"added_to_favourite\",\"url\":\"http:\\/\\/localhost:8000\\/ad\\/details\\/new-jincheng-2022-orange\"}', NULL, '2022-11-14 10:53:44', '2022-11-14 10:53:44'),
 ('7071d197-deb6-4067-b9dd-7a3f826c5e00', 'App\\Notifications\\AdPendingNotification', 'App\\Models\\User', 1, '{\"msg\":\"Ad pending\",\"type\":\"adpending\"}', NULL, '2022-12-13 15:47:28', '2022-12-13 15:47:28'),
 ('72d6c5cb-b0a5-4ad6-88a7-b3fedb074dd0', 'App\\Notifications\\AdPendingNotification', 'App\\Models\\User', 6, '{\"msg\":\"Ad pending\",\"type\":\"adpending\"}', NULL, '2022-11-08 14:44:37', '2022-11-08 14:44:37'),
+('777901b5-7e72-4a52-a0df-67b2566c5528', 'App\\Notifications\\LogoutNotification', 'App\\Models\\User', 1, '{\"msg\":\"You\'re loggedout successfully\",\"type\":\"loggedout\"}', NULL, '2022-12-14 17:45:13', '2022-12-14 17:45:13'),
 ('796297dd-ea8a-44e1-b963-04550c6ac78c', 'App\\Notifications\\LoginNotification', 'App\\Models\\User', 3, '{\"msg\":\"You\'re loggedin successfully\",\"type\":\"loggedin\"}', NULL, '2022-11-05 16:11:12', '2022-11-05 16:11:12'),
 ('839ce642-d90a-42c5-992f-30d5ece21917', 'App\\Notifications\\LogoutNotification', 'App\\Models\\User', 6, '{\"msg\":\"You\'re loggedout successfully\",\"type\":\"loggedout\"}', NULL, '2022-11-07 18:03:14', '2022-11-07 18:03:14'),
+('980e1da0-31b4-4366-9e99-2cbfbd595124', 'App\\Notifications\\LoginNotification', 'App\\Models\\User', 1, '{\"msg\":\"You\'re loggedin successfully\",\"type\":\"loggedin\"}', NULL, '2022-12-14 17:41:53', '2022-12-14 17:41:53'),
 ('9cfe57b5-d8eb-44c5-9d3c-23378d3f82cd', 'App\\Notifications\\LogoutNotification', 'App\\Models\\User', 1, '{\"msg\":\"You\'re loggedout successfully\",\"type\":\"loggedout\"}', NULL, '2022-12-07 13:45:12', '2022-12-07 13:45:12'),
 ('a64db3b2-6a9d-45b8-891d-6664f8c4db20', 'App\\Notifications\\LoginNotification', 'App\\Models\\User', 9, '{\"msg\":\"You\'re loggedin successfully\",\"type\":\"loggedin\"}', NULL, '2022-11-08 18:30:15', '2022-11-08 18:30:15'),
 ('a7708537-1774-4bfa-a961-6bddbe9d91cd', 'App\\Notifications\\AdPendingNotification', 'App\\Models\\User', 9, '{\"msg\":\"Ad pending\",\"type\":\"adpending\"}', NULL, '2022-11-13 15:04:02', '2022-11-13 15:04:02'),
@@ -1348,15 +1351,16 @@ CREATE TABLE `settings` (
   `instagram` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `youtube` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `linkdin` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `whatsapp` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `whatsapp` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `app_mode` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'live/local'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `settings`
 --
 
-INSERT INTO `settings` (`id`, `logo_image`, `white_logo`, `favicon_image`, `header_css`, `header_script`, `body_script`, `free_featured_ad_limit`, `regular_ads_homepage`, `featured_ads_homepage`, `customer_email_verification`, `maximum_ad_image_limit`, `subscription_type`, `ads_admin_approval`, `free_ad_limit`, `sidebar_color`, `nav_color`, `sidebar_txt_color`, `nav_txt_color`, `main_color`, `accent_color`, `frontend_primary_color`, `frontend_secondary_color`, `dark_mode`, `facebook_pixel`, `google_analytics`, `search_engine_indexing`, `default_layout`, `website_loader`, `loader_image`, `language_changing`, `email_verification`, `watermark_status`, `watermark_type`, `watermark_text`, `watermark_image`, `created_at`, `updated_at`, `default_map`, `google_map_key`, `map_box_key`, `default_long`, `default_lat`, `push_notification_status`, `server_key`, `api_key`, `auth_domain`, `project_id`, `storage_bucket`, `messaging_sender_id`, `app_id`, `measurement_id`, `facebook`, `twitter`, `instagram`, `youtube`, `linkdin`, `whatsapp`) VALUES
-(1, 'uploads/app/logo\\o5cLJ1S3qDEGpBVhK2dPjsG4y43JNUodisa1oSjM.png', 'uploads/app/logo\\wNUnMrh5vOJwPC4zdJux2C4gClD3089XGlZcnvs5.png', 'uploads/app/logo\\zitPolRGGS7vMdroGm4u0b2n3NEB0sbVaBHSXu3Z.png', NULL, NULL, NULL, 1, 1, 1, 0, 5, 'recurring', 1, 3, '#022446', '#0a243e', '#e0e9f2', '#e0e9f2', '#05c279', '#ffc107', '#05c279', '#ffc107', 0, 0, 0, 1, 1, 0, NULL, 0, 0, 1, 'text', 'Dukaletu', 'frontend/images/logo.png', '2022-08-19 23:31:12', '2022-10-28 14:54:14', 'google-map', 'AIzaSyA0gxkGb2UmHjxv9ftK8LjX9vQ-SnmJJ20', '', 90.411270491741, 23.757853442383, 0, 'your-server-key', 'your-api-key', 'your-auth-domain', 'your-project-id', 'your-storage-bucket', 'your-messaging-sender-id', 'your-app-id', 'your-measurement-id', 'https://facebook.com/zakirsoft', 'https://twitter.com/zakirsoft', 'https://instagram.com/zakirsoft', 'https://www.youtube.com/channel/UCMSp_qPtYbaUMjEICDLhDCQ', 'https://www.linkedin.com/in/zakirsoft', 'https://web.whatsapp.com/');
+INSERT INTO `settings` (`id`, `logo_image`, `white_logo`, `favicon_image`, `header_css`, `header_script`, `body_script`, `free_featured_ad_limit`, `regular_ads_homepage`, `featured_ads_homepage`, `customer_email_verification`, `maximum_ad_image_limit`, `subscription_type`, `ads_admin_approval`, `free_ad_limit`, `sidebar_color`, `nav_color`, `sidebar_txt_color`, `nav_txt_color`, `main_color`, `accent_color`, `frontend_primary_color`, `frontend_secondary_color`, `dark_mode`, `facebook_pixel`, `google_analytics`, `search_engine_indexing`, `default_layout`, `website_loader`, `loader_image`, `language_changing`, `email_verification`, `watermark_status`, `watermark_type`, `watermark_text`, `watermark_image`, `created_at`, `updated_at`, `default_map`, `google_map_key`, `map_box_key`, `default_long`, `default_lat`, `push_notification_status`, `server_key`, `api_key`, `auth_domain`, `project_id`, `storage_bucket`, `messaging_sender_id`, `app_id`, `measurement_id`, `facebook`, `twitter`, `instagram`, `youtube`, `linkdin`, `whatsapp`, `app_mode`) VALUES
+(1, 'uploads/app/logo\\o5cLJ1S3qDEGpBVhK2dPjsG4y43JNUodisa1oSjM.png', 'uploads/app/logo\\wNUnMrh5vOJwPC4zdJux2C4gClD3089XGlZcnvs5.png', 'uploads/app/logo\\zitPolRGGS7vMdroGm4u0b2n3NEB0sbVaBHSXu3Z.png', NULL, NULL, NULL, 1, 1, 1, 0, 5, 'recurring', 1, 3, '#022446', '#0a243e', '#e0e9f2', '#e0e9f2', '#05c279', '#ffc107', '#05c279', '#ffc107', 0, 0, 0, 1, 1, 0, NULL, 0, 0, 1, 'text', 'Dukaletu', 'frontend/images/logo.png', '2022-08-19 23:31:12', '2022-10-28 14:54:14', 'google-map', 'AIzaSyA0gxkGb2UmHjxv9ftK8LjX9vQ-SnmJJ20', '', 90.411270491741, 23.757853442383, 0, 'your-server-key', 'your-api-key', 'your-auth-domain', 'your-project-id', 'your-storage-bucket', 'your-messaging-sender-id', 'your-app-id', 'your-measurement-id', 'https://facebook.com/zakirsoft', 'https://twitter.com/zakirsoft', 'https://instagram.com/zakirsoft', 'https://www.youtube.com/channel/UCMSp_qPtYbaUMjEICDLhDCQ', 'https://www.linkedin.com/in/zakirsoft', 'https://web.whatsapp.com/', 'local');
 
 -- --------------------------------------------------------
 
@@ -1471,7 +1475,7 @@ CREATE TABLE `sms_packages` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `status` tinyint(4) NOT NULL DEFAULT 1,
-  `validity` int(255) NOT NULL
+  `validity` int(10) NOT NULL DEFAULT 1 COMMENT 'number of days '
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -1479,8 +1483,8 @@ CREATE TABLE `sms_packages` (
 --
 
 INSERT INTO `sms_packages` (`id`, `name`, `price`, `amount_of_sms`, `created_at`, `updated_at`, `status`, `validity`) VALUES
-(1, 'test', 10, 200, '2022-12-06 12:55:33', '2022-12-06 13:39:11', 1, 0),
-(2, 'test update', 200, 2000, '2022-12-06 12:56:15', '2022-12-07 09:27:38', 1, 10);
+(1, 'Gold', 10, 200, '2022-12-06 12:55:33', '2022-12-06 13:39:11', 1, 1),
+(2, 'Sliver', 200, 2000, '2022-12-06 12:56:15', '2022-12-07 09:27:38', 1, 10);
 
 -- --------------------------------------------------------
 
@@ -2447,7 +2451,7 @@ CREATE TABLE `transactions` (
   `amount` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `currency_symbol` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `usd_amount` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `payment_status` enum('paid','unpaid') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'unpaid',
+  `payment_status` enum('paid','unpaid','failed','success') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'unpaid',
   `trackingid` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -2495,7 +2499,8 @@ INSERT INTO `transactions` (`id`, `order_id`, `transaction_id`, `payment_provide
 (91, 'PESAPALNJQB25RN9M80UF8', 'PESAPAL2SVASK0GLEV6EIH', 'pesapal', NULL, 2, 1, '200', NULL, NULL, 'paid', 'd8952614-2a75-43e9-a324-df492b121caa', '2022-12-06 17:49:48', '2022-12-06 17:50:36'),
 (92, 'PESAPALZRHOZ2UFNT9WQYQ', 'PESAPAL0G6RWVO1LQHVHQ6', 'pesapal', NULL, 2, 1, '200', NULL, NULL, 'paid', 'ab88df77-f459-4224-86a4-df49a808ee28', '2022-12-06 17:52:40', '2022-12-06 17:53:34'),
 (93, 'PESAPALTTTHOBKU3LK0K8J', 'PESAPAL5ECZJXSHVFA8378', 'pesapal', NULL, 2, 1, '200', NULL, NULL, 'paid', '4cfc023a-0ab0-483e-84ce-df4951bea49e', '2022-12-06 17:54:36', '2022-12-06 17:55:11'),
-(94, 'PESAPAL0N9P8BYT13N2ABV', 'PESAPAL5ZYPWDWOSMR3AZ2', 'pesapal', NULL, 1, 1, '10', NULL, NULL, 'paid', '6354485b-3f5f-4c68-8b80-df478f160f4f', '2022-12-08 11:28:13', '2022-12-08 11:29:18');
+(94, 'PESAPAL0N9P8BYT13N2ABV', 'PESAPAL5ZYPWDWOSMR3AZ2', 'pesapal', NULL, 1, 1, '10', NULL, NULL, 'paid', '6354485b-3f5f-4c68-8b80-df478f160f4f', '2022-12-08 11:28:13', '2022-12-08 11:29:18'),
+(100, 'PESAPALRAWPK91K9KU92AB', 'PESAPAL18PY6KQ99NT7HVO', 'pesapal', NULL, 2, 2, '200', NULL, NULL, 'failed', 'e8b358ce-bc9b-4e5e-97cc-df41f78174d1', '2022-12-14 18:39:11', '2022-12-14 18:43:32');
 
 -- --------------------------------------------------------
 
@@ -2522,8 +2527,7 @@ CREATE TABLE `users` (
   `provider` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `provider_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `fcm_token` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `user_sms_stock` int(255) DEFAULT 0,
-  `used_sms` int(25) DEFAULT 0,
+  `user_sms_stock` int(11) DEFAULT 0 COMMENT 'unused sms',
   `sms_plan_id` int(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -2531,8 +2535,9 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `username`, `email`, `phone`, `email_verified_at`, `password`, `web`, `image`, `token`, `last_seen`, `remember_token`, `created_at`, `updated_at`, `auth_type`, `provider`, `provider_id`, `fcm_token`, `user_sms_stock`, `used_sms`, `sms_plan_id`) VALUES
-(1, 'Md Mridul', 'mdmridul608', 'mdmridul608@gmail.com', '01794798227', NULL, '$2y$10$CXyuDXFSNAjrNuqVzwai/OAG0PVo55g.tRlIYTDddsZHwcPn0Fsqq', NULL, 'backend/image/default-user.png', NULL, '2022-12-14 19:13:40', NULL, '2022-11-17 15:12:52', '2022-12-14 13:13:40', 'email', NULL, NULL, NULL, 10, 0, 1);
+INSERT INTO `users` (`id`, `name`, `username`, `email`, `phone`, `email_verified_at`, `password`, `web`, `image`, `token`, `last_seen`, `remember_token`, `created_at`, `updated_at`, `auth_type`, `provider`, `provider_id`, `fcm_token`, `user_sms_stock`, `sms_plan_id`) VALUES
+(1, 'Md Mridul', 'mdmridul608', 'mdmridul608@gmail.com', '01794798227', NULL, '$2y$10$CXyuDXFSNAjrNuqVzwai/OAG0PVo55g.tRlIYTDddsZHwcPn0Fsqq', NULL, 'backend/image/default-user.png', NULL, '2022-12-14 23:45:13', NULL, '2022-11-17 15:12:52', '2022-12-14 17:45:13', 'email', NULL, NULL, NULL, 200, 1),
+(2, 'sakib khan', 'sakib', 'sakib@gmail.com', '0191899327', NULL, '$2y$10$Pkvm9yA4Vx3JWGMpKGgNRuXOR8FF8M20XWIvOFKE9AbzRP4lJRxeW', NULL, 'backend/image/default-user.png', NULL, '2022-12-15 01:25:35', NULL, '2022-12-14 18:00:37', '2022-12-14 19:25:35', 'email', NULL, NULL, NULL, 2000, 2);
 
 -- --------------------------------------------------------
 
@@ -2572,7 +2577,13 @@ INSERT INTO `user_phone_books` (`id`, `user_id`, `phone_number`, `created_at`, `
 (3, 1, '1988173070', '2022-12-14 12:47:51', '2022-12-14 12:47:51'),
 (4, 1, '1866745959', '2022-12-14 12:47:51', '2022-12-14 12:47:51'),
 (5, 1, '1777839611', '2022-12-14 12:47:51', '2022-12-14 12:47:51'),
-(8, 1, '1939149328', '2022-12-14 12:50:13', '2022-12-14 12:50:13');
+(8, 1, '1939149328', '2022-12-14 12:50:13', '2022-12-14 12:50:13'),
+(9, 2, '1855656071', '2022-12-14 18:58:49', '2022-12-14 18:58:49'),
+(10, 2, '1794798227', '2022-12-14 18:58:49', '2022-12-14 18:58:49'),
+(11, 2, '1988173070', '2022-12-14 18:58:49', '2022-12-14 18:58:49'),
+(12, 2, '1866745959', '2022-12-14 18:58:49', '2022-12-14 18:58:49'),
+(13, 2, '1777839611', '2022-12-14 18:58:49', '2022-12-14 18:58:49'),
+(14, 2, '1939149328', '2022-12-14 18:58:49', '2022-12-14 18:58:49');
 
 -- --------------------------------------------------------
 
@@ -2599,33 +2610,8 @@ CREATE TABLE `user_plans` (
 --
 
 INSERT INTO `user_plans` (`id`, `user_id`, `ad_limit`, `featured_limit`, `badge`, `created_at`, `updated_at`, `subscription_type`, `expired_date`, `current_plan_id`, `is_restored_plan_benefits`) VALUES
-(1, 1, 2, 1, 0, '2022-11-17 15:12:52', '2022-12-14 13:54:59', 'recurring', NULL, NULL, 0);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `user_sms_plans`
---
-
-CREATE TABLE `user_sms_plans` (
-  `id` int(11) NOT NULL,
-  `user_id` int(255) NOT NULL,
-  `sms_plan_id` int(255) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `user_sms_plans`
---
-
-INSERT INTO `user_sms_plans` (`id`, `user_id`, `sms_plan_id`, `created_at`, `updated_at`) VALUES
-(1, 1, 2, '2022-12-06 17:25:21', '2022-12-06 17:25:21'),
-(2, 1, 2, '2022-12-06 17:27:11', '2022-12-06 17:27:11'),
-(3, 1, 2, '2022-12-06 17:50:36', '2022-12-06 17:50:36'),
-(4, 1, 2, '2022-12-06 17:53:34', '2022-12-06 17:53:34'),
-(5, 1, 4, '2022-12-06 17:55:11', '2022-12-06 17:55:11'),
-(6, 1, 1, '2022-12-08 11:29:18', '2022-12-08 11:29:18');
+(1, 1, 2, 1, 0, '2022-11-17 15:12:52', '2022-12-14 13:54:59', 'recurring', NULL, NULL, 0),
+(2, 2, 3, 1, 0, '2022-12-14 18:00:37', '2022-12-14 18:00:37', 'recurring', NULL, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -2637,34 +2623,51 @@ CREATE TABLE `user_sms_stocks` (
   `id` int(255) NOT NULL,
   `user_id` int(255) NOT NULL,
   `stock` int(255) NOT NULL,
-  `status` varchar(11) NOT NULL,
+  `status` enum('IN','OUT') NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `expire_date` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `user_sms_stocks`
 --
 
-INSERT INTO `user_sms_stocks` (`id`, `user_id`, `stock`, `status`, `created_at`, `updated_at`) VALUES
-(1, 1, -2000, 'in', '2022-12-06 17:27:11', '2022-12-06 17:27:11'),
-(2, 1, 2000, 'in', '2022-12-06 17:50:36', '2022-12-06 17:50:36'),
-(3, 1, 2000, 'in', '2022-12-06 17:53:34', '2022-12-06 17:53:34'),
-(4, 1, 2000, 'in', '2022-12-06 17:55:11', '2022-12-06 17:55:11'),
-(5, 1, -1, 'Out', '2022-12-07 16:08:04', '2022-12-07 16:08:04'),
-(6, 1, -1, 'Out', '2022-12-07 16:23:15', '2022-12-07 16:23:15'),
-(7, 1, -1, 'Out', '2022-12-07 16:23:38', '2022-12-07 16:23:38'),
-(8, 1, 200, 'in', '2022-12-08 11:29:18', '2022-12-08 11:29:18'),
-(9, 1, -1, 'Out', '2022-12-13 11:36:44', '2022-12-13 11:36:44'),
-(10, 1, -1, 'Out', '2022-12-13 11:36:44', '2022-12-13 11:36:44'),
-(11, 1, -1, 'Out', '2022-12-13 11:36:44', '2022-12-13 11:36:44'),
-(12, 1, -1, 'Out', '2022-12-13 11:36:44', '2022-12-13 11:36:44'),
-(13, 1, -1, 'Out', '2022-12-13 11:36:44', '2022-12-13 11:36:44'),
-(14, 1, -1, 'Out', '2022-12-13 11:40:51', '2022-12-13 11:40:51'),
-(15, 1, -1, 'Out', '2022-12-13 11:40:51', '2022-12-13 11:40:51'),
-(16, 1, -1, 'Out', '2022-12-13 11:40:51', '2022-12-13 11:40:51'),
-(17, 1, -1, 'Out', '2022-12-13 11:40:51', '2022-12-13 11:40:51'),
-(18, 1, -1, 'Out', '2022-12-13 11:40:51', '2022-12-13 11:40:51');
+INSERT INTO `user_sms_stocks` (`id`, `user_id`, `stock`, `status`, `created_at`, `updated_at`, `expire_date`) VALUES
+(1, 1, 200, 'IN', '2022-12-14 12:21:03', '2022-12-14 12:21:03', '2022-12-24'),
+(2, 1, -1, 'OUT', '2022-12-14 12:21:29', '2022-12-14 12:21:29', NULL),
+(3, 1, 200, 'IN', '2022-12-14 12:21:03', '2022-12-14 12:21:03', '2022-12-24'),
+(4, 1, -399, 'OUT', '2022-12-14 12:30:52', '2022-12-14 12:30:52', NULL),
+(5, 1, 200, 'IN', '2022-12-14 12:21:03', '2022-12-14 12:21:03', '2022-12-24'),
+(6, 2, 2000, 'IN', '2022-12-14 18:48:41', '2022-12-14 18:48:41', '1970-01-01');
+
+--
+-- Triggers `user_sms_stocks`
+--
+DELIMITER $$
+CREATE TRIGGER `after_user_sms_stocks_insert` AFTER INSERT ON `user_sms_stocks` FOR EACH ROW begin
+   
+declare var_unused_sms int default 0 ;
+select sum(user_sms_stocks.stock) into var_unused_sms from user_sms_stocks where user_id = new.user_id;
+
+update users set user_sms_stock = var_unused_sms where id = new.user_id;
+
+
+end
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `after_user_sms_stocks_update` AFTER UPDATE ON `user_sms_stocks` FOR EACH ROW begin
+   
+declare var_unused_sms int default 0 ;
+select sum(user_sms_stocks.stock) into var_unused_sms from user_sms_stocks where user_id = new.user_id;
+
+update users set user_sms_stock = var_unused_sms where id = new.user_id;
+
+
+end
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -3082,12 +3085,6 @@ ALTER TABLE `user_plans`
   ADD KEY `user_plans_current_plan_id_foreign` (`current_plan_id`);
 
 --
--- Indexes for table `user_sms_plans`
---
-ALTER TABLE `user_sms_plans`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `user_sms_stocks`
 --
 ALTER TABLE `user_sms_stocks`
@@ -3271,7 +3268,7 @@ ALTER TABLE `mobile_app_sliders`
 -- AUTO_INCREMENT for table `mobile_validations`
 --
 ALTER TABLE `mobile_validations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `module_settings`
@@ -3403,13 +3400,13 @@ ALTER TABLE `timezones`
 -- AUTO_INCREMENT for table `transactions`
 --
 ALTER TABLE `transactions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=95;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `user_device_tokens`
@@ -3421,25 +3418,19 @@ ALTER TABLE `user_device_tokens`
 -- AUTO_INCREMENT for table `user_phone_books`
 --
 ALTER TABLE `user_phone_books`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `user_plans`
 --
 ALTER TABLE `user_plans`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `user_sms_plans`
---
-ALTER TABLE `user_sms_plans`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `user_sms_stocks`
 --
 ALTER TABLE `user_sms_stocks`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `wishlists`

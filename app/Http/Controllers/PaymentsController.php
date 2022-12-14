@@ -58,6 +58,7 @@ class PaymentsController extends Controller
                 'plan_id' => $request->plan_id,
             );
         } else {
+            //sms payment
             session()->forget('purchase_for');
             session()->put('purchase_for', $request->type);
             $plan_id = $request->plan_id;
@@ -122,7 +123,7 @@ class PaymentsController extends Controller
         if ($status == 'COMPLETED') {
             $payments = Transaction::where('id', $merchant_reference)->first();
             $payments->trackingid = $trackingid;
-            $payments->payment_status = 'paid';
+            $payments->payment_status = 'success';
             $payments->save();
             if (session('purchase_for') == 'plan') {
                 # code...
@@ -130,29 +131,33 @@ class PaymentsController extends Controller
                 $this->userPlanInfoUpdate($plan);
                 return redirect()->route('frontend.plans-billing')->with('success', 'Payment successfully done.');
             } else {
+                //sms payment
                 $package = SmsPackage::where('id', $payments->sms_plan_id)->first();
 
                 $user = User::find(Auth::id());
                 $user->sms_plan_id = $package->id;
                 $user->save();
 
-                $userSmsPlan = new UserSmsPlan();
-                $userSmsPlan->sms_plan_id = $package->id;
-                $userSmsPlan->user_id = Auth::id();
-                $userSmsPlan->save();
+                // $userSmsPlan = new UserSmsPlan();
+                // $userSmsPlan->sms_plan_id = $package->id;
+                // $userSmsPlan->user_id = Auth::id();
+                // $userSmsPlan->save();
 
                 $userSmsStock = new UserSmsStock();
                 $userSmsStock->user_id = Auth::id();
                 $userSmsStock->stock = $package->amount_of_sms;
-                $userSmsStock->status = "In";
+                $userSmsStock->status = "IN";
+                $userSmsStock->expire_date = date("Y-m-d", strtotime($package->validity));
                 $userSmsStock->save();
                 return redirect()->route('frontend.dashboard')->with('success', 'Payment successfully done');
             }
         } elseif ("FAILED") {
             $payments = Transaction::where('id', $merchant_reference)->first();
             $payments->trackingid = $trackingid;
-            $payments->payment_status = 'paid';
+            $payments->payment_status = 'failed';
             $payments->save();
+
+
             if (session('purchase_for') == 'plan') {
 
                 $plan = Plan::where('id', $payments->plan_id)->first();
@@ -167,18 +172,22 @@ class PaymentsController extends Controller
 
 
 
-                $userSmsPlan = new UserSmsPlan();
-                $userSmsPlan->sms_plan_id = $package->id;
-                $userSmsPlan->user_id = Auth::id();
-                $userSmsPlan->save();
+                // $userSmsPlan = new UserSmsPlan();
+                // $userSmsPlan->sms_plan_id = $package->id;
+                // $userSmsPlan->user_id = Auth::id();
+                // $userSmsPlan->save();
 
                 $userSmsStock = new UserSmsStock();
                 $userSmsStock->user_id = Auth::id();
                 $userSmsStock->stock = $package->amount_of_sms;
-                $userSmsStock->status = "in";
+                $userSmsStock->status = "IN";
+                $userSmsStock->expire_date = date("Y-m-d", strtotime($package->validity));
                 $userSmsStock->save();
                 return redirect()->route('frontend.dashboard')->with('success', 'Payment successfully done');
             }
+
+
+
         }
     }
     //Confirm status of transaction and update the DB

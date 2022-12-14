@@ -36,7 +36,7 @@
                         <div class="row dashboard__bill-two">
                             <div class="col-lg-12">
                                 <div class="dashboard-card dashboard-card--benefits">
-                                    <h2 class="dashboard-card__title">{{ __('plan_benefits') }}</h2>
+                                    <h2 class="dashboard-card__title">{{ __('sms_paln_billing') }}</h2>
                                     <ul class="dashboard__benefits">
                                         <li class="dashboard__benefits-left">
                                             <ul>
@@ -44,7 +44,7 @@
                                                     <span class="icon">
                                                         <x-svg.check-icon width="12" height="12" stroke="#3db83a" />
                                                     </span>
-                                                    <p class="text--body-4">{{ __('ads_remaining') }}
+                                                    <p class="text--body-4">{{ __('sms_remaining') }}
                                                         <span class="text-success">{{ Auth::user()->user_sms_stock }}</span>
                                                     </p>
                                                 </li>
@@ -79,7 +79,7 @@
                                     <table>
                                         <thead>
                                             <tr>
-                                                <th>{{ __('order_id') }}</th>
+                                                <th>{{ __('transaction_id') }}</th>
                                                 <th>{{ __('plan_type') }}</th>
                                                 <th>{{ __('payment_provider') }}</th>
                                                 <th>{{ __('amount') }}</th>
@@ -93,7 +93,7 @@
                                                     <td>{{ $transaction->order_id }}</td>
                                                     <td>{{ $transaction->package->name }}</td>
                                                     <td>{{ ucfirst($transaction->payment_provider) }}</td>
-                                                    <td>{{ $transaction->amount }}</td>
+                                                    <td>{{ changeCurrency($transaction->amount) }}</td>
                                                     <td>{{ Carbon\Carbon::parse($transaction->created_at)->format('M d, Y g:i A') }}
                                                     </td>
                                                 </tr>

@@ -36,7 +36,7 @@
                         <div class="row dashboard__bill-two">
                             <div class="col-lg-12">
                                 <div class="dashboard-card dashboard-card--benefits">
-                                    <h2 class="dashboard-card__title">{{ __('plan_benefits') }}</h2>
+                                    <h2 class="dashboard-card__title">{{ __('sms_merketing') }}</h2>
                                     <ul class="dashboard__benefits">
 
                                         <li class="dashboard__benefits-right">
@@ -70,7 +70,7 @@
                                                 <li
                                                     class="dashboard__benefits-item d-flex justify-content-lg-end justify-content-sm-start">
                                                     <a href="{{ route('frontend.user-phoneBook') }}"
-                                                        class="btn btn--lg">User Phone Book</a>
+                                                        class="btn btn--lg">Phone Book</a>
                                                 </li>
                                             </ul>
                                         </li>
@@ -88,27 +88,18 @@
                                         <div class="tab-pane fade show active" id="pills-basic" role="tabpanel"
                                             aria-labelledby="pills-basic-tab">
                                             <div class="dashboard-post__information step-information">
-                                                <form action="{{ route('frontend.sms-marketing-getNumber') }}"
+                                                {{-- <form action="{{ route('frontend.sms-marketing-getNumber') }}"
                                                     method="POST" id="file-upload" enctype="multipart/form-data">
-
                                                     @csrf
-
-
-
-
                                                     <div class="input-group">
-
                                                         <input type="file" name="file" class="form-control"
                                                             id="file" aria-describedby="#submitBtn"
                                                             aria-label="Upload Csv">
                                                         <button class="btn btn--lg" type="submit"
-                                                            id="submitBtn">Upload</button>
+                                                            id="submitBtn">Upload CSV File</button>
                                                     </div>
                                                     <span class="text-danger" id="file-validation"></span>
-
-
-
-                                                </form>
+                                                </form> --}}
 
                                                 <form action="{{ route('frontend.smsMarketing.sendSms') }}" method="post">
                                                     @csrf
@@ -124,7 +115,7 @@
                                                                 @if (isset($userPhoneBooks))
                                                                     @foreach ($userPhoneBooks as $userPhoneBook)
                                                                         <option value="{{ $userPhoneBook->phone_number }}"
-                                                                            selected="true">
+                                                                            >
                                                                             {{ $userPhoneBook->phone_number }}
                                                                         </option>
                                                                     @endforeach
@@ -212,7 +203,8 @@
         $(document).ready(function() {
             $('#numbers').select2({
                 placeholder: "Select a Number",
-                allowClear: true
+                allowClear: true,
+                tags:true,
             });
         });
     </script>
