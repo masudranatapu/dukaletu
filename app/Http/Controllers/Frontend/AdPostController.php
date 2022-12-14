@@ -101,8 +101,9 @@ class AdPostController extends Controller
                 $slug = Str::slug($request->title);
 
                 $check = DB::table('ads')->where('slug', $slug)->first();
+                $lastAD = Ad::orderBy('id', 'desc')->first();
                 if ($check) {
-                    $slug = $slug . '_' . time();
+                    $slug = $slug . '-' . (int)$lastAD->id + 1;
                 }
                 $ad['slug'] = $slug;
                 $ad['featured'] = $isfeatured;
@@ -121,6 +122,7 @@ class AdPostController extends Controller
             $this->step1Success();
             return redirect()->route('frontend.post.step2');
         } catch (\Throwable $th) {
+
             $this->forgetStepSession();
             return redirect()->back()->with('error', 'Something went wrong while saving your ad.Please try again.');
         }

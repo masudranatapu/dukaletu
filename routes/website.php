@@ -9,8 +9,10 @@ use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\Frontend\DashboardController;
 use App\Http\Controllers\Frontend\SellerDashboardController;
 use App\Http\Controllers\Frontend\FrontendController;
+use App\Http\Controllers\Frontend\UserPhoneBookController;
 use App\Http\Controllers\PaymentsController;
 use App\Http\Controllers\SmsMarketingController;
+use App\Models\Frontend\UserPhoneBook;
 
 // show website pages
 Route::group(['as' => 'frontend.'], function () {
@@ -107,14 +109,19 @@ Route::group(['as' => 'frontend.'], function () {
             Route::put('social', 'socialUpdate')->name('social.update');
             Route::post('wishlist', 'addToWishlist')->name('add.wishlist');
             Route::delete('account-delete/{customer}', 'deleteAccount')->name('account.delete');
-
-
-            Route::get('sms-marketing', 'marketing')->name('sms-marketing');
-            Route::post('sms-marketing-get-number', 'marketingGetNumber')->name('sms-marketing-getNumber');
         });
-        Route::post('sms/send', [SmsMarketingController::class, 'sendSms'])->name('smsMarketing.sendSms');
 
+        // Sms Marketing
+        Route::get('sms-marketing', [SmsMarketingController::class, 'marketing'])->name('sms-marketing');
+        Route::post('sms/send', [SmsMarketingController::class, 'sendSms'])->name('smsMarketing.sendSms');
+        Route::post('sms-marketing-get-number', [SmsMarketingController::class, 'marketingGetNumber'])->name('sms-marketing-getNumber');
         Route::get('expired-plan', [DashboardController::class, 'expiredPlan'])->name('expiredPlan');
+
+
+
+        // user phone-book
+        Route::get('/user-phonebook', [UserPhoneBookController::class, 'index'])->name('user-phoneBook');
+        Route::get('/send-sms-single/{phone}/{page}', [UserPhoneBookController::class, 'show'])->name('send-sms-single');
     });
 });
 
