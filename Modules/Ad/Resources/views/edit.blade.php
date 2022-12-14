@@ -15,6 +15,9 @@
                     </div>
                     <div class="row pt-3 pb-4">
                         <div class="col-12 px-5">
+
+
+
                             <form class="form-horizontal" action="{{ route('module.ad.update', $ad->id) }}" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
@@ -44,7 +47,7 @@
                                                     <span class="invalid-feedback">{{ $message }}</span>
                                                 @enderror
                                             </div> --}}
-                                            <div class="col-md-6 mb-3" id="brand_div">
+                                            {{-- <div class="col-md-6 mb-3" id="brand_div">
                                                 <x-forms.label name="brand" required="" />
                                                 <select name="brand_id"
                                                     class="form-control @error('brand_id') is-invalid @enderror">
@@ -53,13 +56,13 @@
                                                         <option {{ $ad->brand_id == $brand->id ? 'selected' : '' }}
                                                             value="{{ $brand->id }}">{{ $brand->name }}</option>
                                                     @endforeach
-    
+
                                                 </select>
                                                 @error('brand_id')
                                                     <span class="invalid-feedback">{{ $message }}</span>
                                                 @enderror
-                                            </div>
-    
+                                            </div> --}}
+
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6 mb-3">
@@ -81,8 +84,7 @@
                                                     ({{ config('zakirsoft.currency_symbol') }})</x-forms.label>
                                                 <input type="number" name="price"
                                                     class="form-control @error('price') is-invalid @enderror"
-                                                    value="{{ $ad->price }}"
-                                                    placeholder="{{ __('enter_ad_price') }}">
+                                                    value="{{ $ad->price }}" placeholder="{{ __('enter_ad_price') }}">
                                                 @error('price')
                                                     <span class="invalid-feedback">{{ $message }}</span>
                                                 @enderror
@@ -145,8 +147,7 @@
                                                     <span>(
                                                         <input type="checkbox" name="show_phone" id="show_phone_number"
                                                             value="0" {{ !$ad->show_phone ? 'checked' : '' ?? '' }}>
-                                                        <label
-                                                            for="show_phone_number">{{ __('hide_in_details') }}</label>
+                                                        <label for="show_phone_number">{{ __('hide_in_details') }}</label>
                                                         )</span>
                                                 </label>
                                                 <input type="text" name="phone"
@@ -159,7 +160,7 @@
                                             </div>
 
 
-                                            <div class="col-md-6 mb-3">
+                                            {{-- <div class="col-md-6 mb-3">
                                                 <label for="optional_phone_number">{{ __('phone_number') }}
                                                     ({{ __('optional') }})</label>
                                                 <input type="text" name="phone_2"
@@ -169,7 +170,7 @@
                                                 @error('phone_2')
                                                     <span class="invalid-feedback">{{ $message }}</span>
                                                 @enderror
-                                            </div>
+                                            </div> --}}
 
                                             <div class="col-md-6 mb-3">
                                                 <label for="whatsapp_profile_url"
@@ -182,6 +183,42 @@
                                                     value="{{ old('whatsapp', $ad->whatsapp) }}"
                                                     placeholder="E.g: 8801681******" id="whatsapp_profile_url">
                                                 @error('whatsapp')
+                                                    <span class="invalid-feedback">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-md-6 mb-3">
+                                                <x-forms.label name="country" required="true">
+
+                                                </x-forms.label>
+                                                <input type="text" name="country"
+                                                    class="form-control @error('country') is-invalid @enderror"
+                                                    value="{{ old('country') ? old('country') : $ad->country }}"
+                                                    placeholder="{{ __('enter_ad_country') }}">
+                                                @error('country')
+                                                    <span class="invalid-feedback">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <x-forms.label name="city" required="true">
+                                                </x-forms.label>
+                                                <input type="text" name="district"
+                                                    class="form-control @error('district') is-invalid @enderror"
+                                                    value="{{ old('district') ? old('district') : $ad->district }}"
+                                                    placeholder="{{ __('enter_ad_city') }}">
+                                                @error('district')
+                                                    <span class="invalid-feedback">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <x-forms.label name="address" required="true">
+                                                </x-forms.label>
+                                                <input type="text" name="address"
+                                                    class="form-control @error('address') is-invalid @enderror"
+                                                    value="{{ old('address') ? old('address') : $ad->address }}"
+                                                    placeholder="{{ __('enter_ad_address') }}">
+                                                @error('address')
                                                     <span class="invalid-feedback">{{ $message }}</span>
                                                 @enderror
                                             </div>
@@ -218,7 +255,7 @@
                                         </div>
 
 
-                                        <div class="row">
+                                        {{-- <div class="row">
                                             <div class="col-md-12 mb-3">
                                                 <div class="input-field--textarea">
                                                     <x-forms.label name="features" />
@@ -227,8 +264,7 @@
                                                             <div class="col-10">
                                                                 <div class="input-field mb-3">
                                                                     <input name="features[]" type="text"
-                                                                        placeholder="{{ __('feature') }}"
-                                                                        id="adname"
+                                                                        placeholder="{{ __('feature') }}" id="adname"
                                                                         class="form-control @error('title') border-danger @enderror" />
                                                                 </div>
                                                             </div>
@@ -260,10 +296,10 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </div>
-                                <div class="row">
+                                {{-- <div class="row">
                                     <div class="col-md-12 mb-3">
                                         <x-forms.label name="location" required="true" />
                                         <span data-toggle="tooltip" title=""
@@ -287,7 +323,7 @@
                                             <span class="text-md text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="row">
                                     <div class="col-md-12 mb-3">
                                         <x-forms.label name="description" required="true" />
@@ -371,9 +407,9 @@
     {{-- ck-editor --}}
     <script>
         CKEDITOR.replace('editor2', {
-            height: 600,
+            height: 300,
             removeButtons: 'PasteFromWord'
-            });
+        });
     </script>
 
     {{-- category-subcategory dropdown --}}
@@ -448,7 +484,7 @@
     <script src="{{ asset('frontend/plugins/mapbox/mapbox-gl-geocoder.min.js') }}"></script>
     <script src="{{ asset('frontend/plugins/mapbox/mapbox-gl.js') }}"></script>
     <!--=============== map box ===============-->
-    <script>
+    {{-- <script>
         var token = "{{ setting('map_box_key') }}";
         mapboxgl.accessToken = token;
         const coordinates = document.getElementById('coordinates');
@@ -736,8 +772,8 @@
             $Link3 = '&callback=initMap&libraries=places,geometry';
             $scr = $link1 . $link2 . $Link3;
         @endphp;
-    </script>
-    <script src="{{ $scr }}" async defer></script>
+    </script> --}}
+    {{-- <script src="{{ $scr }}" async defer></script> --}}
     <!-- =============== google map ========= -->
     <script type="text/javascript">
         $(document).ready(function() {

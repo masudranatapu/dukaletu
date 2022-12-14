@@ -16,6 +16,7 @@ use App\Notifications\AdCreateNotification;
 use Modules\Ad\Http\Requests\AdFormRequest;
 use App\Notifications\AdApprovedNotification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Modules\CustomField\Entities\CustomField;
 use Modules\CustomField\Entities\ProductCustomField;
 use Intervention\Image\Facades\Image;
@@ -192,19 +193,27 @@ class AdController extends Controller
         if (!userCan('ad.create')) {
             return abort(403);
         }
-        session()->put('location', $request->location);
+        // session()->put('location', $request->location);
 
-        $location = session()->get('location');
-        if (!$location) {
+        // // $location = session()->get('location');
+        // // if (!$location) {
 
-            $request->validate([
-                'location' => 'required',
-            ]);
+        // //     $request->validate([
+        // //         'location' => 'required|array',
+        // //     ]);
+        // // }
+
+        $slug = Str::slug($request->title);
+
+        $check = DB::table('ads')->where('slug', $slug)->first();
+        $lastAD = Ad::orderBy('id', 'desc')->first();
+        if ($check) {
+            $slug = $slug . '-' . (int)$lastAD->id + 1;
         }
 
         $ad = new Ad();
         $ad->title = $request->title;
-        $ad->slug = Str::slug($request->title);
+        $ad->slug = $slug;
         $ad->user_id = $request->user_id;
         $ad->category_id = $request->category_id;
         $ad->subcategory_id = $request->subcategory_id;
@@ -213,7 +222,7 @@ class AdController extends Controller
         $ad->description = $request->description;
         $ad->show_phone = $request->show_phone;
         $ad->phone = $request->phone;
-        $ad->phone_2 = $request->phone_2;
+        // $ad->phone_2 = $request->phone_2;
         $ad->whatsapp = $request->whatsapp ?? '';
         $ad->featured = $request->featured ? $request->featured : 0;
         $ad->status = setting('ads_admin_approval') ? 'pending' : 'active';
@@ -227,16 +236,16 @@ class AdController extends Controller
         }
 
         // feature inserting
-        foreach ($request->features as $feature) {
-            if ($feature) {
-                $ad->adFeatures()->create(['name' => $feature]);
-            }
-        }
+        // foreach ($request->features as $feature) {
+        //     if ($feature) {
+        //         $ad->adFeatures()->create(['name' => $feature]);
+        //     }
+        // }
 
         !setting('ads_admin_approval') ? $this->userPlanInfoUpdate($ad->featured, $request->user_id) : '';
 
         // <!--  location  -->
-        $location = session()->get('location');
+
 
         // $region = array_key_exists("region", $location) ? $location['region'] : '';
         // $country = array_key_exists("country", $location) ? $location['country'] : '';
@@ -248,14 +257,14 @@ class AdController extends Controller
             // 'place' => array_key_exists("place", $location) ? $location['place'] : '',
             // 'postcode' => array_key_exists("postcode", $location) ? $location['postcode'] : '',
             // 'region' => array_key_exists("region", $location) ? $location['region'] : '',
-            'address' => array_key_exists("address", $location) ? $location['address'] : '',
-            'district' => array_key_exists("district", $location) ? $location['district'] : '',
-            'country' => array_key_exists("country", $location) ? $location['country'] : '',
-            'long' => array_key_exists("lng", $location) ? $location['lng'] : '',
-            'lat' => array_key_exists("lat", $location) ? $location['lat'] : '',
+            'address' => $request->address ?? '',
+            'district' => $request->district ?? '',
+            'country' => $request->country ?? '',
+            'long' => 0,
+            'lat' => 0,
         ]);
 
-        session()->forget('location');
+
 
         flashSuccess('Ad Created Successfully. Please add category custom field values .');
 
@@ -303,12 +312,12 @@ class AdController extends Controller
             'user_id' => $request->user_id,
             'category_id' => $request->category_id,
             'subcategory_id' => $request->subcategory_id,
-            'brand_id' => $request->brand_id,
+            // 'brand_id' => $request->brand_id,
             'price' => $request->price,
             'description' => $request->description,
             'phone' => $request->phone,
             'show_phone' => $request->show_phone,
-            'phone_2' => $request->phone_2,
+            // 'phone_2' => $request->phone_2,
             'whatsapp' => $request->whatsapp ?? '',
             'featured' => $request->featured ? $request->featured : 0,
         ]);
@@ -322,38 +331,31 @@ class AdController extends Controller
         }
 
         // feature inserting
-        $ad->adFeatures()->delete();
-        foreach ($request->features as $feature) {
-            if ($feature) {
-                $ad->adFeatures()->create(['name' => $feature]);
-            }
-        }
+        // $ad->adFeatures()->delete();
+        // foreach ($request->features as $feature) {
+        //     if ($feature) {
+        //         $ad->adFeatures()->create(['name' => $feature]);
+        //     }
+        // }
 
         // <!--  location  -->
-        session()->put('location', $request->location);
-        $location = session()->get('location');
 
-        if ($location) {
 
-            $region = array_key_exists("region", $location) ? $location['region'] : '';
-            $country = array_key_exists("country", $location) ? $location['country'] : '';
-            $address = Str::slug($region . '-' . $country);
+        $ad->update([
+            // 'neighborhood' => array_key_exists("neighborhood", $location) ? $location['neighborhood'] : '',
+            // 'locality' => array_key_exists("locality", $location) ? $location['locality'] : '',
+            // 'place' => array_key_exists("place", $location) ? $location['place'] : '',
+            // 'postcode' => array_key_exists("postcode", $location) ? $location['postcode'] : '',
+            // 'region' => array_key_exists("region", $location) ? $location['region'] : '',
+            'address' => $request->address ?? '',
+            'district' => $request->district ?? '',
+            'country' => $request->country ?? '',
+            'long' => 0,
+            'lat' => 0,
+        ]);
 
-            $ad->update([
-                // 'neighborhood' => array_key_exists("neighborhood", $location) ? $location['neighborhood'] : '',
-                // 'locality' => array_key_exists("locality", $location) ? $location['locality'] : '',
-                // 'place' => array_key_exists("place", $location) ? $location['place'] : '',
-                // 'postcode' => array_key_exists("postcode", $location) ? $location['postcode'] : '',
-                // 'region' => array_key_exists("region", $location) ? $location['region'] : '',
-                'address' => array_key_exists("address", $location) ? $location['address'] : '',
-                'district' => array_key_exists("district", $location) ? $location['district'] : '',
-                'country' => array_key_exists("country", $location) ? $location['country'] : '',
-                'long' => 0,
-                'lat' => 0,
-            ]);
 
-            session()->forget('location');
-        }
+
 
 
         flashSuccess('Ad Updated Successfully. Please update category custom field values .');

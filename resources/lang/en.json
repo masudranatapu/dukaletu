@@ -1056,5 +1056,8 @@
     "user_sms_package": "User Sms Package",
     "user_sms_history": "User Sms History",
     "sms_left": "SMS Left",
-    "user_phone_book": "User Phone Book"
+    "user_phone_book": "User Phone Book",
+    "enter_ad_country": "Enter Country",
+    "enter_ad_city": "Enter City",
+    "enter_ad_address": "Enter Address"
 }

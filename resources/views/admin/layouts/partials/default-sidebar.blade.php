@@ -84,11 +84,11 @@
                             </x-sidebar-dropdown>
                         @endif
                     @endif
-                    @if (Module::collections()->has('Brand') && userCan('brand.view'))
+                    {{-- @if (Module::collections()->has('Brand') && userCan('brand.view'))
                         <x-admin.sidebar-list :linkActive="Route::is('module.brand.*') ? true : false" route="module.brand.index" icon="fas fa-award">
                             {{ __('brand') }}
                         </x-admin.sidebar-list>
-                    @endif
+                    @endif --}}
 
                     @if (Module::collections()->has('Map') && userCan('map.view'))
                         <x-admin.sidebar-list :linkActive="Route::is('module.map.*') ? true : false" route="module.map.index" icon="fas fa-map-marker-alt">
