@@ -54,7 +54,7 @@
                                         </li>
                                         <li class="dashboard__benefits-right">
                                             <ul>
-                                                <li class="dashboard__benefits-item">
+                                                <li class="dashboard__benefits-item my-2">
                                                     <span class="icon">
                                                         <x-svg.check-icon width="12" height="12" stroke="#3db83a" />
                                                     </span>
@@ -63,29 +63,20 @@
                                                             class="text-danger">{{ $currentPackage->smsPlan->name }}</span>
                                                     </p>
                                                 </li>
-
-
+                                            </ul>
+                                        </li>
+                                        <li class="dashboard__benefits-right my-2">
+                                            <ul>
+                                                <li
+                                                    class="dashboard__benefits-item d-flex justify-content-lg-end justify-content-sm-start">
+                                                    <a href="{{ route('frontend.user-phoneBook') }}"
+                                                        class="btn btn--lg">User Phone Book</a>
+                                                </li>
                                             </ul>
                                         </li>
                                     </ul>
                                 </div>
                             </div>
-                            @if ($setting->subscription_type == 'one_time')
-                                <div class="col-lg-5">
-                                    <div class="dashboard-card dashboard-card--invoice">
-                                        <h2 class="dashboard-card__title">{{ __('upgrade_plan') }}</h2>
-                                        <div class="dashboard-card--invoice-info">
-                                            <div class="action">
-                                                <a href="{{ route('frontend.priceplan') }}"
-                                                    class="btn">{{ __('upgrade_plan') }}</a>
-                                            </div>
-                                        </div>
-                                        <span class="dashboard-card--invoice__icon">
-                                            <x-svg.invoice-icon />
-                                        </span>
-                                    </div>
-                                </div>
-                            @endif
                         </div>
 
                         <div class="row dashboard__bill-three">
@@ -108,11 +99,12 @@
                                                     <div class="input-group">
 
                                                         <input type="file" name="file" class="form-control"
-                                                            id="inputGroupFile04" aria-describedby="#submitBtn"
+                                                            id="file" aria-describedby="#submitBtn"
                                                             aria-label="Upload Csv">
                                                         <button class="btn btn--lg" type="submit"
                                                             id="submitBtn">Upload</button>
                                                     </div>
+                                                    <span class="text-danger" id="file-validation"></span>
 
 
 
@@ -126,10 +118,22 @@
                                                         <div class="input-select">
                                                             <x-forms.label name="Select Numbers" required="true"
                                                                 for="numbers" />
-                                                            <select name="numbers[]" id="numbers" multiple="multiple"
-                                                                required
+                                                            <select required name="numbers[]" id="numbers"
+                                                                multiple="multiple"
                                                                 class="form-control select-bg @error('numbers') border-danger @enderror">
+                                                                @if (isset($userPhoneBooks))
+                                                                    @foreach ($userPhoneBooks as $userPhoneBook)
+                                                                        <option value="{{ $userPhoneBook->phone_number }}"
+                                                                            selected="true">
+                                                                            {{ $userPhoneBook->phone_number }}
+                                                                        </option>
+                                                                    @endforeach
+                                                                @endif
                                                             </select>
+                                                            @error('numbers')
+                                                                <span class="text-danger">{{ $message }}</span>
+                                                            @enderror
+
                                                         </div>
 
                                                         <div class="input-field__group">
@@ -137,6 +141,10 @@
                                                                 <x-forms.label name="Marketing Content" for="description" />
                                                                 <textarea required name="description" placeholder="{{ __('whats_your_thought') }}..." id="description"
                                                                     class="@error('description') border-danger @enderror"></textarea>
+                                                                @error('description')
+                                                                    <span class="text-danger">{{ $message }}</span>
+                                                                @enderror
+
                                                             </div>
                                                         </div>
 
@@ -165,8 +173,12 @@
             </div>
         </div>
     </section>
-
     <!-- dashboard section end  -->
+
+    @if (Session::has('phone_number'))
+        @for ($i = 0; $i < count(Session::get('phone_number')); $i++)
+        @endfor
+    @endif
 
 @endsection
 
@@ -198,7 +210,10 @@
     <script src="{{ asset('backend/js/select2.min.js') }}"></script>
     <script>
         $(document).ready(function() {
-            $('#numbers').select2();
+            $('#numbers').select2({
+                placeholder: "Select a Number",
+                allowClear: true
+            });
         });
     </script>
     <script>
@@ -208,49 +223,61 @@
                 '<div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div>';
             $('#submitBtn').html(spinner).attr('disabled', true);
             let formData = new FormData(this);
-            $.ajax({
-                type: 'POST',
-                url: "{{ route('frontend.sms-marketing-getNumber') }}",
-                data: formData,
-                contentType: false,
-                processData: false,
-                success: (response) => {
-                    if (response) {
-                        this.reset();
+            var fileInput =
+                document.getElementById('file');
+
+            var filePath = fileInput.value;
+
+
+            console.log(filePath);
+
+
+            if (filePath.length > 0) {
+                $('#file-validation').html("");
+
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ route('frontend.sms-marketing-getNumber') }}",
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: (response) => {
+                        if (response) {
+                            this.reset();
+                            $('#submitBtn').html("upload").attr('disabled', false);
+                            var mobileData = response.map((value, index) => {
+                                return {
+                                    id: value.phone_number,
+                                    text: value.phone_number,
+                                    selected: true
+                                };
+                            })
+                            const uniqueNumber = [...new Map(mobileData.map((m) => [m.id, m]))
+                                .values()
+                            ];
+                            console.log(uniqueNumber);
+
+                            $('#numbers').select2({
+                                data: uniqueNumber,
+                                placeholder: "Select a Number",
+                                allowClear: true,
+                                debug: true
+                            });
+                        }
+                    },
+                    error: function(response) {
+
                         $('#submitBtn').html("upload").attr('disabled', false);
 
-
-
-
-                        var mobileData = response.map((value, index) => {
-
-
-
-                            return {
-                                id: value.number,
-                                text: value.number,
-                                selected: true
-                            };
-
-
-                        })
-
-                        const uniqueNumber = [...new Map(mobileData.map((m) => [m.id, m])).values()];
-
-
-
-                        $('#numbers').select2({
-                            data: uniqueNumber,
-                        })
                     }
-                },
-                error: function(response) {
 
-                    $('#submitBtn').html("upload").attr('disabled', false);
+                });
+            } else {
+                $('#file-validation').html("Please select a file");
+                $('#submitBtn').html("upload").attr('disabled', false);
 
-                }
+            }
 
-            });
 
         });
     </script>

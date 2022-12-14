@@ -1055,5 +1055,6 @@
     "sms_used": "Sms Used",
     "user_sms_package": "User Sms Package",
     "user_sms_history": "User Sms History",
-    "sms_left": "SMS Left"
+    "sms_left": "SMS Left",
+    "user_phone_book": "User Phone Book"
 }
