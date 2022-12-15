@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use App\Http\Traits\AdCreateTrait;
 use App\Http\Controllers\Controller;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Providers\RouteServiceProvider;
 use App\Notifications\LoginNotification;
