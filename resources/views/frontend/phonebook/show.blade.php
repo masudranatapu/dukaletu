@@ -34,7 +34,7 @@
                     <div class="row dashboard__bill-two">
                         <div class="col-lg-12">
                             <div class="dashboard-card dashboard-card--benefits">
-                                <h2 class="dashboard-card__title">{{ __('plan_benefits') }}</h2>
+                                <h2 class="dashboard-card__title">{{ __('sms_merketing') }}</h2>
                                 <ul class="dashboard__benefits">
 
                                     <li class="dashboard__benefits-right">

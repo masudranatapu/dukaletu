@@ -114,13 +114,16 @@
                                                                 class="form-control select-bg @error('numbers') border-danger @enderror">
                                                                 @if (isset($userPhoneBooks))
                                                                     @foreach ($userPhoneBooks as $userPhoneBook)
-                                                                        <option value="{{ $userPhoneBook->phone_number }}"
-                                                                            >
+                                                                        <option value="{{ $userPhoneBook->phone_number }}">
                                                                             {{ $userPhoneBook->phone_number }}
                                                                         </option>
                                                                     @endforeach
                                                                 @endif
                                                             </select>
+                                                            <span class="text-danger">
+                                                                Select the number from the option or erter the number and
+                                                                select that number after typing.
+                                                            </span>
                                                             @error('numbers')
                                                                 <span class="text-danger">{{ $message }}</span>
                                                             @enderror
@@ -204,7 +207,7 @@
             $('#numbers').select2({
                 placeholder: "Select a Number",
                 allowClear: true,
-                tags:true,
+                tags: true,
             });
         });
     </script>

@@ -34,18 +34,20 @@ class SmsMarketingController extends Controller
     public function marketingGetNumber(Request $request)
     {
         $request->validate([
-            'file' => 'required|mimes:xlsx,csv,tsv,ods,xls,slk,xml|max:2048',
+            'file' => 'required|max:2048',
         ]);
 
 
         try {
 
-            $fileName = time() . '.' . $request->file->extension();
+            $fileName = time() . '.' . $request->file->getClientOriginalExtension();
             $array = $request->file->move(public_path('file'), $fileName);
             $users = FastExcel::import(public_path('file/') . $fileName, function ($data) {
 
                 return $data['number'];
             });
+
+
 
 
 
@@ -63,10 +65,14 @@ class SmsMarketingController extends Controller
                 $dataBaseCheck = UserPhoneBook::where('user_id', Auth::id())->where('phone_number', $uniqe_number[$i])->first();
 
                 if (!isset($dataBaseCheck)) {
-                    $userPhoneNumber = new UserPhoneBook();
-                    $userPhoneNumber->user_id = Auth::id();
-                    $userPhoneNumber->phone_number = $uniqe_number[$i];
-                    $userPhoneNumber->save();
+
+
+                    if (substr($uniqe_number[$i], 0, 3) != "254" && strlen((string)$uniqe_number[$i]) == 9) {
+                        $userPhoneNumber = new UserPhoneBook();
+                        $userPhoneNumber->user_id = Auth::id();
+                        $userPhoneNumber->phone_number = $uniqe_number[$i];
+                        $userPhoneNumber->save();
+                    }
                 }
             }
             $userPhoneBooks = UserPhoneBook::where('user_id', Auth::id())->get();
