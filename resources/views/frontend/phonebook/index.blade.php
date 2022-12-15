@@ -149,7 +149,7 @@
                     <div class="row dashboard__bill-three">
                         <div class="col-lg-12">
                             <div class="invoice-table">
-                                <h4>{{ __('phone_book') }} <button type="submit" class="btn btn-sm btn-success float-end ">Send bulk</button> </h4>
+                                <h4>{{ __('phone_book') }} ({{ $userPhoneBooks->total() ?? 0 }}) <button type="submit" class="btn btn-sm btn-success float-end ">Send bulk</button> </h4>
                                 <table>
                                     <thead>
                                         <tr>

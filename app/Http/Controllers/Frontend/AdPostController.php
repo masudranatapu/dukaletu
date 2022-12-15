@@ -361,9 +361,9 @@ class AdPostController extends Controller
         // $address = Str::slug($region . '-' . $country);
 
         $ad->update([
-            'address' => array_key_exists("address", $location) ? $location['address'] : '',
-            'district' => array_key_exists("district", $location) ? $location['district'] : '',
-            'country' => array_key_exists("country", $location) ? $location['country'] : '',
+            'address' => $location['address'] ?? '',
+            'district' => $location['district'] ??  '',
+            'country' => $location['country'] ?? '',
             // 'neighborhood' => array_key_exists("neighborhood", $location) ? $location['neighborhood'] : '',
             // 'locality' => array_key_exists("locality", $location) ? $location['locality'] : '',
             // 'place' => array_key_exists("place", $location) ? $location['place'] : '',

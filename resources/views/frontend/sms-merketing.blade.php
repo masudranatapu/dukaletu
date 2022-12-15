@@ -66,9 +66,10 @@ $phone_numbers = request()->get('phone_number');
                                                         <x-svg.check-icon width="12" height="12" stroke="#3db83a" />
                                                     </span>
                                                     <p class="text--body-4">{{ __('package_name') }}
-                                                        <span
-                                                            class="text-danger">{{ $currentPackage->smsPlan->name }}</span>
+                                                        <span class="text-danger">{{ $currentPackage->smsPlan->name }}</span>
+                                                        <span title="Expire date">({{ date('d M, Y',strtotime($last_sms_purchase->expire_date)) }})</span>
                                                     </p>
+
                                                 </li>
                                             </ul>
                                         </li>
@@ -77,7 +78,7 @@ $phone_numbers = request()->get('phone_number');
                                                 <li
                                                     class="dashboard__benefits-item d-flex justify-content-lg-end justify-content-sm-start">
                                                     <a href="{{ route('frontend.user-phoneBook') }}"
-                                                        class="btn btn--lg">Phone Book</a>
+                                                        class="btn btn--lg">Phone Book ({{ count( $userPhoneBooks) ?? 0 }})</a>
                                                 </li>
                                             </ul>
                                         </li>

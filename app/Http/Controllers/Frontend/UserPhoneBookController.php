@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Frontend\UserPhoneBook;
+use App\Models\Transaction;
 use App\Models\User;
 use App\Models\UserPlan;
 use Google\Service\Directory\UserPhone;
@@ -20,8 +21,13 @@ class UserPhoneBookController extends Controller
      */
     public function index()
     {
+
         $data['currentPackage'] = User::with('smsPlan')->where('id', Auth::id())->first();
-        $data['userPhoneBooks'] = UserPhoneBook::where('user_id', Auth::id())->orderBy('phone_number', 'asc')->paginate(50);
+
+
+
+        $data['userPhoneBooks'] = UserPhoneBook::where('user_id', Auth::id())->orderBy('phone_number', 'asc')->paginate(25);
+
 
 
         return view('frontend.phonebook.index', $data);
