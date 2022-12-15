@@ -9,6 +9,7 @@ use App\Models\UserSmsStock;
 use Exception;
 use Google\Service\CloudSourceRepositories\Repo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Http;
@@ -100,15 +101,27 @@ class SmsMarketingController extends Controller
 
 
             if ($stock > count($request->numbers)) {
+
                 for ($i = 0; $i < count($request->numbers); $i++) {
 
-                    $response = Http::post('https://quicksms.advantasms.com/api/services/sendsms', [
-                        'apikey' => Config::get('sms.apikey'),
-                        'partnerID' => Config::get('sms.partnerID'),
-                        'message' => $message,
-                        'shortcode' => Config::get('sms.shortcode'),
-                        'mobile' => (int)trim($request->numbers[$i])
-                    ]);
+                    $new_data[] = [
+                        "partnerID" => Config::get('sms.partnerID'),
+                        "apikey" => Config::get('sms.apikey'),
+                        "pass_type" => "plain",
+                        "clientsmsid" => 13434,
+                        "mobile" => trim("+254" . $request->numbers[$i]),
+                        "message" => $request->description,
+                        "shortcode" => Config::get('sms.shortcode')
+                    ];
+                }
+
+
+                $response = Http::post('https://quicksms.advantasms.com/api/services/sendbulk/', ["smslist" => $new_data]);
+
+
+
+                for ($i = 0; $i < count($request->numbers); $i++) {
+
 
                     $smsMarketing = new SmsMarketing();
                     $smsMarketing->sender_id = Auth::id();

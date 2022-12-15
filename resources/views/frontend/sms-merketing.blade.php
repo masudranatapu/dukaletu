@@ -208,10 +208,11 @@
                 placeholder: "Select a Number",
                 allowClear: true,
                 tags: true,
+                maximumSelectionLength: 20
             });
         });
     </script>
-    <script>
+    {{-- <script>
         $('#file-upload').submit(function(e) {
             e.preventDefault();
             var spinner =
@@ -275,6 +276,6 @@
 
 
         });
-    </script>
+    </script> --}}
 
 @endsection
