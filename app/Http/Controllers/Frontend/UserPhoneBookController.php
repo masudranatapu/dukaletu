@@ -21,7 +21,7 @@ class UserPhoneBookController extends Controller
     public function index()
     {
         $data['currentPackage'] = User::with('smsPlan')->where('id', Auth::id())->first();
-        $data['userPhoneBooks'] = UserPhoneBook::where('user_id', Auth::id())->orderBy('phone_number','asc')->paginate(50);
+        $data['userPhoneBooks'] = UserPhoneBook::where('user_id', Auth::id())->orderBy('phone_number', 'asc')->paginate(50);
 
 
         return view('frontend.phonebook.index', $data);
@@ -45,7 +45,36 @@ class UserPhoneBookController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->all());
+        $request->validate([
+            'phone' => 'required|max:9|min:9'
+        ]);
+
+
+        $find = UserPhoneBook::where('phone_number', $request->phone)->where('user_id', Auth::id())->first();
+
+        if (isset($find)) {
+            session()->flash('error', "The number you entered is alrady exist");
+            if (request()->has('page')) {
+                return redirect()->route('frontend.user-phoneBook', ['page' => request()->page ?? 1]);
+            } else {
+                return redirect()->back();
+            }
+        }
+
+
+
+        $userPhoneBook = new UserPhoneBook();
+        $userPhoneBook->user_id = Auth::id();
+        $userPhoneBook->phone_number = $request->phone;
+        $userPhoneBook->save();
+        session()->flash('success', "Contact successfully added form your phonebook");
+
+        if (request()->has('page')) {
+            return redirect()->route('frontend.user-phoneBook', ['page' => request()->page ?? 1]);
+        } else {
+            return redirect()->back();
+        }
     }
 
     /**
@@ -93,6 +122,13 @@ class UserPhoneBookController extends Controller
      */
     public function destroy(UserPhoneBook $userPhoneBook)
     {
-        //
+
+        $userPhoneBook->delete();
+        session()->flash('success', "Contact successfully removed form your phonebook");
+        if (request()->has('page')) {
+            return redirect()->route('frontend.user-phoneBook', ['page' => request()->page ?? 1]);
+        } else {
+            return redirect()->back();
+        }
     }
 }

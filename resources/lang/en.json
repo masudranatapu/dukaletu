@@ -1059,5 +1059,9 @@
     "user_phone_book": "User Phone Book",
     "enter_ad_country": "Enter Country",
     "enter_ad_city": "Enter City",
-    "enter_ad_address": "Enter Address"
+    "enter_ad_address": "Enter Address",
+    "demo_csv_download": "Demo CSV Download",
+    "phone_book": "Phone Book",
+    "upload_csv_file": "Upload CSV File",
+    "save_your_number_to_phonebok": "Save your number to phonebok"
 }

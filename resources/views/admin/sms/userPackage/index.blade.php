@@ -37,11 +37,14 @@
                             </thead>
                             <tbody>
                                 @foreach ($users as $user)
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $user->username }}</td>
-                                    <td>{{ $user->smsPlan->name }}</td>
-                                    <td>{{ $user->user_sms_stock }}</td>
-                                    <td>{{ $user->used_sms }}</td>
+                                    <tr>
+
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $user->username }}</td>
+                                        <td>{{ $user->smsPlan->name }}</td>
+                                        <td>{{ $user->user_sms_stock }}</td>
+                                        <td>{{ (int) $user->smsPlan->amount_of_sms - (int) $user->user_sms_stock }}</td>
+                                    </tr>
                                 @endforeach
                             </tbody>
 

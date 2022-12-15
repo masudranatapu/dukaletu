@@ -62,21 +62,86 @@
                                             </li>
                                         </ul>
                                     </li>
+                                    <li class="dashboard__benefits-right">
+                                        <ul class="float-end">
+                                            <li class="dashboard__benefits-item my-2">
+
+                                                <p class="text--body-4 "><a href="{{ asset('frontend/csv/demo.csv') }}"
+                                                        download=""
+                                                        class="btn btn-main">{{ __('demo_csv_download') }}</a>
+                                                </p>
+                                            </li>
+                                        </ul>
+                                    </li>
                                 </ul>
                                 <hr>
-                                <form action="{{ route('frontend.sms-marketing-getNumber') }}"
-                                    method="POST" id="file-upload" enctype="multipart/form-data">
-                                    @csrf
-                                    <div class="input-group">
-                                        <input type="file" name="file" class="form-control"
-                                            id="file" aria-describedby="#submitBtn"
-                                            aria-label="Upload Csv">
-                                        <button class="btn btn--lg" type="submit"
-                                            id="submitBtn">Upload CSV File</button>
-                                    </div>
-                                    <span class="text-danger" id="file-validation"></span>
-                                </form>
 
+
+
+                                <div class="accordion accordion-flush" id="accordionFlushExample">
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="flush-headingOne">
+                                            <button class="accordion-button collapsed" type="button"
+                                                data-bs-toggle="collapse" data-bs-target="#flush-collapseOne"
+                                                aria-expanded="false" aria-controls="flush-collapseOne">
+                                                {{ __('upload_csv_file') }}
+                                            </button>
+                                        </h2>
+                                        <div id="flush-collapseOne" class="accordion-collapse collapse "
+                                            aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                            <div class="accordion-body">
+                                                <form action="{{ route('frontend.sms-marketing-getNumber') }}"
+                                                    method="POST" id="file-upload" enctype="multipart/form-data">
+                                                    @csrf
+                                                    <div class="input-group">
+                                                        <input type="file" name="file" class="form-control"
+                                                            id="file" aria-describedby="#submitBtn"
+                                                            aria-label="Upload Csv">
+                                                        <button class="btn btn--lg" type="submit"
+                                                            id="submitBtn">{{ __('upload_csv_file') }}</button>
+                                                    </div>
+                                                    <span class="text-danger" id="file-validation"></span>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="flush-headingTwo">
+                                            <button class="accordion-button collapsed" type="button"
+                                                data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo"
+                                                aria-expanded="true" aria-controls="flush-collapseTwo">
+                                                {{ __('save_your_number_to_phonebok') }}
+                                            </button>
+                                        </h2>
+                                        <div id="flush-collapseTwo" class="accordion-collapse collapse show"
+                                            aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                                            <div class="accordion-body">
+                                                <form action="{{ route('frontend.user-phoneBook.store') }}" method="POST"
+                                                    id="file-upload" enctype="multipart/form-data">
+                                                    @csrf
+                                                    <div class="input-group">
+                                                        <input type="hidden" name="page"
+                                                            value="{{ request()->page ?? 1 }}">
+                                                        <input type="tel" required
+                                                            oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
+                                                            class="form-control" id="file"
+                                                            aria-describedby="#submitBtn" name="phone"
+                                                            value="{{ old('phone') }}" placeholder="123456789">
+                                                        <button class="btn btn--lg" type="submit"
+                                                            id="submitBtn">{{ __('save') }}</button>
+                                                    </div>
+                                                    <span class="text-danger">
+                                                        <p>Please enter 9-digit phone number wihout you country code (+254)
+                                                        </p>
+                                                    </span>
+                                                    @error('phone')
+                                                        <span class="text-danger">{{ $message }}</span>
+                                                    @enderror
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -99,10 +164,21 @@
                                                 <td>{{ $phoneBooks->phone_number }}</td>
                                                 <td class="">
 
-                                                    <div class="float-end">
-                                                        <a href="{{ route('frontend.send-sms-single', ['phone' => $phoneBooks->phone_number, 'page' => request()->page ?? 1]) }}"
-                                                            class="">{{ __('send_message') }}</a> |
-                                                            <a href=""> Remove</a>
+                                                    <div class="d-flex justify-content-end">
+                                                        <a class="btn-sm mx-1"
+                                                            href="{{ route('frontend.send-sms-single', ['phone' => $phoneBooks->phone_number, 'page' => request()->page ?? 1]) }}"
+                                                            class="">{{ __('send_message') }}</a>
+
+
+                                                        <form
+                                                            action="{{ route('frontend.user-phoneBook.destroy', ['userPhoneBook' => $phoneBooks->id]) }}"
+                                                            method="post">
+
+                                                            @csrf
+                                                            <input type="hidden" name="page"
+                                                                value="{{ request()->page ?? 1 }}">
+                                                            <button class="btn-sm mx-1">{{ __('delete') }}</button>
+                                                        </form>
                                                     </div>
 
                                                 </td>
@@ -179,26 +255,30 @@
                     processData: false,
                     success: (response) => {
                         if (response) {
+                            console.log(response);
                             this.reset();
                             $('#submitBtn').html("upload").attr('disabled', false);
-                            var mobileData = response.map((value, index) => {
-                                return {
-                                    id: value.phone_number,
-                                    text: value.phone_number,
-                                    selected: true
-                                };
-                            })
-                            const uniqueNumber = [...new Map(mobileData.map((m) => [m.id, m]))
-                                .values()
-                            ];
-                            console.log(uniqueNumber);
+                            location.reload();
+                            toastr.success('Contact upload successfully');
+                            // var mobileData = response.map((value, index) => {
+                            //     return {
+                            //         id: value.phone_number,
+                            //         text: value.phone_number,
+                            //         selected: true
+                            //     };
+                            // })
+                            // const uniqueNumber = [...new Map(mobileData.map((m) => [m.id, m]))
+                            //     .values()
+                            // ];
+                            // console.log(uniqueNumber);
 
-                            $('#numbers').select2({
-                                data: uniqueNumber,
-                                placeholder: "Select a Number",
-                                allowClear: true,
-                                debug: true
-                            });
+                            // $('#numbers').select2({
+                            //     data: uniqueNumber,
+                            //     placeholder: "Select a Number",
+                            //     allowClear: true,
+                            //     debug: true
+                            // });
+
                         }
                     },
                     error: function(response) {
