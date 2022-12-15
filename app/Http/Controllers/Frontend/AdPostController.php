@@ -379,6 +379,7 @@ class AdPostController extends Controller
             'ad_slug' => $ad->slug,
             'mode' => 'create'
         ]);
+
     }
 
     /**
