@@ -291,7 +291,7 @@
                                     </td>
                                     <td class="text-muted">
                                         <span class="badge badge-primary">
-                                            {{ $transaction->plan->label }}
+                                            {{ $transaction->plan->label ?? '' }}
                                         </span>
                                     </td>
                                     <td class="text-muted">{{ ucfirst($transaction->payment_provider) }}</td>
