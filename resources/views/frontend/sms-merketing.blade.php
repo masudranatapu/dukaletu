@@ -45,7 +45,7 @@
                                                     <span class="icon">
                                                         <x-svg.check-icon width="12" height="12" stroke="#3db83a" />
                                                     </span>
-                                                    <p class="text--body-4">{{ __('ads_remaining') }}
+                                                    <p class="text--body-4">{{ __('sms_remaining') }}
                                                         <span
                                                             class="text-success">{{ Auth::user()->user_sms_stock ?? 0 }}</span>
                                                     </p>
