@@ -102,8 +102,9 @@ class AdPostController extends Controller
 
                 $check = DB::table('ads')->where('slug', $slug)->first();
                 $lastAD = Ad::orderBy('id', 'desc')->first();
+                $slug_id = (int)$lastAD->id + 1;
                 if ($check) {
-                    $slug = $slug . '-' . (int)$lastAD->id + 1;
+                    $slug = $slug . '-' . $slug_id;
                 }
                 $ad['slug'] = $slug;
                 $ad['featured'] = $isfeatured;
@@ -335,6 +336,7 @@ class AdPostController extends Controller
             for ($i = 0; $i < count($customField); $i++) {
 
                 foreach ($customField[$keys[$i]] as $key => $value) {
+                    // dd($field->slug, $key);
 
                     if ($field->slug == $key) {
                         $CustomField = CustomField::findOrFail($field->id)->load('customFieldGroup');

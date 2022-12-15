@@ -97,9 +97,9 @@
                         </div> --}}
 
                         <div class="product-item__sidebar-bottom mb-4">
-                            <div class="product-item__sidebar-item overview">
+                            <div class="product-item__sidebar-item overview pb-3">
                                 {{-- ad overview --}}
-                                <x-frontend.ad-details.ad-overview :ad="$ad" />
+                                <x-frontend.ad-details.ad-overview :ad="$ad" :product_custom_field_groups="$product_custom_field_groups" />
                             </div>
                         </div>
 
