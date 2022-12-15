@@ -18,6 +18,7 @@ trait AdCreateTrait
         session()->forget('step3');
         session()->forget('step1_success');
         session()->forget('step2_success');
+        session()->forget('location');
     }
 
     protected function stepCheck()

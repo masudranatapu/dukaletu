@@ -10,11 +10,11 @@ use Illuminate\Support\Facades\Auth;
 use App\Providers\RouteServiceProvider;
 use App\Notifications\LoginNotification;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
     use AuthenticatesUsers;
+    use AdCreateTrait;
 
     protected $redirectTo = RouteServiceProvider::HOME;
 
@@ -106,8 +106,7 @@ class LoginController extends Controller
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
-        Auth::logout();
-        Session::flush();
+        $this->forgetStepSession();
 
         if ($response = $this->loggedOut($request)) {
             return $response;
