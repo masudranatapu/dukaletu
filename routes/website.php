@@ -123,7 +123,7 @@ Route::group(['as' => 'frontend.'], function () {
         Route::get('/user-phonebook', [UserPhoneBookController::class, 'index'])->name('user-phoneBook');
         Route::get('/send-sms-single/{phone}/{page}', [UserPhoneBookController::class, 'show'])->name('send-sms-single');
         Route::post('/phonebook-insert/', [UserPhoneBookController::class, 'store'])->name('user-phoneBook.store');
-        Route::post('/phonebook-delete/{userPhoneBook}', [UserPhoneBookController::class, 'destroy'])->name('user-phoneBook.destroy');
+        Route::get('/phonebook-delete/{userPhoneBook}', [UserPhoneBookController::class, 'destroy'])->name('user-phoneBook.destroy');
     });
 });
 

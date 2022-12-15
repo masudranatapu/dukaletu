@@ -110,7 +110,7 @@
                                             <button class="accordion-button collapsed" type="button"
                                                 data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo"
                                                 aria-expanded="true" aria-controls="flush-collapseTwo">
-                                                {{ __('save_your_number_to_phonebok') }}
+                                                {{ __('save_your_number_to_phonebook') }}
                                             </button>
                                         </h2>
                                         <div id="flush-collapseTwo" class="accordion-collapse collapse show"
@@ -126,12 +126,12 @@
                                                             oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
                                                             class="form-control" id="file"
                                                             aria-describedby="#submitBtn" name="phone"
-                                                            value="{{ old('phone') }}" placeholder="123456789">
+                                                            value="{{ old('phone') }}" placeholder="ex:203892212">
                                                         <button class="btn btn--lg" type="submit"
                                                             id="submitBtn">{{ __('save') }}</button>
                                                     </div>
-                                                    <span class="text-danger">
-                                                        <p>Please enter 9-digit phone number wihout you country code (+254)
+                                                    <span class="text-success">
+                                                        <p>Please enter 9-digit phone number without country code (+254)
                                                         </p>
                                                     </span>
                                                     @error('phone')
@@ -145,10 +145,11 @@
                             </div>
                         </div>
                     </div>
+                    <form action="{{ route('frontend.sms-marketing') }}" method="GET" >
                     <div class="row dashboard__bill-three">
                         <div class="col-lg-12">
                             <div class="invoice-table">
-                                <h4>{{ __('phone_book') }}</h4>
+                                <h4>{{ __('phone_book') }} <button type="submit" class="btn btn-sm btn-success float-end ">Send bulk</button> </h4>
                                 <table>
                                     <thead>
                                         <tr>
@@ -160,25 +161,19 @@
                                     <tbody>
                                         @forelse ($userPhoneBooks as $phoneBooks)
                                             <tr>
-                                                <td>{{ $loop->iteration }}</td>
+                                                <td>
+                                                    <input type="checkbox" name="phone_number[]" value="{{ $phoneBooks->phone_number }}" />
+                                                    {{ $loop->iteration }}</td>
                                                 <td>{{ $phoneBooks->phone_number }}</td>
                                                 <td class="">
 
                                                     <div class="d-flex justify-content-end">
                                                         <a class="btn-sm mx-1"
-                                                            href="{{ route('frontend.send-sms-single', ['phone' => $phoneBooks->phone_number, 'page' => request()->page ?? 1]) }}"
+                                                            href="{{ route('frontend.sms-marketing', ['phone_number[]' => $phoneBooks->phone_number, 'page' => request()->page ?? 1]) }}"
                                                             class="">{{ __('send_message') }}</a>
 
 
-                                                        <form
-                                                            action="{{ route('frontend.user-phoneBook.destroy', ['userPhoneBook' => $phoneBooks->id]) }}"
-                                                            method="post">
-
-                                                            @csrf
-                                                            <input type="hidden" name="page"
-                                                                value="{{ request()->page ?? 1 }}">
-                                                            <button class="btn-sm mx-1">{{ __('delete') }}</button>
-                                                        </form>
+                                                        <a  class="btn-sm mx-1" href="{{ route('frontend.user-phoneBook.destroy', ['userPhoneBook' => $phoneBooks->id, 'page' => request()->page ?? 1 ]) }}" onclick="return confirm('Are you sure?')">Delete</a>
                                                     </div>
 
                                                 </td>
@@ -194,6 +189,7 @@
                             </div>
                         </div>
                     </div>
+                </form>
 
                 </div>
             </div>

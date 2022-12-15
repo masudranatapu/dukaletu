@@ -2,6 +2,13 @@
 
 @section('title', __('price_and_billing'))
 
+@php
+
+$phone_numbers = request()->get('phone_number');
+
+
+@endphp
+
 @section('content')
     <!-- breedcrumb section start  -->
     <x-frontend.breedcrumb-component :background="$cms->dashboard_plan_background">
@@ -88,42 +95,35 @@
                                         <div class="tab-pane fade show active" id="pills-basic" role="tabpanel"
                                             aria-labelledby="pills-basic-tab">
                                             <div class="dashboard-post__information step-information">
-                                                {{-- <form action="{{ route('frontend.sms-marketing-getNumber') }}"
-                                                    method="POST" id="file-upload" enctype="multipart/form-data">
-                                                    @csrf
-                                                    <div class="input-group">
-                                                        <input type="file" name="file" class="form-control"
-                                                            id="file" aria-describedby="#submitBtn"
-                                                            aria-label="Upload Csv">
-                                                        <button class="btn btn--lg" type="submit"
-                                                            id="submitBtn">Upload CSV File</button>
-                                                    </div>
-                                                    <span class="text-danger" id="file-validation"></span>
-                                                </form> --}}
 
                                                 <form action="{{ route('frontend.smsMarketing.sendSms') }}" method="post">
                                                     @csrf
                                                     <div class="dashboard-post__information-form">
 
-
                                                         <div class="input-select">
-                                                            <x-forms.label name="Select Numbers" required="true"
+                                                            <x-forms.label name="Mobile number" required="true"
                                                                 for="numbers" />
                                                             <select required name="numbers[]" id="numbers"
                                                                 multiple="multiple"
                                                                 class="form-control select-bg @error('numbers') border-danger @enderror">
                                                                 @if (isset($userPhoneBooks))
                                                                     @foreach ($userPhoneBooks as $userPhoneBook)
-                                                                        <option value="{{ $userPhoneBook->phone_number }}">
+                                                                        <option value="{{ $userPhoneBook->phone_number }}"
+                                                                            @if(isset($phone_numbers) && count($phone_numbers) > 0  )
+
+                                                                            @if(in_array( $userPhoneBook->phone_number, $phone_numbers ))
+                                                                             selected
+                                                                            @endif
+
+                                                                            @endif
+
+                                                                            >
                                                                             {{ $userPhoneBook->phone_number }}
                                                                         </option>
                                                                     @endforeach
                                                                 @endif
                                                             </select>
-                                                            <span class="text-danger">
-                                                                Select the number from the option or erter the number and
-                                                                select that number after typing.
-                                                            </span>
+                                                            <span class="text-success">You can choose multiple number from your phone book or write your number and press enter one by one. without country code (+254)</span>
                                                             @error('numbers')
                                                                 <span class="text-danger">{{ $message }}</span>
                                                             @enderror
@@ -132,8 +132,8 @@
 
                                                         <div class="input-field__group">
                                                             <div class="input-field--textarea">
-                                                                <x-forms.label name="Marketing Content" for="description" />
-                                                                <textarea required name="description" placeholder="{{ __('whats_your_thought') }}..." id="description"
+                                                                <x-forms.label name="Message" for="description" />
+                                                                <textarea required name="description" placeholder="{{ __('message') }}..." id="description"
                                                                     class="@error('description') border-danger @enderror"></textarea>
                                                                 @error('description')
                                                                     <span class="text-danger">{{ $message }}</span>
@@ -205,7 +205,7 @@
     <script>
         $(document).ready(function() {
             $('#numbers').select2({
-                placeholder: "Select a Number",
+                placeholder: "ex:203892212",
                 allowClear: true,
                 tags: true,
                 maximumSelectionLength: 20
@@ -255,7 +255,7 @@
 
                             $('#numbers').select2({
                                 data: uniqueNumber,
-                                placeholder: "Select a Number",
+                                placeholder: "Select or write a number",
                                 allowClear: true,
                                 debug: true
                             });

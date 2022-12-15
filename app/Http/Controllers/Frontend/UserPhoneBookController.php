@@ -123,6 +123,7 @@ class UserPhoneBookController extends Controller
     public function destroy(UserPhoneBook $userPhoneBook)
     {
 
+
         $userPhoneBook->delete();
         session()->flash('success', "Contact successfully removed form your phonebook");
         if (request()->has('page')) {
