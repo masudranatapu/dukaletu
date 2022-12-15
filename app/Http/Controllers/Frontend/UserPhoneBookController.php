@@ -83,13 +83,13 @@ class UserPhoneBookController extends Controller
      * @param  \App\Models\UserPhoneBook  $userPhoneBook
      * @return \Illuminate\Http\Response
      */
-    public function show($userPhoneBook, $page)
-    {
-        $data['currentPackage'] = User::with('smsPlan')->where('id', Auth::id())->first();
-        $data['userPhoneBook'] = $userPhoneBook;
-        $data['page'] = $page;
-        return view('frontend.phonebook.show', $data);
-    }
+    // public function show($userPhoneBook, $page)
+    // {
+    //     $data['currentPackage'] = User::with('smsPlan')->where('id', Auth::id())->first();
+    //     $data['userPhoneBook'] = $userPhoneBook;
+    //     $data['page'] = $page;
+    //     return view('frontend.phonebook.show', $data);
+    // }
 
     /**
      * Show the form for editing the specified resource.
