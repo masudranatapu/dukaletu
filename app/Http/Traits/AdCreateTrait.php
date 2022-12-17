@@ -142,7 +142,7 @@ trait AdCreateTrait
             'district' => $ad->district,
             'postcode' => $ad->postcode,
             'region' => $ad->region,
-            'country' => $ad->country,
+            'country' => $ad->country_id,
             'address' => $ad->address,
         ];
     }

@@ -121,8 +121,9 @@ Route::group(['as' => 'frontend.'], function () {
 
         // user phone-book
         Route::get('/user-phonebook', [UserPhoneBookController::class, 'index'])->name('user-phoneBook');
+        Route::post('/user-phonebook-store', [UserPhoneBookController::class, 'store'])->name('user-phoneBook.store');
         Route::get('/send-sms-single/{phone}/{page}', [UserPhoneBookController::class, 'show'])->name('send-sms-single');
-         // Route::get('/send-sms-single/{phone}/{page}', [UserPhoneBookController::class, 'show'])->name('send-sms-single');
+        // Route::get('/send-sms-single/{phone}/{page}', [UserPhoneBookController::class, 'show'])->name('send-sms-single');
         Route::get('/phonebook-delete/{userPhoneBook}', [UserPhoneBookController::class, 'destroy'])->name('user-phoneBook.destroy');
     });
 });

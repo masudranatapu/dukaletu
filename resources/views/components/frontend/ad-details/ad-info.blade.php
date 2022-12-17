@@ -1,9 +1,9 @@
 <div class="product-item__ads-info">
     <h2 class="text--heading-2 title">
-        {{ $ad->title }}  
-        @if($ad->featured)
+        {{ $ad->title }}
+        @if ($ad->featured)
             <span class="featured_ad float-end">Featured</span>
-        @endif  
+        @endif
     </h2>
 
     <ul class="post-details">
@@ -11,7 +11,8 @@
             <span class="icon">
                 <x-svg.location-icon />
             </span>
-            <p class="text--body-3">{{ $ad->region }} {{ $ad->region ? ', ': '' }} {{ $ad->country }}</p>
+
+            <p class="text--body-3">{{ $ad->region }} {{ $ad->region ? ', ' : '' }} {{ $ad->country->location }}</p>
         </li>
         <li class="post-details__item">
             <span class="icon">
