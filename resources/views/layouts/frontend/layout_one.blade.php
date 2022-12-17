@@ -11,6 +11,9 @@
         <meta name="title" content="{{ $settings->seo__meta_title }}">
         <meta name="description" content="{{ $settings->seo_meta_description }}">
         <meta name="keywords" content="{{ $settings->seo_meta_keywords }}">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="robots" content="index,follow">
+        <meta name="Developed By" content="Arobiloutsourcing" />
     @endif
 
     <title>@yield('title') - {{ config('app.name') }}</title>
@@ -58,7 +61,9 @@
     class="{{ auth('user')->check() && isset(session('user_plan')->ad_limit) && session('user_plan')->ad_limit < $settings->free_ad_limit ? '' : '' }}"
     dir="{{ langDirection() }}">
     @php
-        $current_route_name = request()->route()->getName(); // <!-- for pusher global -->
+        $current_route_name = request()
+            ->route()
+            ->getName(); // <!-- for pusher global -->
         $auth_user_gloabl = Auth::user() ? Auth::user()->id : ''; // <!-- for pusher global -->
     @endphp
 
@@ -120,8 +125,8 @@
     <!-- Tooltip -->
     <script>
         var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-          return new bootstrap.Tooltip(tooltipTriggerEl)
+        var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
         })
     </script>
 </body>

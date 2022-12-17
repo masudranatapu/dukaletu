@@ -168,7 +168,7 @@ class AdPostController extends Controller
             ]);
         }
 
-
+        session()->put('location', $request->location);
 
         $category = Category::with('customFields.values')->FindOrFail($request->category);
 
@@ -296,7 +296,26 @@ class AdPostController extends Controller
         //         $ad->adFeatures()->create(['name' => $feature]);
         //     }
         // }
+        // <!--  location  -->
+        $location = session()->get('location');
 
+        // $region = array_key_exists("region", $location) ? $location['region'] : '';
+        // $country = array_key_exists("country", $location) ? $location['country'] : '';
+        // $address = Str::slug($region . '-' . $country);
+        $ad->update([
+            'address' => array_key_exists("address", $location) ? $location['address'] : '',
+            'district' => array_key_exists("district", $location) ? $location['district'] : '',
+            'country' => array_key_exists("country", $location) ? $location['country'] : '',
+            // 'neighborhood' => array_key_exists("neighborhood", $location) ? $location['neighborhood'] : '',
+            // 'locality' => array_key_exists("locality", $location) ? $location['locality'] : '',
+            // 'place' => array_key_exists("place", $location) ? $location['place'] : '',
+            // 'postcode' => array_key_exists("postcode", $location) ? $location['postcode'] : '',
+            // 'region' => array_key_exists("region", $location) ? $location['region'] : '',
+            // 'long' => 0,
+            // 'lat' => 0,
+        ]);
+
+        session()->forget('location');
         $this->forgetStepSession();
         $this->adNotification($ad);
         !setting('ads_admin_approval') ? $this->userPlanInfoUpdate($ad->featured) : '';
@@ -352,28 +371,7 @@ class AdPostController extends Controller
         }
         session()->forget('custom-field');
 
-        // <!--  location  -->
-        $location = session()->get('location');
 
-
-        // $region = array_key_exists("region", $location) ? $location['region'] : '';
-        // $country = array_key_exists("country", $location) ? $location['country'] : '';
-        // $address = Str::slug($region . '-' . $country);
-
-        $ad->update([
-            'address' => array_key_exists("address", $location) ? $location['address'] : '',
-            'district' => array_key_exists("district", $location) ? $location['district'] : '',
-            'country' => array_key_exists("country", $location) ? $location['country'] : '',
-            // 'neighborhood' => array_key_exists("neighborhood", $location) ? $location['neighborhood'] : '',
-            // 'locality' => array_key_exists("locality", $location) ? $location['locality'] : '',
-            // 'place' => array_key_exists("place", $location) ? $location['place'] : '',
-            // 'postcode' => array_key_exists("postcode", $location) ? $location['postcode'] : '',
-            // 'region' => array_key_exists("region", $location) ? $location['region'] : '',
-            // 'long' => 0,
-            // 'lat' => 0,
-        ]);
-
-        session()->forget('location');
 
         return view('frontend.postad.postsuccess', [
             'ad_slug' => $ad->slug,
