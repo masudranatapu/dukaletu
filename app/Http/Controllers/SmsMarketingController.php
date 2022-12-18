@@ -31,18 +31,18 @@ class SmsMarketingController extends Controller
         $data['userPhoneBooks'] = UserPhoneBook::where('user_id', Auth::id())->get();
         $todate = date('Y-m-d');
 
-        if($data['currentPackage']){
-            $data['last_sms_purchase'] = UserSmsStock::where('user_id', Auth::id())->where('status','IN')->orderBy('id','desc')->first();
+        if (isset($data['currentPackage'])) {
+            $data['last_sms_purchase'] = UserSmsStock::where('user_id', Auth::id())->where('status', 'IN')->orderBy('id', 'desc')->first();
 
-            if (strtotime($data['last_sms_purchase']->expire_date) < time()) {
+
+            if (isset($data['last_sms_purchase']) && strtotime($data['last_sms_purchase']->expire_date) < time()) {
                 DB::table('user_sms_stocks')->insert([
                     'user_id' => Auth::id(),
-                    'stock' => '-'.Auth::user()->user_sms_stock,
+                    'stock' => '-' . Auth::user()->user_sms_stock,
                     'status' => 'OUT',
                     'created_at' => now(),
                 ]);
             }
-
         }
 
         return view('frontend.sms-merketing', $data);
@@ -147,7 +147,7 @@ class SmsMarketingController extends Controller
                 if ($response->json()['responses'][0]['response-code'] == 200) {
                     $userSmsStock = new UserSmsStock();
                     $userSmsStock->user_id = Auth::id();
-                    $userSmsStock->stock = '-'.count($request->numbers);
+                    $userSmsStock->stock = '-' . count($request->numbers);
                     $userSmsStock->status = "OUT";
                     $userSmsStock->save();
                 }
