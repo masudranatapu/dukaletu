@@ -192,10 +192,15 @@
                                                 <x-forms.label name="country" required="true">
 
                                                 </x-forms.label>
-                                                <input type="text" name="country"
-                                                    class="form-control @error('country') is-invalid @enderror"
-                                                    value="{{ old('country') ? old('country') : $ad->country }}"
-                                                    placeholder="{{ __('enter_ad_country') }}">
+                                                <select name="country" id="ad_country"
+                                                    class="form-control @error('country') border-danger @enderror" required>
+                                                    <option value=""> Select country</option>
+                                                    @foreach ($countries as $country)
+                                                        <option {{ $ad->country_id == $country->id ? 'selected' : '' }}
+                                                            value="{{ $country->id }}">
+                                                            {{ $country->location }}</option>
+                                                    @endforeach
+                                                </select>
                                                 @error('country')
                                                     <span class="invalid-feedback">{{ $message }}</span>
                                                 @enderror
