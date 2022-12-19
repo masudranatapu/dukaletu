@@ -19,9 +19,9 @@
                     class="footer-menu__link text--body-3">{{ __('pricing_plan') }}</a>
             </li>
         @endif
-        <li class="footer-menu__item">
+        {{-- <li class="footer-menu__item">
             <a href="{{ route('frontend.smsPricePlan') }}"
                 class="footer-menu__link text--body-3">{{ __('sms_price_plan') }}</a>
-        </li>
+        </li> --}}
     </ul>
 </div>

@@ -95,7 +95,9 @@
                             {{ __('map') }}
                         </x-admin.sidebar-list>
                     @endif
-
+                    <x-admin.sidebar-list :linkActive="Route::is('admin.location.*') ? true : false" route="admin.location.index" icon="fas fa-map-marker-alt">
+                        {{ __('Loction') }}
+                    </x-admin.sidebar-list>
 
                     <x-admin.sidebar-list :linkActive="Route::is('admin.sms.*') ? true : false" route="admin.sms.dashboard" icon="fas fa-sms">
                         {{ __('Sms') }}</x-admin.sidebar-list>

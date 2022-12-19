@@ -65,6 +65,11 @@
 
                                             </ul>
                                         </li>
+                                        <li class="dashboard__benefits-right d-flex justify-content-end">
+                                            <a class="btn btn-sm" href="{{ route('frontend.smsPricePlan') }}">Upgrade
+                                                package</a>
+
+                                        </li>
                                     </ul>
                                 </div>
                             </div>

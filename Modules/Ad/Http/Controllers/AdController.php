@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use Modules\Ad\Entities\Ad;
 use Modules\Brand\Entities\Brand;
 use App\Http\Traits\AdCreateTrait;
+use App\Models\Admin\Location;
 use App\Models\Setting;
 use Illuminate\Routing\Controller;
 use Modules\Category\Entities\Category;
@@ -40,6 +41,7 @@ class AdController extends Controller
         $categories = Category::active()->get(['id', 'name', 'slug']);
         $brands = Brand::get(['id', 'name', 'slug']);
         $query = Ad::query();
+
 
         // keyword search
         if (request()->has('keyword') && request()->keyword != null) {
@@ -128,12 +130,14 @@ class AdController extends Controller
             }
         }
 
-        $ads = $query->latest()->paginate(10)->withQueryString();
+        $ads = $query->with('country')->latest()->paginate(10)->withQueryString();
+        // dd($ads);
 
         return view('ad::index', compact(
             'ads',
             'categories',
             'brands'
+
         ));
     }
 
@@ -150,6 +154,8 @@ class AdController extends Controller
 
         $brands = Brand::all();
         $customers = User::all();
+        $countries = Location::where('status', true)->get();
+
         $categories = Category::active()->with('subcategories', function ($q) {
             $q->where('status', 1);
         })->get();
@@ -172,7 +178,8 @@ class AdController extends Controller
         return view('ad::create', [
 
             'brands' => $brands,
-            'customers' => $customers
+            'customers' => $customers,
+            'countries' => $countries,
         ]);
     }
 
@@ -259,7 +266,7 @@ class AdController extends Controller
             // 'region' => array_key_exists("region", $location) ? $location['region'] : '',
             'address' => $request->address ?? '',
             'district' => $request->district ?? '',
-            'country' => $request->country ?? '',
+            'country_id' => $request->country ?? '',
             'long' => 0,
             'lat' => 0,
         ]);
@@ -293,7 +300,7 @@ class AdController extends Controller
     {
         $data['brands'] = Brand::get();
         $data['customers'] = User::get();
-
+        $data['countries'] = Location::where('status', true)->get();
         $data['categories'] = Category::get();
         $data['subcategories'] = SubCategory::where('category_id', $ad->category->id)->get();
 
@@ -305,6 +312,8 @@ class AdController extends Controller
         if (!userCan('ad.update')) {
             return abort(403);
         }
+
+
 
         $ad->update([
             'title' => $request->title,
@@ -349,7 +358,7 @@ class AdController extends Controller
             // 'region' => array_key_exists("region", $location) ? $location['region'] : '',
             'address' => $request->address ?? '',
             'district' => $request->district ?? '',
-            'country' => $request->country ?? '',
+            'country_id' => $request->country ?? '',
             'long' => 0,
             'lat' => 0,
         ]);

@@ -51,8 +51,8 @@ class AdminController extends Controller
         $data['adcountExpired'] = $ads->where('status', 'sold')->count();
         $data['adcountFeatured'] = $ads->where('featured', 1)->count();
         $countryCount =  DB::table('ads')
-            ->select('country', DB::raw('count(*) as total'))
-            ->groupBy('country')
+            ->select('country_id', DB::raw('count(*) as total'))
+            ->groupBy('country_id')
             ->get();
         $data['totalCountry'] = $countryCount->count();
         $data['blogpostCount'] = Post::count();
@@ -63,9 +63,9 @@ class AdminController extends Controller
         $data['latestTransactionUsers'] = Transaction::with(['customer:id,name,email,username', 'plan:id,label,price'])->limit(10)->get();
 
         $data['topLocations'] = DB::table('ads')
-            ->select('country', DB::raw('count(*) as total'))
+            ->select('country_id', DB::raw('count(*) as total'))
             ->orderBy('total', 'desc')
-            ->groupBy('country')
+            ->groupBy('country_id')
             ->limit(10)
             ->get();
 

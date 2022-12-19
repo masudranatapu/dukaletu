@@ -58,9 +58,9 @@ class FrontendController extends Controller
         $data['topCategories'] = collectionToResource($topCategories);
 
         $data['topCountry'] = DB::table('ads')
-            ->select('country', DB::raw('count(*) as total'))
+            ->select('country_id', DB::raw('count(*) as total'))
             ->orderBy('total', 'desc')
-            ->groupBy('country')
+            ->groupBy('country_id')
             ->limit(6)
             ->get();
 
@@ -102,8 +102,8 @@ class FrontendController extends Controller
         $data['verified_users'] = User::whereNotNull('email_verified_at')->count();
 
         $countryCount =  DB::table('ads')
-            ->select('country', DB::raw('count(*) as total'))
-            ->groupBy('country')
+            ->select('country_id', DB::raw('count(*) as total'))
+            ->groupBy('country_id')
             ->get();
         $data['country_location'] = $countryCount->count();
 
@@ -228,8 +228,8 @@ class FrontendController extends Controller
         $ad->increment('total_views');
         $ad = $ad->load(['customer', 'brand', 'adFeatures', 'galleries', 'productCustomFields.customField']);
 
-        $lists = AdResource::collection(Ad::activeCategory()->select(['id', 'title', 'slug', 'price', 'thumbnail', 'category_id', 'region', 'country', 'user_id'])
-            ->with(['category', 'productCustomFields' => function ($q) {
+        $lists = AdResource::collection(Ad::activeCategory()->select(['id', 'title', 'slug', 'price', 'thumbnail', 'category_id', 'region', 'country_id', 'user_id'])
+            ->with(['category', 'country', 'productCustomFields' => function ($q) {
                 $q->select('id', 'ad_id', 'custom_field_id', 'value', 'order')->with(['customField' => function ($q) {
                     $q->select('id', 'name', 'type', 'icon', 'order', 'listable')
                         ->where('listable', 1)
