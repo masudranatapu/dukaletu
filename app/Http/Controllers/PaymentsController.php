@@ -147,7 +147,7 @@ class PaymentsController extends Controller
                 $userSmsStock->user_id = Auth::id();
                 $userSmsStock->stock = $package->amount_of_sms;
                 $userSmsStock->status = "IN";
-                $userSmsStock->expire_date = date("Y-m-d", strtotime($package->validity));
+                $userSmsStock->expire_date =  date("Y-m-d", strtotime('+'.$package->validity.' day'));
                 $userSmsStock->save();
                 return redirect()->route('frontend.dashboard')->with('success', 'Payment successfully done');
             }
@@ -181,7 +181,7 @@ class PaymentsController extends Controller
                 $userSmsStock->user_id = Auth::id();
                 $userSmsStock->stock = $package->amount_of_sms;
                 $userSmsStock->status = "IN";
-                $userSmsStock->expire_date = date("Y-m-d", strtotime($package->validity));
+                $userSmsStock->expire_date = date("Y-m-d", strtotime('+'.$package->validity.' day'));
                 $userSmsStock->save();
                 return redirect()->route('frontend.dashboard')->with('success', 'Payment successfully done');
             }

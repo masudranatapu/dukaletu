@@ -26,6 +26,7 @@ class SmsMarketingController extends Controller
     {
 
 
+
         $data['currentPackage'] = User::with('smsPlan')->where('id', Auth::id())->first();
 
         $data['userPhoneBooks'] = UserPhoneBook::where('user_id', Auth::id())->get();
