@@ -167,7 +167,7 @@
                             <hr>
                             <div class="dashboard-post_content d-flex justify-content-center align-items-center"
                                 style="height: 65vh;">
-                                <a href="{{ route('frontend.smsPricePlan') }}" class="btn">Purchesed Package</a>
+                                <a href="{{ route('frontend.smsPricePlan') }}" class="btn">Purchase Package</a>
                             </div>
                         </div>
                     @endif
