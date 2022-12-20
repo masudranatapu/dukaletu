@@ -16105,7 +16105,19 @@ a {
     margin-bottom: 20px;
 }
 
+@media (max-width: 768px) {
+
+    .footer__mobile-app {
+        display: none;
+    }
+    .footer__mobile-app-text {
+        display: none;
+    }
+
+}
+
 @media (max-width: 360px) {
+
     @media -sass-debug-info {
         filename {
             font-family: file\:\/\/\/Users\/devzakir\/Dev\/Zakirsoft\/Projects\/Adlisting\/html\/src\/scss\/layout\/_footer\.scss;
@@ -16122,6 +16134,7 @@ a {
         -ms-flex-direction: column;
         flex-direction: column;
     }
+
 }
 
 @media -sass-debug-info {

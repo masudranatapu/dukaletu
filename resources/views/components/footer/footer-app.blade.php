@@ -1,6 +1,6 @@
 <div class="col-xl-4 col-lg-6">
     @if ($mobile_setting->ios_download_url || $mobile_setting->android_download_url)
-        <h2 class="footer__title text--body-2-600">{{ __('download_our_app') }}</h2>
+        <h2 class="footer__title text--body-2-600 footer__mobile-app-text">{{ __('download_our_app') }}</h2>
     @endif
     <div class="footer__mobile-app">
         @if ($mobile_setting->android_download_url)
