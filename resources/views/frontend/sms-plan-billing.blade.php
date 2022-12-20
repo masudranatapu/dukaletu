@@ -109,8 +109,15 @@
                             </div>
                         </div>
                     @else
-                        <div class="text-center">
-                            <a href="{{ route('frontend.smsPricePlan') }}" class="btn">Purchesed Package</a>
+                        <div class="dashboard-card">
+                            <div class="dashboard-card__title">
+                                {{ __('sms_paln_billing') }}
+                            </div>
+                            <hr>
+                            <div class="dashboard-post_content d-flex justify-content-center align-items-center"
+                                style="height: 65vh;">
+                                <a href="{{ route('frontend.smsPricePlan') }}" class="btn">Purchesed Package</a>
+                            </div>
                         </div>
                     @endif
                 </div>

@@ -4,8 +4,7 @@
 
 @php
 
-$phone_numbers = request()->get('phone_number');
-
+    $phone_numbers = request()->get('phone_number');
 
 @endphp
 
@@ -66,8 +65,10 @@ $phone_numbers = request()->get('phone_number');
                                                         <x-svg.check-icon width="12" height="12" stroke="#3db83a" />
                                                     </span>
                                                     <p class="text--body-4">{{ __('package_name') }}
-                                                        <span class="text-danger">{{ $currentPackage->smsPlan->name }}</span>
-                                                        <span title="Expire date">({{ date('d M, Y',strtotime($last_sms_purchase->expire_date)) }})</span>
+                                                        <span
+                                                            class="text-danger">{{ $currentPackage->smsPlan->name }}</span>
+                                                        <span
+                                                            title="Expire date">({{ date('d M, Y', strtotime($last_sms_purchase->expire_date)) }})</span>
                                                     </p>
 
                                                 </li>
@@ -78,7 +79,8 @@ $phone_numbers = request()->get('phone_number');
                                                 <li
                                                     class="dashboard__benefits-item d-flex justify-content-lg-end justify-content-sm-start">
                                                     <a href="{{ route('frontend.user-phoneBook') }}"
-                                                        class="btn btn--lg">Phone Book ({{ count( $userPhoneBooks) ?? 0 }})</a>
+                                                        class="btn btn--lg">Phone Book
+                                                        ({{ count($userPhoneBooks) ?? 0 }})</a>
                                                 </li>
                                             </ul>
                                         </li>
@@ -110,12 +112,8 @@ $phone_numbers = request()->get('phone_number');
                                                                 @if (isset($userPhoneBooks))
                                                                     @foreach ($userPhoneBooks as $userPhoneBook)
                                                                         <option value="{{ $userPhoneBook->phone_number }}"
-                                                                            @if(isset($phone_numbers) && count($phone_numbers) > 0  )
-
-                                                                            @if(in_array( $userPhoneBook->phone_number, $phone_numbers ))
-                                                                             selected
-                                                                            @endif
-
+                                                                            @if (isset($phone_numbers) && count($phone_numbers) > 0) @if (in_array($userPhoneBook->phone_number, $phone_numbers))
+                                                                             selected @endif
                                                                             @endif
 
                                                                             >
@@ -124,7 +122,9 @@ $phone_numbers = request()->get('phone_number');
                                                                     @endforeach
                                                                 @endif
                                                             </select>
-                                                            <span class="text-success">You can choose multiple number from your phone book or write your number and press enter one by one. without country code (+254)</span>
+                                                            <span class="text-success">You can choose multiple number from
+                                                                your phone book or write your number and press enter one by
+                                                                one. without country code (+254)</span>
                                                             @error('numbers')
                                                                 <span class="text-danger">{{ $message }}</span>
                                                             @enderror
@@ -160,8 +160,15 @@ $phone_numbers = request()->get('phone_number');
                             </div>
                         </div>
                     @else
-                        <div class="text-center">
-                            <a href="{{ route('frontend.smsPricePlan') }}" class="btn">Purchase Package</a>
+                        <div class="dashboard-card">
+                            <div class="dashboard-card__title">
+                                {{ __('sms_merketing') }}
+                            </div>
+                            <hr>
+                            <div class="dashboard-post_content d-flex justify-content-center align-items-center"
+                                style="height: 65vh;">
+                                <a href="{{ route('frontend.smsPricePlan') }}" class="btn">Purchesed Package</a>
+                            </div>
                         </div>
                     @endif
                 </div>
