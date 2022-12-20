@@ -5485,6 +5485,23 @@ a {
     pointer-events: all;
     -webkit-transition: all 0.3s ease-in-out;
     transition: all 0.3s ease-in-out;
+    max-height: 500px;
+    overflow: hidden;
+    overflow-y: auto;
+}
+
+.category_wrapper ::-webkit-scrollbar {
+    width: 0px;
+    height: 0px;
+}
+.category_wrapper ::-webkit-scrollbar-button {
+    background: #fff;
+}
+.category_wrapper ::-webkit-scrollbar-track-piece {
+    background: #fff;
+}
+.category_wrapper ::-webkit-scrollbar-thumb {
+    background: #ddd;
 }
 
 @media -sass-debug-info {
