@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\SmsPackage;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 
 class SmsPackageController extends Controller
@@ -115,9 +116,16 @@ class SmsPackageController extends Controller
      */
     public function destroy(SmsPackage $package)
     {
-        $package->delete();
-        flashSuccess('Package Delete Successfully');
-        return redirect()->route('admin.sms.package.index');
+        $result = Transaction::where('sms_plan_id', $package->id)->get();
+
+        if (count($result)) {
+            flashError('Package already in used');
+            return redirect()->route('admin.sms.package.index');
+        } else {
+            $package->delete();
+            flashSuccess('Package Delete Successfully');
+            return redirect()->route('admin.sms.package.index');
+        }
     }
 
     public function statusChange(Request $request)

@@ -36,18 +36,18 @@
                                 <th>Name</th>
                                 <th>Price</th>
                                 <th>Amount of Sms</th>
+                                <th>Validity(in Days)</th>
                                 <th>Status</th>
-                                <th>Vaidity(in Days)</th>
                                 <th>Action</th>
                             </thead>
                             <tbody>
                                 @foreach ($smsPackages as $smsPackage)
                                     <tr>
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $smsPackage->name }}</td>
-                                        <td>{{ $smsPackage->price }}</td>
-                                        <td>{{ $smsPackage->amount_of_sms }}</td>
-                                        <td>{{ $smsPackage->validity }}</td>
+                                        <td>{{ $loop->iteration ?? '' }}</td>
+                                        <td>{{ $smsPackage->name ?? '' }}</td>
+                                        <td>{{ $smsPackage->price ?? '' }}</td>
+                                        <td>{{ $smsPackage->amount_of_sms ?? '' }}</td>
+                                        <td>{{ $smsPackage->validity ?? '' }}</td>
                                         <td>
                                             <input type="checkbox" data-on-color="success" data-off-color="danger"
                                                 data-handle-width="auto" name="status" data-id={{ $smsPackage->id }}

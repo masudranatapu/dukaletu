@@ -31,6 +31,18 @@
 
                 </ul>
             </nav>
+            <nav class="mt-2 nav-footer" style="border-top: 1px solid gray; padding-top: 20px;">
+                <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview" role="menu"
+                    data-accordion="false">
+                    <li class="nav-item">
+                        <a href="{{ route('admin.dashboard') }}" class="nav-link"
+                            style="background-color: #007bff; color: #fff;">
+                            <i class="nav-icon fas fa-chevron-left"></i>
+                            <p>{{ __('go_back') }}</p>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </div>
     </div>
 </aside>
