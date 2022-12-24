@@ -12,7 +12,6 @@ class UserSmsPlanController extends Controller
     {
         $users = User::with('smsPlan')->get();
 
-
         return view('admin.sms.userPackage.index', compact('users'));
     }
 }
