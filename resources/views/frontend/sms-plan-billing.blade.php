@@ -65,6 +65,11 @@
 
                                             </ul>
                                         </li>
+                                        <li class="dashboard__benefits-right d-flex justify-content-end">
+                                            <a class="btn btn-sm" href="{{ route('frontend.smsPricePlan') }}">Upgrade
+                                                package</a>
+
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -104,8 +109,15 @@
                             </div>
                         </div>
                     @else
-                        <div class="text-center">
-                            <a href="{{ route('frontend.smsPricePlan') }}" class="btn">Purchesed Package</a>
+                        <div class="dashboard-card">
+                            <div class="dashboard-card__title">
+                                {{ __('sms_paln_billing') }}
+                            </div>
+                            <hr>
+                            <div class="dashboard-post_content d-flex justify-content-center align-items-center"
+                                style="height: 65vh;">
+                                <a href="{{ route('frontend.smsPricePlan') }}" class="btn">Purchase Package</a>
+                            </div>
                         </div>
                     @endif
                 </div>

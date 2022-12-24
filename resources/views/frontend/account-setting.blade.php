@@ -242,8 +242,7 @@
                             <p class="delete-account__details text--body-3">
                                 {{ __('delete_account_alert') }}
                             </p>
-                            <form action="{{ route('frontend.account.delete', auth()->id()) }}" method="POST"
-                                onclick="return confirm('{{ __('are_you_sure') }}?')">
+                            <form action="{{ route('frontend.account.delete', auth()->id()) }}" method="POST" onclick="return confirm('{{ __('are_you_sure') }}?')">
                                 @csrf
                                 @method('delete')
                                 <button type="submit" class="btn btn-danger" style="background: #dc3545 !important;">

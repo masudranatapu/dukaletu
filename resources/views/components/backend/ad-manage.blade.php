@@ -24,7 +24,7 @@
         @forelse ($ads as $key =>$ad)
             <tr>
                 <td class="text-center" tabindex="0">
-                    <input type="checkbox" onclick="addValue(this)" value="{{$ad->id}}" name="ads_id[]" >
+                    <input type="checkbox" onclick="addValue(this)" value="{{ $ad->id }}" name="ads_id[]">
                 </td>
                 <td class="text-center" tabindex="0">
                     <img src="{{ $ad->image_url }}" class="rounded" height="50px" width="50px" alt="image">
@@ -48,8 +48,8 @@
                 @endif
                 @if ($showCity)
                     <td class="text-center" tabindex="0">
-                        <a href="{{ route('module.ad.index', ['country' => $ad->country]) }}">
-                            {{ $ad->country }}
+                        <a href="{{ route('module.ad.index', ['country' => $ad->country_id]) }}">
+                            {{ $ad->country->location ?? '' }}
                         </a>
                     </td>
                 @endif
@@ -78,8 +78,7 @@
                         @endif
                         @if ($ad->status == 'active')
                             <li><a onclick="return confirm('Are you sure to perform this action?')"
-                                    class="dropdown-item"
-                                    href="{{ route('module.ad.status', [$ad->slug, 'sold']) }}">
+                                    class="dropdown-item" href="{{ route('module.ad.status', [$ad->slug, 'sold']) }}">
                                     <i class="fas fa-hourglass-end text-danger"></i> {{ __('mark_as_sold') }}
                                 </a>
                             </li>
@@ -116,8 +115,7 @@
                                 <i class="fas fa-images text-warning"></i></i> {{ __('ad_gallary') }}
                             </a>
                         </li>
-                        <li><a class="dropdown-item"
-                                href="{{ route('module.ad.custom.field.value.edit', $ad->id) }}">
+                        <li><a class="dropdown-item" href="{{ route('module.ad.custom.field.value.edit', $ad->id) }}">
                                 <i class="fas fa-edit text-info"></i> {{ __('edit_custom_fields') }}
                             </a>
                         </li>

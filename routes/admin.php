@@ -15,9 +15,11 @@ use App\Http\Controllers\Admin\CmsSettingController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\Auth\ResetPasswordController;
 use App\Http\Controllers\Admin\Auth\ForgotPasswordController;
+use App\Http\Controllers\Admin\LocationController;
 use App\Http\Controllers\Admin\SmsPackageController;
 use App\Http\Controllers\Admin\SmsPurchasedTransactionController;
 use App\Http\Controllers\Admin\UserSmsPlanController;
+use Google\Service\Adsense\Row;
 
 Route::prefix('admin')->group(function () {
     Route::middleware(['guest:admin'])->group(function () {
@@ -187,6 +189,11 @@ Route::prefix('admin')->group(function () {
             Route::prefix('/userPackage')->name('userPackage.')->group(function () {
                 Route::get('/', [UserSmsPlanController::class, 'index'])->name('index');
             });
+        });
+        Route::name('admin.')->group(function () {
+
+            Route::resource('/location', LocationController::class);
+            Route::post('/location-status-change', [LocationController::class, 'changeStatus'])->name('location.statusChange');
         });
     });
 });

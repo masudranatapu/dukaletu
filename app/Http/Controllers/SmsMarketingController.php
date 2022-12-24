@@ -2,20 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Frontend\UserPhoneBook;
-use App\Models\SmsMarketing;
-use App\Models\User;
-use App\Models\UserSmsStock;
 use Exception;
-use Google\Service\CloudSourceRepositories\Repo;
-use Illuminate\Http\Request;
+use App\Models\User;
+use App\Models\Transaction;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Http;
+use App\Models\SmsMarketing;
+use App\Models\UserSmsStock;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
+use App\Models\Frontend\UserPhoneBook;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Session;
 use Rap2hpoutre\FastExcel\Facades\FastExcel;
+use Google\Service\CloudSourceRepositories\Repo;
 
 
 class SmsMarketingController extends Controller
@@ -24,11 +26,25 @@ class SmsMarketingController extends Controller
     {
 
 
+
         $data['currentPackage'] = User::with('smsPlan')->where('id', Auth::id())->first();
-        $data['userPhoneBooks'] = UserPhoneBook::where('user_id', Auth::id())->paginate(6);
+
         $data['userPhoneBooks'] = UserPhoneBook::where('user_id', Auth::id())->get();
+        $todate = date('Y-m-d');
+
+        if (isset($data['currentPackage'])) {
+            $data['last_sms_purchase'] = UserSmsStock::where('user_id', Auth::id())->where('status', 'IN')->orderBy('id', 'desc')->first();
 
 
+            if (isset($data['last_sms_purchase']) && strtotime($data['last_sms_purchase']->expire_date) < time()) {
+                DB::table('user_sms_stocks')->insert([
+                    'user_id' => Auth::id(),
+                    'stock' => '-' . Auth::user()->user_sms_stock,
+                    'status' => 'OUT',
+                    'created_at' => now(),
+                ]);
+            }
+        }
 
         return view('frontend.sms-merketing', $data);
     }
@@ -119,24 +135,24 @@ class SmsMarketingController extends Controller
                 $response = Http::post('https://quicksms.advantasms.com/api/services/sendbulk/', ["smslist" => $new_data]);
 
 
+                // for ($i = 0; $i < count($request->numbers); $i++) {
+                //     $smsMarketing = new SmsMarketing();
+                //     $smsMarketing->sender_id = Auth::id();
+                //     $smsMarketing->phone_number = (int)trim($request->numbers[$i]);
+                //     $smsMarketing->status = $response->json()['responses'][0]['response-code'] == 200 ? true : false;
+                //     $smsMarketing->save();
+                // }
 
-                for ($i = 0; $i < count($request->numbers); $i++) {
 
 
-                    $smsMarketing = new SmsMarketing();
-                    $smsMarketing->sender_id = Auth::id();
-                    $smsMarketing->phone_number = (int)trim($request->numbers[$i]);
-                    $smsMarketing->status = $response->json()['responses'][0]['response-code'] == 200 ? true : false;
-                    $smsMarketing->save();
-                    if ($response->json()['responses'][0]['response-code'] == 200) {
-
-                        $userSmsStock = new UserSmsStock();
-                        $userSmsStock->user_id = Auth::id();
-                        $userSmsStock->stock = -1;
-                        $userSmsStock->status = "Out";
-                        $userSmsStock->save();
-                    }
+                if ($response->json()['responses'][0]['response-code'] == 200) {
+                    $userSmsStock = new UserSmsStock();
+                    $userSmsStock->user_id = Auth::id();
+                    $userSmsStock->stock = '-' . count($request->numbers);
+                    $userSmsStock->status = "OUT";
+                    $userSmsStock->save();
                 }
+
 
                 flashSuccess("SMS Send Successfully");
                 if (isset($request->page)) {
@@ -149,7 +165,7 @@ class SmsMarketingController extends Controller
                 }
             } else {
 
-                flashError("You don't have enough Sms left");
+                flashError("You don't have enough SMS left");
                 return redirect()->back();
             }
         } else {

@@ -341,9 +341,20 @@ class DashboardController extends Controller
 
     public function deleteAccount(User $customer)
     {
-        $customer->delete();
-        Auth::guard('user')->logout();
-        return redirect()->route('users.login');
+        // dd($customer);
+        $ads = Ad::where('user_id', $customer->id)->get();
+        // dd($ads);
+
+        if($ads->count() > 0){
+            flashError('Kindly delete your post before deleting the account. Thanks');
+            return redirect()->back();
+        }else {
+            $customer->delete();
+            Auth::guard('user')->logout();
+            flashSuccess('Your account successfully delete.');
+            return redirect()->route('users.login');
+        }
+
     }
 
     /**

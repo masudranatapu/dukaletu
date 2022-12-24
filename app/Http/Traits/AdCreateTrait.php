@@ -18,6 +18,7 @@ trait AdCreateTrait
         session()->forget('step3');
         session()->forget('step1_success');
         session()->forget('step2_success');
+        session()->forget('location');
     }
 
     protected function stepCheck()
@@ -141,7 +142,7 @@ trait AdCreateTrait
             'district' => $ad->district,
             'postcode' => $ad->postcode,
             'region' => $ad->region,
-            'country' => $ad->country,
+            'country' => $ad->country_id,
             'address' => $ad->address,
         ];
     }

@@ -5485,6 +5485,23 @@ a {
     pointer-events: all;
     -webkit-transition: all 0.3s ease-in-out;
     transition: all 0.3s ease-in-out;
+    max-height: 500px;
+    overflow: hidden;
+    overflow-y: auto;
+}
+
+.category_wrapper ::-webkit-scrollbar {
+    width: 0px;
+    height: 0px;
+}
+.category_wrapper ::-webkit-scrollbar-button {
+    background: #fff;
+}
+.category_wrapper ::-webkit-scrollbar-track-piece {
+    background: #fff;
+}
+.category_wrapper ::-webkit-scrollbar-thumb {
+    background: #ddd;
 }
 
 @media -sass-debug-info {
@@ -16105,7 +16122,19 @@ a {
     margin-bottom: 20px;
 }
 
+@media (max-width: 768px) {
+
+    .footer__mobile-app {
+        display: none;
+    }
+    .footer__mobile-app-text {
+        display: none;
+    }
+
+}
+
 @media (max-width: 360px) {
+
     @media -sass-debug-info {
         filename {
             font-family: file\:\/\/\/Users\/devzakir\/Dev\/Zakirsoft\/Projects\/Adlisting\/html\/src\/scss\/layout\/_footer\.scss;
@@ -16122,6 +16151,7 @@ a {
         -ms-flex-direction: column;
         flex-direction: column;
     }
+
 }
 
 @media -sass-debug-info {

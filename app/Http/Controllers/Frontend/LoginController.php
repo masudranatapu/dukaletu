@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use App\Http\Traits\AdCreateTrait;
 use App\Http\Controllers\Controller;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Providers\RouteServiceProvider;
 use App\Notifications\LoginNotification;
@@ -14,6 +15,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 class LoginController extends Controller
 {
     use AuthenticatesUsers;
+    use AdCreateTrait;
 
     protected $redirectTo = RouteServiceProvider::HOME;
 
@@ -105,6 +107,7 @@ class LoginController extends Controller
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
+        $this->forgetStepSession();
 
         if ($response = $this->loggedOut($request)) {
             return $response;

@@ -29,7 +29,7 @@
                 <x-svg.address-icon />
             </span>
             <h6 class="text--body-3">{{ $ad->address ?? '' }} {{ isset($ad->district) ? ', ' . $ad->district : '' }}
-                {{ isset($ad->country) ? ',' . $ad->country : '' }}</h6>
+                {{ isset($ad->country) ? ',' . $ad->country->location : '' }}</h6>
         </li>
         @if (!is_null($link))
             <li class="contact-item">

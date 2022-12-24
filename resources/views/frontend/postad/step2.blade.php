@@ -53,9 +53,9 @@
                         <div class="col-md-12 mb-3">
                             <x-forms.label name="location" required="true" />
                             <!-- <span data-toggle="tooltip" title="Drag the pointer Or click your location"
-                                                                                                                                                                                        data-original-title="Drag the pointer Or click your location">
-                                                                                                                                                                                        <x-svg.exclamation />
-                                                                                                                                                                                    </span> -->
+                                                                                                                                                                                                                        data-original-title="Drag the pointer Or click your location">
+                                                                                                                                                                                                                        <x-svg.exclamation />
+                                                                                                                                                                                                                    </span> -->
                             {{-- <span class="text-danger"><strong>(Drag the pointer Or click your location)</strong></span>
                             @php
                                 $map = setting('default_map');
@@ -151,10 +151,18 @@
 
                                 <div class="input-field">
                                     <x-forms.label name="country" for="country" :required="true" />
-                                    <input name="location[country]" id="" type="text"
-                                        class="backupPhone @error('address') border-danger @enderror" placeholder=""
-                                        value="{{ Session::has('location') ? Session::get('location')['country'] : '' }}"
-                                        required />
+                                    <select name="location[country]" id="country"
+                                        class="form-control select-bg @error('country') border-danger @enderror">
+                                        <option value="" selected>{{ __('country') }}</option>
+                                        @isset($countries)
+                                            @foreach ($countries as $country)
+                                                <option value="{{ $country->id }}"
+                                                    @if (old('country') == $country->id) selected @endif>{{ $country->location }}
+                                                </option>
+                                            @endforeach
+                                        @endisset
+
+                                    </select>
                                 </div>
                                 <div class="input-field">
                                     <x-forms.label name="city" for="district" :required="true" />
