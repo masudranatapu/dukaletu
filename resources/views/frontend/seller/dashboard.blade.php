@@ -27,8 +27,6 @@
                 </div>
                 <div class="col-xl-9 col-lg-8 col-12">
                     @include('frontend.seller.hero')
-
-
                     <div class="dashboard-post2">
                         @php
                             $current_tab = session('seller_tab') ?? 'ads';

@@ -58,16 +58,21 @@
                      <div class="accordion sidebar_category" id="accordionExample">
                         <div class="accordion-item">
                             <h2 class="accordion-header" id="headingThree">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree"> {{ __('all_category') }}</button>
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree"> {{ __('all_categories') }}</button>
                             </h2>
                             <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
                                     <ul>
                                         @foreach ($footer_categories as $category)
+                                        <form method="GET" action="{{ route('frontend.adlist.search') }}"
+                                        id="adFilterForm2" class="d-none">
+                                        <input type="hidden" name="category" value="" id="adFilterInput2">
+                                    </form>
                                         <li class="menu--sm-dropdown__item">
                                             <a href="javascript:void(0)" onclick="adFilterFunctionTwo('{{$category->slug}}')" class="menu--sm-dropdown__link">
                                                 {{ $category->name }}
                                             </a>
+                                            
                                         </li>
                                         @endforeach
                                     </ul>
@@ -133,8 +138,23 @@
                     </span>
                     {{ __('post_ads') }}
                 </a>
-                <a href="{{ route('users.login') }}" class="btn btn--bg ">{{ __('sign_in') }}</a>
+                <a href="{{ route('users.login') }}" class="btn btn-bg ">{{ __('sign_in') }}</a>
             </div>
         @endif
     </div>
 </div>
+
+
+@push('component_script')
+    <script type="module" src="{{ asset('frontend') }}/js/plugins/purecounter.js"></script>
+    <script>
+
+        // for filter form-2
+        function adFilterFunctionTwo(slug) {
+            
+            $('#adFilterInput2').val(slug);
+            $('#adFilterForm2').submit();
+        }
+
+    </script>
+@endpush

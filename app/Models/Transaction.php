@@ -30,9 +30,9 @@ class Transaction extends Model
     public function scopeCustomerData($query, $api = false)
     {
         if ($api) {
-            return $query->where('user_id', auth('api')->id());
+            return $query->where('user_id', auth('api')->id())->whereNotNull('plan_id');
         } else {
-            return $query->where('user_id', auth('user')->id());
+            return $query->where('user_id', auth('user')->id())->whereNotNull('plan_id');
         }
     }
 
@@ -44,5 +44,14 @@ class Transaction extends Model
     public function plan(): BelongsTo
     {
         return $this->belongsTo(Plan::class);
+    }
+    /**
+     * Transaction plan
+     *
+     * @return BelongsTo
+     */
+    public function package(): BelongsTo
+    {
+        return $this->belongsTo(SmsPackage::class, 'sms_plan_id', 'id');
     }
 }

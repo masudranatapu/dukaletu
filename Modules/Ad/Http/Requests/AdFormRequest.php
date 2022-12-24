@@ -15,30 +15,37 @@ class AdFormRequest extends FormRequest
     {
         if ($this->method() === 'POST') {
             return [
-                'title' => 'required|unique:ads,title',
+                'title' => 'required',
                 'price' => 'required|numeric',
                 'featured' => 'sometimes',
                 'category_id' => 'required',
                 'subcategory_id' => 'sometimes',
-                'brand_id' => 'required',
+                // 'brand_id' => 'required',
                 'phone' => 'sometimes',
                 'phone_2' => 'sometimes',
                 'description' => 'required',
                 'thumbnail' => 'required',
                 'user_id' => "required",
+                'address' => "required",
+                'district' => "required",
+                'country' => "required",
+
             ];
         } else {
             return [
-                'title' => "required|unique:ads,title,{$this->ad->id}",
+                'title' => "required",
                 'price' => 'required|numeric',
                 'featured' => 'sometimes',
                 'category_id' => 'required',
                 'subcategory_id' => 'sometimes',
-                'brand_id' => 'required',
+                // 'brand_id' => 'required',
                 'phone' => 'sometimes',
                 'phone_2' => 'sometimes',
                 'description' => 'required',
                 'user_id' => "required",
+                'address' => "required",
+                'district' => "required",
+                'country' => "required",
             ];
         }
     }

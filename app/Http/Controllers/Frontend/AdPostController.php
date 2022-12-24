@@ -11,10 +11,12 @@ use App\Http\Traits\AdCreateTrait;
 use Illuminate\Support\Facades\DB;
 use Modules\Ad\Entities\AdGallery;
 use App\Http\Controllers\Controller;
+use App\Models\Admin\Location;
 use Modules\Category\Entities\Category;
 use Modules\CustomField\Entities\CustomField;
 use Modules\CustomField\Entities\ProductCustomField;
 use File;
+use App\Models\UserPlan;
 
 class AdPostController extends Controller
 {
@@ -49,8 +51,9 @@ class AdPostController extends Controller
             $ad = session('ad');
 
             $category = Category::with('customFields.values')->FindOrFail($ad->category_id);
+            $countries = Location::all();
 
-            return view('frontend.postad.step2', compact('ad', 'category'));
+            return view('frontend.postad.step2', compact('ad', 'category', 'countries'));
         } else {
             return redirect()->route('frontend.post');
         }
@@ -83,18 +86,28 @@ class AdPostController extends Controller
             'price' => 'required|numeric',
             'category_id' => 'required',
             'subcategory_id' => 'sometimes',
-            'brand_id' => 'nullable',
+            'brand_id' => 'sometimes',
         ]);
+
+        if($request->featured) {
+            $isfeatured = 'yes';
+        }else {
+            $isfeatured = 'no';
+        }
 
         try {
             if (empty(session('ad'))) {
                 $ad = new Ad();
                 $ad['slug'] = Str::slug($request->title);
+                $ad['featured'] = $request->featured ?? 0;
+                $ad['is_featured'] = $isfeatured;
                 $ad->fill($validatedData);
                 $request->session()->put('ad', $ad);
             } else {
                 $ad = session('ad');
                 $ad['slug'] = Str::slug($request->title);
+                $ad['featured'] = $request->featured ?? 0;
+                $ad['is_featured'] = $isfeatured;
                 $ad->fill($validatedData);
                 $request->session()->put('ad', $ad);
             }
@@ -128,6 +141,8 @@ class AdPostController extends Controller
                 'location' => 'required',
             ]);
         }
+
+        session()->put('location', $request->location);
 
         $category = Category::with('customFields.values')->FindOrFail($request->category);
 
@@ -203,6 +218,7 @@ class AdPostController extends Controller
      */
     public function storePostStep3(Request $request)
     {
+        //  dd($request->all());
         $maximum_ad_image_limit = setting('maximum_ad_image_limit');
 
         $validatedData = $request->validate([
@@ -245,10 +261,38 @@ class AdPostController extends Controller
 
         // feature inserting
         $features = $request->features;
-        foreach ($features as $feature) {
-            $ad->adFeatures()->create(['name' => $feature]);
+        if($features){
+            foreach ($features as $feature) {
+                $ad->adFeatures()->create(['name' => $feature]);
+            }
         }
 
+        //     foreach ($features as $feature) {
+        //         $ad->adFeatures()->create(['name' => $feature]);
+        //     }
+        // }
+        // <!--  location  -->
+        $location = session()->get('location');
+
+
+
+        // $region = array_key_exists("region", $location) ? $location['region'] : '';
+        // $country = array_key_exists("country", $location) ? $location['country'] : '';
+        // $address = Str::slug($region . '-' . $country);
+        $ad->update([
+            'address' => array_key_exists("address", $location) ? $location['address'] : '',
+            'district' => array_key_exists("district", $location) ? $location['district'] : '',
+            'country_id' => array_key_exists("country", $location) ? $location['country'] : '',
+            // 'neighborhood' => array_key_exists("neighborhood", $location) ? $location['neighborhood'] : '',
+            // 'locality' => array_key_exists("locality", $location) ? $location['locality'] : '',
+            // 'place' => array_key_exists("place", $location) ? $location['place'] : '',
+            // 'postcode' => array_key_exists("postcode", $location) ? $location['postcode'] : '',
+            // 'region' => array_key_exists("region", $location) ? $location['region'] : '',
+            // 'long' => 0,
+            // 'lat' => 0,
+        ]);
+
+        session()->forget('location');
         $this->forgetStepSession();
         $this->adNotification($ad);
         !setting('ads_admin_approval') ? $this->userPlanInfoUpdate($ad->featured) : '';
@@ -303,27 +347,7 @@ class AdPostController extends Controller
         }
         session()->forget('custom-field');
 
-        // <!--  location  -->
-        $location = session()->get('location');
 
-        $region = array_key_exists("region", $location) ? $location['region'] : '';
-        $country = array_key_exists("country", $location) ? $location['country'] : '';
-        $address = Str::slug($region . '-' . $country);
-
-        $ad->update([
-            'address' => $address,
-            'neighborhood' => array_key_exists("neighborhood", $location) ? $location['neighborhood'] : '',
-            'locality' => array_key_exists("locality", $location) ? $location['locality'] : '',
-            'place' => array_key_exists("place", $location) ? $location['place'] : '',
-            'district' => array_key_exists("district", $location) ? $location['district'] : '',
-            'postcode' => array_key_exists("postcode", $location) ? $location['postcode'] : '',
-            'region' => array_key_exists("region", $location) ? $location['region'] : '',
-            'country' => array_key_exists("country", $location) ? $location['country'] : '',
-            'long' => array_key_exists("lng", $location) ? $location['lng'] : '',
-            'lat' => array_key_exists("lat", $location) ? $location['lat'] : '',
-        ]);
-
-        session()->forget('location');
 
         return view('frontend.postad.postsuccess', [
             'ad_slug' => $ad->slug,
@@ -371,9 +395,10 @@ class AdPostController extends Controller
 
             $ad = collectionToResource($this->setAdEditStep2Data($ad));
 
-            if (session('step2') && session('edit_mode')) {
 
-                return view('frontend.postad_edit.step2', compact('lat', 'long', 'ad', 'fields'));
+            if (session('step2') && session('edit_mode')) {
+                $countries = Location::all();
+                return view('frontend.postad_edit.step2', compact('lat', 'long', 'ad', 'fields', 'countries'));
             } else {
                 return redirect()->route('frontend.dashboard');
             }
@@ -415,7 +440,37 @@ class AdPostController extends Controller
             'title' => "required|unique:ads,title,$ad->id",
             'price' => 'required|numeric',
             'category_id' => 'required',
+            'brand_id' => 'sometimes',
         ]);
+
+        if($ad->is_featured == 'yes'){
+
+            $isfeatured = 'yes';
+            if($request->featured){
+                $checkedfeatured = 1;
+            }else {
+                $checkedfeatured = 0;
+            }
+
+        }else {
+
+            if($request->featured){
+                $isfeatured = 'yes';
+
+                $userplan = UserPlan::where('user_id', $ad->user_id)->first();
+                UserPlan::where('id', $userplan->id)->update([
+                    'featured_limit' => $userplan->featured_limit - 1,
+                ]);
+
+                $checkedfeatured = 1;
+
+            }else {
+
+                $isfeatured = 'no';
+                $checkedfeatured = 0;
+
+            }
+        }
 
         $ad->update([
             'title' => $request->title,
@@ -424,7 +479,8 @@ class AdPostController extends Controller
             'subcategory_id' => $request->subcategory_id,
             'brand_id' => $request->brand_id,
             'price' => $request->price,
-            'featured' => $request->featured,
+            'featured' => $checkedfeatured,
+            'is_featured' => $isfeatured,
         ]);
 
 
@@ -472,11 +528,9 @@ class AdPostController extends Controller
                 'locality' => array_key_exists("locality", $location) ? $location['locality'] : '',
                 'place' => array_key_exists("place", $location) ? $location['place'] : '',
                 'district' => array_key_exists("district", $location) ? $location['district'] : '',
-                'postcode' => array_key_exists("postcode", $location) ? $location['postcode'] : '',
-                'region' => array_key_exists("region", $location) ? $location['region'] : '',
-                'country' => array_key_exists("country", $location) ? $location['country'] : '',
-                'long' => array_key_exists("lng", $location) ? $location['lng'] : '',
-                'lat' => array_key_exists("lat", $location) ? $location['lat'] : '',
+                'country_id' => array_key_exists("country", $location) ? $location['country'] : '',
+                'long' => 0,
+                'lat' => 0,
             ]);
             session()->forget('location');
         }

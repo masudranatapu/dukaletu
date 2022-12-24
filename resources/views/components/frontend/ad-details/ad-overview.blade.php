@@ -1,6 +1,7 @@
 @props(['ad', 'product_custom_field_groups'])
 
 <div>
+    {{-- @dd($productCustomFieldGroups); --}}
     @foreach ($productCustomFieldGroups as $key => $customFieldGroup)
         <h2 class="text--body-1">{{ $customFieldGroup[0]->customField->customFieldGroup->name }}</h2>
         <ul class="overview-details">

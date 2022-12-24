@@ -12,12 +12,18 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Actions\Frontend\ProfileUpdate;
+use App\Imports\SmsMarketingImport;
 use App\Models\Setting;
+use App\Models\SmsMarketing;
+use App\Models\UserSmsPlan;
 use Modules\Category\Entities\Category;
 use Modules\Wishlist\Entities\Wishlist;
 use App\Notifications\AdDeleteNotification;
 use App\Notifications\AdWishlistNotification;
 use App\Rules\MatchOldPassword;
+use Exception;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Log;
 use Modules\Plan\Entities\Plan;
 
 class DashboardController extends Controller
@@ -181,6 +187,7 @@ class DashboardController extends Controller
         $data['plan_info'] = UserPlan::customerData()->firstOrFail();
         $data['transactions'] = Transaction::with('plan')->customerData()->latest()->get()->take(5);
 
+
         return view('frontend.plans-billing', $data);
     }
 
@@ -334,9 +341,20 @@ class DashboardController extends Controller
 
     public function deleteAccount(User $customer)
     {
-        $customer->delete();
-        Auth::guard('user')->logout();
-        return redirect()->route('users.login');
+        // dd($customer);
+        $ads = Ad::where('user_id', $customer->id)->get();
+        // dd($ads);
+
+        if($ads->count() > 0){
+            flashError('Kindly delete your post before deleting the account. Thanks');
+            return redirect()->back();
+        }else {
+            $customer->delete();
+            Auth::guard('user')->logout();
+            flashSuccess('Your account successfully delete.');
+            return redirect()->route('users.login');
+        }
+
     }
 
     /**
@@ -385,23 +403,19 @@ class DashboardController extends Controller
 
 
 
-    public function marketing()
-    {
-
-
-        $data['user_plan'] = session('user_plan');
-
-        if ($data['user_plan']->subscription_type == 'recurring' && $data['user_plan']->current_plan_id) {
-            $data['user_plan'] = $data['user_plan'];
-            $data['current_plan'] = Plan::find($data['user_plan']->current_plan_id);
-        }
-
-
-        $data['plan_info'] = UserPlan::customerData()->firstOrFail();
-        return view('frontend.sms-merketing', $data);
-    }
+    
     public function expiredPlan()
     {
         return view('frontend.add-plan');
+    }
+
+
+
+    public function smsPlanBiling()
+    {
+        $currentPackage = User::with('smsPlan')->where('id', Auth::id())->first();
+
+        $transactions = Transaction::with('package')->whereNotNull('sms_plan_id')->where('user_id', Auth()->id())->latest()->get()->take(5);
+        return view('frontend.sms-plan-billing', compact('transactions', 'currentPackage'));
     }
 }

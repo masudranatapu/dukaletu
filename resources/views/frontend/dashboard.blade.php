@@ -73,14 +73,16 @@
                                 </div>
                             </div>
                         </div>
-                     </div>
-                     <div class="mt-3">
-                            <div class="dashboard__count-card">
-                                <div class="row">
-                                    
-                                
+                    </div>
+                    <div class="mt-3">
+                        <div class="dashboard__count-card">
+                            <div class="row">
+
+
                                 <h4 class="my-2">@lang('current_plan_expirations_and_benefits')</h4>
-                                @if ($user_plan->subscription_type == 'recurring' && $user_plan->expired_date && $user_plan->expired_date > now()->format('Y-m-d'))
+                                @if ($user_plan->subscription_type == 'recurring' &&
+                                    $user_plan->expired_date &&
+                                    $user_plan->expired_date > now()->format('Y-m-d'))
                                     <div class="col-lg-4">
                                         <div class="dashboard-card dashboard-card--count bgcolor--danger-9">
                                             <div class="dashboard-card--count__info">
@@ -97,13 +99,14 @@
                                 <div class="col-lg-4">
                                     <div class="dashboard-card dashboard-card--count bgcolor--success-9">
                                         <div class="dashboard-card--count__info">
-                                            <span class="counter-number text--heading-2"> {{ $user_plan->ad_limit }} </span>
+                                            <span class="counter-number text--heading-2"> {{ $user_plan->ad_limit }}
+                                            </span>
                                             <h2 class="counter-title text--body-3">{{ __('remaining_ads') }}</h2>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
-                                    <div class="dashboard-card dashboard-card--count bgcolor--primary-9">
+                                    <div class="dashboard-card dashboard-card--count bgcolor--danger-9">
                                         <div class="dashboard-card--count__info">
                                             <span class="counter-number text--heading-2"> {{ $user_plan->featured_limit }}
                                             </span>
@@ -111,10 +114,20 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-lg-4">
+                                    <div class="dashboard-card dashboard-card--count bgcolor--primary-9">
+                                        <div class="dashboard-card--count__info">
+                                            <span class="counter-number text--heading-2">
+                                                {{ Auth::user()->user_sms_stock }}
+                                            </span>
+                                            <h2 class="counter-title text--body-3">{{ __('remain_sms') }}</h2>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                     </div>
-                    
+                        </div>
+                    </div>
+
 
                     <div class="row dashboard__ads-activity">
                         <div class="col-lg-6">
@@ -185,7 +198,8 @@
                                                     </a>
                                                 </div>
                                                 <div class="cards__info-bottom">
-                                                    <span class="cards__price-title text--body-3-600">${{ $ad->price }}
+                                                    <span class="cards__price-title text--body-3-600">KSh
+                                                        {{ $ad->price }}
                                                     </span>
                                                     <ul class="edit">
                                                         <li class="edit-icon">

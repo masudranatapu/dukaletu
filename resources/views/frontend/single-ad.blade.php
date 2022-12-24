@@ -77,7 +77,7 @@
                                 :link="$ad->website_link" />
                         </div>
 
-                        <div class="product-item__sidebar-bottom mb-4">
+                        {{-- <div class="product-item__sidebar-bottom mb-4">
                             <div class="product-item__sidebar-item overview">
                                 <div>
                                     <div class="location-text">{{ __('location') }}</div>
@@ -94,19 +94,26 @@
                                     </div>
                                 </div>
                             </div>
+                        </div> --}}
+
+                        <div class="product-item__sidebar-bottom mb-4">
+                            <div class="product-item__sidebar-item overview pb-3">
+                                {{-- ad overview --}}
+                                <x-frontend.ad-details.ad-overview :ad="$ad" :product_custom_field_groups="$product_custom_field_groups" />
+                            </div>
                         </div>
+
 
                         <div class="product-item__sidebar-bottom">
                             <div class="product-item__sidebar-item overview">
-                                {{-- ad overview --}}
-                                <x-frontend.ad-details.ad-overview :ad="$ad" :product_custom_field_groups="$product_custom_field_groups" />
-
-                                <p style="display-block;border-bottom: 1px solid #ebeef7"></p>
-
                                 {{-- ad share --}}
                                 <x-frontend.ad-details.ad-share :slug="$ad->slug" />
                             </div>
                         </div>
+
+
+
+
                     </div>
                 </div>
             </div>
@@ -172,7 +179,7 @@
         });
     </script>
 
-    @stack('ad_scripts')
+    {{-- @stack('ad_scripts')
     <!-- ================ mapbox map ============== -->
     <script>
         mapboxgl.accessToken = "{{ setting('map_box_key') }}";
@@ -252,6 +259,6 @@
             $scr = $link1 . $link2 . $Link3;
         @endphp;
     </script>
-    <script src="{{ $scr }}" async defer></script>
+    <script src="{{ $scr }}" async defer></script> --}}
     <!-- ================ google map ============== -->
 @endsection

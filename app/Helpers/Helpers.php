@@ -252,9 +252,9 @@ function changeCurrency($amount)
     $position = config('adlisting.currency_symbol_position');
 
     if ($position == 'left') {
-        return $symbol . ' ' . $amount;
+        return $symbol . ' ' . number_format($amount,2);
     } else {
-        return $amount . ' ' . $symbol;
+        return number_format($amount,2) . ' ' . $symbol;
     }
 
     return $amount;

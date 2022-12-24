@@ -9,7 +9,10 @@ use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\Frontend\DashboardController;
 use App\Http\Controllers\Frontend\SellerDashboardController;
 use App\Http\Controllers\Frontend\FrontendController;
+use App\Http\Controllers\Frontend\UserPhoneBookController;
 use App\Http\Controllers\PaymentsController;
+use App\Http\Controllers\SmsMarketingController;
+use App\Models\Frontend\UserPhoneBook;
 
 // show website pages
 Route::group(['as' => 'frontend.'], function () {
@@ -23,9 +26,14 @@ Route::group(['as' => 'frontend.'], function () {
         Route::get('terms-conditions', 'terms')->name('terms');
         Route::get('get-membership', 'getMembership')->name('getmembership');
         Route::get('price-plan', 'pricePlan')->name('priceplan');
+        Route::get('price-plan-details/{plan_label}', 'pricePlanDetails')->name('priceplanDetails');
         Route::post('plan-purchase', 'planPurchase')->name('planPurchase');
 
-        Route::get('price-plan-details/{plan_label}', 'pricePlanDetails')->name('priceplanDetails');
+        Route::get('sms-price-plan', 'smsPricePlan')->name('smsPricePlan');
+        Route::get('sms-plan-details/{package}', 'smsPlanDetails')->name('smsPriceplanDetails');
+
+
+
         Route::get('contact', 'contact')->name('contact');
         Route::get('ad-list', 'adList')->name('adlist');
         Route::get('/ad/details/{ad:slug}', 'adDetails')->name('addetails');
@@ -93,7 +101,7 @@ Route::group(['as' => 'frontend.'], function () {
             Route::put('active-ad/{ad}', 'markActive')->name('myad.active');
             Route::get('favourites', 'favourites')->name('favourites');
             Route::get('plans-billing', 'plansBilling')->name('plans-billing');
-            Route::get('sms-marketing', 'marketing')->name('sms-marketing');
+            Route::get('sms-plan-billing', 'smsPlanBiling')->name('sms-plan-billing');
             Route::get('cancel/plan', 'cancelPlan')->name('cancel-plan');
             Route::get('account-setting', 'accountSetting')->name('account-setting');
             Route::put('profile', 'profileUpdate')->name('profile');
@@ -103,7 +111,20 @@ Route::group(['as' => 'frontend.'], function () {
             Route::delete('account-delete/{customer}', 'deleteAccount')->name('account.delete');
         });
 
+        // Sms Marketing
+        Route::get('sms-marketing', [SmsMarketingController::class, 'marketing'])->name('sms-marketing');
+        Route::post('sms/send', [SmsMarketingController::class, 'sendSms'])->name('smsMarketing.sendSms');
+        Route::post('sms-marketing-get-number', [SmsMarketingController::class, 'marketingGetNumber'])->name('sms-marketing-getNumber');
         Route::get('expired-plan', [DashboardController::class, 'expiredPlan'])->name('expiredPlan');
+
+
+
+        // user phone-book
+        Route::get('/user-phonebook', [UserPhoneBookController::class, 'index'])->name('user-phoneBook');
+        Route::post('/user-phonebook-store', [UserPhoneBookController::class, 'store'])->name('user-phoneBook.store');
+        Route::get('/send-sms-single/{phone}/{page}', [UserPhoneBookController::class, 'show'])->name('send-sms-single');
+        // Route::get('/send-sms-single/{phone}/{page}', [UserPhoneBookController::class, 'show'])->name('send-sms-single');
+        Route::get('/phonebook-delete/{userPhoneBook}', [UserPhoneBookController::class, 'destroy'])->name('user-phoneBook.destroy');
     });
 });
 

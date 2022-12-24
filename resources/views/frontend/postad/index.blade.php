@@ -97,10 +97,27 @@
         if (cat_id) {
             cat_wise_subcat(cat_id)
         }
+        // Brand
+        $(document).ready(function(){
+            var is_show_brand = $('#ad_category').find('option:selected').attr('data-is_show_brand');
+            if (is_show_brand == '1') {
+                $('#brand_div').show();
+            } else {
+                $('#brand_div').hide();
+            }
+
+        });
 
         // Category wise subcategories
         $('#ad_category').on('change', function() {
             var categoryID = $(this).val();
+            var is_show_brand = $(this).find('option:selected').attr('data-is_show_brand');
+
+            if (is_show_brand == '1') {
+                $('#brand_div').show();
+            } else {
+                $('#brand_div').hide();
+            }
             if (categoryID) {
                 cat_wise_subcat(categoryID);
             }
@@ -131,5 +148,5 @@
 @endsection
 
 @section('frontend_style')
-    <link rel="stylesheet" href="{{ asset('css/zakirsoft.css') }}">
+    <link rel="stylesheet" href="{{ asset('backend/css/zakirsoft.css') }}">
 @endsection

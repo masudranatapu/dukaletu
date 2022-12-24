@@ -2,6 +2,7 @@
 
 namespace Modules\Ad\Entities;
 
+use App\Models\Admin\Location;
 use App\Models\User;
 use Modules\Brand\Entities\Brand;
 use Modules\Ad\Entities\AdFeature;
@@ -153,5 +154,11 @@ class Ad extends Model
     public function productCustomFields()
     {
         return $this->hasMany(ProductCustomField::class, 'ad_id')->oldest('order')->with('customField.values', 'customField.customFieldGroup');
+    }
+
+
+    public function country(): BelongsTo
+    {
+        return $this->belongsTo(Location::class, 'country_id', 'id');
     }
 }

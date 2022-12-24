@@ -128,12 +128,32 @@
                 {{-- category wise ads --}}
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title" style="line-height: 36px;">'{{ $category->name }}'
-                            {{ __('category_wise') }}
-                            {{ __('ads') }}</h3>
-                        <a href="{{ route('module.category.index') }}"
-                            class="btn bg-primary float-right d-flex align-items-center justify-content-center"><i
-                                class="fas fa-arrow-left"></i>&nbsp; {{ __('back') }}</a>
+                        <div class="row">
+                            <div class="col-md-5">
+                                <h3 class="card-title" style="line-height: 36px;">
+                                    '{{ $category->name }}'
+                                    {{ __('category_wise') }}
+                                    {{ __('ads') }}
+                                </h3>
+                            </div>
+                            <div class="col-md-2">
+                                <form action="{{ route('module.ad.index') }}" method="GET">
+                                    <input class="form-control" name="adsid" id="showAdsId" type="hidden"/>
+                                    <select name="ad_status" class="form-control" onchange="this.form.submit()">
+                                        <option disabled selected>Ads Status</option>
+                                        <option value="active">Active</option>
+                                        <option value="inactive">Inactive</option>
+                                        <option value="sold">Sold</option>
+                                    </select>
+                                </form>
+                            </div>
+                            <div class="col-md-5">
+                                <a href="{{ route('module.category.index') }}" class="btn bg-primary float-right d-flex align-items-center justify-content-center">
+                                    <i class="fas fa-arrow-left"></i> 
+                                    &nbsp; {{ __('back') }}
+                                </a>
+                            </div>
+                        </div>
                     </div>
                     <div class="card-body table-responsive p-0">
                         <x-backend.ad-manage :ads="$ads" :showCategory="false" />
@@ -142,4 +162,57 @@
             </div>
         </div>
     </div>
+@endsection
+@section('script')
+    <script>
+        $('#formSubmit').on('change', function() {
+            $(this).submit();
+        });
+    </script>
+    <script>
+        function addValue(input){
+            //select all checkboxes with name userid that are checked
+            var checkboxes = document.querySelectorAll("input[name='ads_id[]']:checked")
+            
+            var values = "";
+            
+            //append values of each checkbox into a variable (seperated by commas)
+            for(var i=0; i<checkboxes.length; i++){
+                values += checkboxes[i]
+            .value + ","  }
+
+            //remove last comma
+            values = values.slice(0,values.length-1)
+            
+            //set the value of input box
+            document.getElementById("showAdsId").value = values;
+            
+        }
+    </script>
+    <script>
+        $('.selectall').click(function() {
+            if ($(this).is(':checked')) {
+                $('input:checkbox').prop('checked', true);
+                
+                var checkboxes = document.querySelectorAll("input[name='ads_id[]']:checked")
+                
+                var values = "";
+                
+                //append values of each checkbox into a variable (seperated by commas)
+                for(var i=0; i<checkboxes.length; i++){
+                    values += checkboxes[i]
+                .value + ","  }
+
+                //remove last comma
+                values = values.slice(0,values.length-1)
+                
+                //set the value of input box
+                document.getElementById("showAdsId").value = values;
+
+            } else {
+                $('input:checkbox').prop('checked', false);
+                document.getElementById("showAdsId").value = '';
+            }
+        });
+    </script>
 @endsection

@@ -54,7 +54,7 @@
                                 <button type="submit" class="btn btn-primary">{{ __('filter') }}</button>
                             </div>
                         </form>
-                        <table class="table table-hover text-nowrap table-bordered">
+                        <table class="table table-responsive table-hover text-nowrap table-bordered table-responsive">
                             <thead>
                                 <tr class="text-center">
                                     <th class="text-left">{{ __('name') }}</th>

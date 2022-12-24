@@ -57,7 +57,7 @@ class AppServiceProvider extends ServiceProvider
 
             view()->share('top_categories', CategoryResource::collection(Category::active()->withCount('ads as ad_count')->latest('ad_count')->take(6)->get()));
            view()->share('categories', Category::active()->with('subcategories', function ($q) {
-                view()->share('footer_categories', Category::active()->latest()->take(4)->get());
+                view()->share('footer_categories', Category::active()->latest()->take(15)->get());
               $q->where('status', 1);
             })->get());
             view()->share('settings', Setting::first());

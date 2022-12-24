@@ -1,7 +1,9 @@
 <table class="table table-hover text-nowrap table-bordered">
     <thead>
         <tr class="text-center">
-            <th width="2%">#</th>
+            <th width="2%">
+                <input type="checkbox" class="selectall">
+            </th>
             <th width="5%">{{ __('thumbnail') }}</th>
             <th width="10%">{{ __('name') }}</th>
             <th width="10%">{{ __('price') }}</th>
@@ -22,7 +24,7 @@
         @forelse ($ads as $key =>$ad)
             <tr>
                 <td class="text-center" tabindex="0">
-                    {{ $key + 1 }}
+                    <input type="checkbox" onclick="addValue(this)" value="{{ $ad->id }}" name="ads_id[]">
                 </td>
                 <td class="text-center" tabindex="0">
                     <img src="{{ $ad->image_url }}" class="rounded" height="50px" width="50px" alt="image">
@@ -46,8 +48,8 @@
                 @endif
                 @if ($showCity)
                     <td class="text-center" tabindex="0">
-                        <a href="{{ route('module.ad.index', ['country' => $ad->country]) }}">
-                            {{ $ad->country }}
+                        <a href="{{ route('module.ad.index', ['country' => $ad->country_id]) }}">
+                            {{ $ad->country->location ?? '' }}
                         </a>
                     </td>
                 @endif
@@ -66,7 +68,7 @@
                     </button>
                     <ul class="dropdown-menu" x-placement="bottom-start"
                         style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 38px, 0px);">
-                        @if ($ad->status == 'pending' || $ad->status == 'sold' || $ad->status == 'declined')
+                        @if ($ad->status == 'pending' || $ad->status == 'sold' || $ad->status == 'declined' || $ad->status == 'inactive')
                             <li><a onclick="return confirm('Are you sure to perform this action?')"
                                     class="dropdown-item"
                                     href="{{ route('module.ad.status', [$ad->slug, 'active']) }}">
@@ -76,8 +78,7 @@
                         @endif
                         @if ($ad->status == 'active')
                             <li><a onclick="return confirm('Are you sure to perform this action?')"
-                                    class="dropdown-item"
-                                    href="{{ route('module.ad.status', [$ad->slug, 'sold']) }}">
+                                    class="dropdown-item" href="{{ route('module.ad.status', [$ad->slug, 'sold']) }}">
                                     <i class="fas fa-hourglass-end text-danger"></i> {{ __('mark_as_sold') }}
                                 </a>
                             </li>
@@ -114,8 +115,7 @@
                                 <i class="fas fa-images text-warning"></i></i> {{ __('ad_gallary') }}
                             </a>
                         </li>
-                        <li><a class="dropdown-item"
-                                href="{{ route('module.ad.custom.field.value.edit', $ad->id) }}">
+                        <li><a class="dropdown-item" href="{{ route('module.ad.custom.field.value.edit', $ad->id) }}">
                                 <i class="fas fa-edit text-info"></i> {{ __('edit_custom_fields') }}
                             </a>
                         </li>

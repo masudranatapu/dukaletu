@@ -84,18 +84,25 @@
                             </x-sidebar-dropdown>
                         @endif
                     @endif
-                    @if (Module::collections()->has('Brand') && userCan('brand.view'))
+                    {{-- @if (Module::collections()->has('Brand') && userCan('brand.view'))
                         <x-admin.sidebar-list :linkActive="Route::is('module.brand.*') ? true : false" route="module.brand.index" icon="fas fa-award">
                             {{ __('brand') }}
                         </x-admin.sidebar-list>
-                    @endif
+                    @endif --}}
 
                     @if (Module::collections()->has('Map') && userCan('map.view'))
                         <x-admin.sidebar-list :linkActive="Route::is('module.map.*') ? true : false" route="module.map.index" icon="fas fa-map-marker-alt">
                             {{ __('map') }}
                         </x-admin.sidebar-list>
                     @endif
-                    
+                    <x-admin.sidebar-list :linkActive="Route::is('admin.location.*') ? true : false" route="admin.location.index" icon="fas fa-map-marker-alt">
+                        {{ __('Loction') }}
+                    </x-admin.sidebar-list>
+
+                    <x-admin.sidebar-list :linkActive="Route::is('admin.sms.*') ? true : false" route="admin.sms.dashboard" icon="fas fa-sms">
+                        {{ __('Sms') }}</x-admin.sidebar-list>
+
+
 
 
                     <li class="nav-header">{{ __('others') }}</li>
@@ -129,8 +136,11 @@
                                     </ul>
                                 @endif
 
+
                             </x-sidebar-dropdown>
+
                         @endif
+
                     @endif
 
                     {{-- Blog and Tag --}}
@@ -193,6 +203,7 @@
                             {{ __('pending_ads') }}
                         </button>
                     @endif
+
                 </ul>
             </nav>
             <!-- Sidebar Menu -->
@@ -222,6 +233,7 @@
                             @csrf
                         </form>
                     </li>
+
                 </ul>
             </nav>
         </div>

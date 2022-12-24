@@ -30,7 +30,8 @@
                                                     <span class="invalid-feedback">{{ $message }}</span>
                                                 @enderror
                                             </div>
-                                            <div class="col-md-6 mb-3">
+
+                                            {{-- <div class="col-md-6 mb-3">
                                                 <x-forms.label name="brand" required="true" />
                                                 <select name="brand_id"
                                                     class="form-control @error('brand_id') is-invalid @enderror">
@@ -43,6 +44,22 @@
                                                     <span class="invalid-feedback">{{ $message }}</span>
                                                 @enderror
                                             </div>
+                                            <div class="col-md-6 mb-3" id="brand_div">
+                                                <x-forms.label name="brand" required="" />
+                                                <select name="brand_id"
+                                                    class="form-control @error('brand_id') is-invalid @enderror">
+                                                    <option value="">Select One</option>
+                                                    @foreach ($brands as $brand)
+                                                        <option {{ old('brand_id') == $brand->id ? 'selected' : '' }}
+                                                            value="{{ $brand->id }}">{{ $brand->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                                @error('brand_id')
+                                                    <span class="invalid-feedback">{{ $message }}</span>
+                                                @enderror
+                                            </div> --}}
+
+
                                         </div>
 
                                         <div class="row">
@@ -65,8 +82,7 @@
                                                 </x-forms.label>
                                                 <input type="number" name="price"
                                                     class="form-control @error('price') is-invalid @enderror"
-                                                    value="{{ old('price') }}"
-                                                    placeholder="{{ __('enter_ad_price') }}">
+                                                    value="{{ old('price') }}" placeholder="{{ __('enter_ad_price') }}">
                                                 @error('price')
                                                     <span class="invalid-feedback">{{ $message }}</span>
                                                 @enderror
@@ -74,7 +90,7 @@
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-md-6 mb-3">
+                                            {{-- <div class="col-md-6 mb-3">
                                                 <x-forms.label name="select_category" required="true" />
                                                 <select name="category_id" id="ad_category"
                                                     class="form-control @error('category_id') border-danger @enderror">
@@ -82,6 +98,23 @@
                                                         <option
                                                             {{ old('category_id') == $category->id ? 'selected' : '' }}
                                                             value="{{ $category->id }}">{{ $category->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                                @error('category_id')
+                                                    <span class="invalid-feedback">{{ $message }}</span>
+                                                @enderror
+                                            </div> --}}
+                                            <div class="col-md-6 mb-3">
+                                                <x-forms.label name="select_category" required="true" />
+                                                <select name="category_id" id="ad_category"
+                                                    class="form-control @error('category_id') border-danger @enderror"
+                                                    required>
+                                                    <option value=""> Select category</option>
+                                                    @foreach ($categories as $category)
+                                                        <option {{ old('category_id') == $category->id ? 'selected' : '' }}
+                                                            value="{{ $category->id }}"
+                                                            data-is_show_brand="{{ $category->is_show_brand }}">
+                                                            {{ $category->name }}</option>
                                                     @endforeach
                                                 </select>
                                                 @error('category_id')
@@ -117,7 +150,7 @@
                                                 @enderror
                                             </div>
 
-                                            <div class="col-md-6 mb-3">
+                                            {{-- <div class="col-md-6 mb-3">
                                                 <label for="optional_phone_number"
                                                     class="p-1">{{ __('phone_number') }}
                                                     ({{ __('optional') }})</label>
@@ -128,7 +161,7 @@
                                                 @error('phone_2')
                                                     <span class="invalid-feedback">{{ $message }}</span>
                                                 @enderror
-                                            </div>
+                                            </div> --}}
                                             <div class="col-md-6 mb-3">
                                                 <label for="whatsapp_profile_url"
                                                     class="p-1">{{ __('whatsapp_number') }}
@@ -140,6 +173,48 @@
                                                     value="{{ old('whatsapp') }}" placeholder="E.g: 8801681******"
                                                     id="whatsapp_profile_url">
                                                 @error('whatsapp')
+                                                    <span class="invalid-feedback">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-md-6 mb-3">
+                                                <x-forms.label name="country" required="true">
+
+                                                </x-forms.label>
+                                                <select name="country" id="ad_country"
+                                                    class="form-control @error('country') border-danger @enderror" required>
+                                                    <option value=""> Select country</option>
+                                                    @foreach ($countries as $country)
+                                                        <option {{ old('country') == $country->id ? 'selected' : '' }}
+                                                            value="{{ $country->id }}">
+                                                            {{ $country->location }}</option>
+                                                    @endforeach
+                                                </select>
+
+                                                @error('country')
+                                                    <span class="invalid-feedback">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <x-forms.label name="city" required="true">
+                                                </x-forms.label>
+                                                <input type="text" name="district"
+                                                    class="form-control @error('district') is-invalid @enderror"
+                                                    value="{{ old('district') }}"
+                                                    placeholder="{{ __('enter_ad_city') }}">
+                                                @error('district')
+                                                    <span class="invalid-feedback">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <x-forms.label name="address" required="true">
+                                                </x-forms.label>
+                                                <input type="text" name="address"
+                                                    class="form-control @error('address') is-invalid @enderror"
+                                                    value="{{ old('address') }}"
+                                                    placeholder="{{ __('enter_ad_address') }}">
+                                                @error('address')
                                                     <span class="invalid-feedback">{{ $message }}</span>
                                                 @enderror
                                             </div>
@@ -172,7 +247,7 @@
                                                     class="invalid-feedback d-block"><strong>{{ $message }}</strong></span>
                                             @enderror
                                         </div>
-                                        <div class="col-md-12 mb-3">
+                                        {{-- <div class="col-md-12 mb-3">
                                             <div class="input-field--textarea">
                                                 <x-forms.label name="features" for="feature" />
                                                 <div id="multiple_feature_part">
@@ -192,11 +267,11 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-12 mb-3">
+                                    {{-- <div class="col-md-12 mb-3">
                                         <x-forms.label name="location" required="true" />
                                         <span data-toggle="tooltip" title=""
                                             data-original-title="{{ __('drag_the_pointer_or_find_your_location') }} ">
@@ -218,7 +293,7 @@
                                         @error('location')
                                             <span class="text-md text-danger">{{ $message }}</span>
                                         @enderror
-                                    </div>
+                                    </div> --}}
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12 mb-3">
@@ -311,24 +386,25 @@
     {{-- ck-editor --}}
     <script>
         CKEDITOR.replace('editor2', {
-            height: 600,
+            height: 300,
             removeButtons: 'PasteFromWord'
-            });
+        });
     </script>
 
     {{-- category-subcategory dropdown --}}
     <script>
-        var subct_id = document.getElementById('subct_id').value;
+        // var subct_id = document.getElementById('subct_id').value;
 
-        $(document).ready(function() {
-            var category_id = document.getElementById('ad_category').value;
-            cat_wise_subcat(category_id);
-        });
+        // $(document).ready(function() {
+        //     var category_id = document.getElementById('ad_category').value;
+        //     cat_wise_subcat(category_id);
+        // });
 
 
 
         // category wise subcategory function
         function cat_wise_subcat(categoryID) {
+
             axios.get('/get_subcategory/' + categoryID).then((res => {
                 // console.log(res);
                 if (res.data) {
@@ -349,9 +425,20 @@
 
         // Category wise subcategories dropdown
         $('#ad_category').on('change', function() {
+            console.log('ok');
             var categoryID = $(this).val();
-            if (categoryID) {
-                cat_wise_subcat(categoryID);
+            var is_show_brand = $(this).find('option:selected').attr('data-is_show_brand');
+            $("#ad_subcategory").empty();
+            $('#sub_cat_div').hide();
+            if (categoryID != '') {
+                if (is_show_brand == '1') {
+                    $('#brand_div').show();
+                } else {
+                    $('#brand_div').hide();
+                }
+                if (categoryID) {
+                    cat_wise_subcat(categoryID);
+                }
             }
         });
     </script>
@@ -390,6 +477,6 @@
         });
     </script>
 
-    <x-set-mapbox />
-    <x-set-googlemap />
+    {{-- <x-set-mapbox />
+    <x-set-googlemap /> --}}
 @endsection

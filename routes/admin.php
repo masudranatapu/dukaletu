@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ThemeController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\AdminSms;
 use App\Http\Controllers\Admin\RolesController;
 use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\PaymentController;
@@ -14,6 +15,11 @@ use App\Http\Controllers\Admin\CmsSettingController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\Auth\ResetPasswordController;
 use App\Http\Controllers\Admin\Auth\ForgotPasswordController;
+use App\Http\Controllers\Admin\LocationController;
+use App\Http\Controllers\Admin\SmsPackageController;
+use App\Http\Controllers\Admin\SmsPurchasedTransactionController;
+use App\Http\Controllers\Admin\UserSmsPlanController;
+use Google\Service\Adsense\Row;
 
 Route::prefix('admin')->group(function () {
     Route::middleware(['guest:admin'])->group(function () {
@@ -35,6 +41,9 @@ Route::prefix('admin')->group(function () {
             Route::get('/dashboard', 'dashboard')->name('admin.dashboard');
             Route::post('/admin/search', 'search')->name('admin.search');
         });
+
+
+
 
         //Profile Route
         Route::controller(ProfileController::class)->group(function () {
@@ -167,6 +176,24 @@ Route::prefix('admin')->group(function () {
             Route::put('/coming-soon', 'updateComingSoon')->name('admin.comingsoon.update');
             Route::put('/maintenance', 'updateMaintenance')->name('admin.maintenance.update');
             Route::put('/errorpages', 'updateErrorPages')->name('admin.errorpages.update');
+        });
+
+        Route::prefix('/sms')->name('admin.sms.')->group(function () {
+            Route::get('/', [AdminSms::class, 'index'])->name('dashboard');
+            Route::resource('/package', SmsPackageController::class);
+            Route::post('/package-staus-change', [SmsPackageController::class, 'statusChange'])->name('statusChange');
+
+            Route::prefix('/transaction')->name('transaction.')->group(function () {
+                Route::get('/', [SmsPurchasedTransactionController::class, 'index'])->name('index');
+            });
+            Route::prefix('/userPackage')->name('userPackage.')->group(function () {
+                Route::get('/', [UserSmsPlanController::class, 'index'])->name('index');
+            });
+        });
+        Route::name('admin.')->group(function () {
+
+            Route::resource('/location', LocationController::class);
+            Route::post('/location-status-change', [LocationController::class, 'changeStatus'])->name('location.statusChange');
         });
     });
 });

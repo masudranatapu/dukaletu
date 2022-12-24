@@ -15,8 +15,13 @@
         @endif
         @if ($priceplan_enable)
             <li class="footer-menu__item">
-                <a href="{{ route('frontend.priceplan') }}" class="footer-menu__link text--body-3">{{ __('pricing_plan') }}</a>
+                <a href="{{ route('frontend.priceplan') }}"
+                    class="footer-menu__link text--body-3">{{ __('pricing_plan') }}</a>
             </li>
         @endif
+        {{-- <li class="footer-menu__item">
+            <a href="{{ route('frontend.smsPricePlan') }}"
+                class="footer-menu__link text--body-3">{{ __('sms_price_plan') }}</a>
+        </li> --}}
     </ul>
 </div>

@@ -25,12 +25,22 @@ class PhoneVerifyController extends Controller
             $six_digit_random_number = random_int(100000, 999999);
             $message = "Use " . $six_digit_random_number . " as your one time pin for DUKALETU. It will be disabled for the next 30 second";
 
+            $setting = setting();
 
+            if($setting->app_mode == 'local'){
+                $mobileValidation = new MobileValidation();
+                $mobileValidation->phone_number = $request->phone;
+                $mobileValidation->otp_code = $six_digit_random_number;
+                $mobileValidation->expired_in = Carbon::now()->addSeconds(30);
+                $mobileValidation->attempt = 1;
+                $mobileValidation->save();
+                return response()->json(['message' => $mobileValidation, 'status' => "success"], 200);
+            }
 
             $find = MobileValidation::where('phone_number', $request->phone)->first();
 
             if (isset($find)) {
-                
+
 
                 if ($find->attempt >= 5 && Carbon::parse($find->updated_at)->isToday()) {
                     return response()->json(['message' => "You already attempt 5 times please try again tommrow", 'status' => "faild"]);
@@ -53,6 +63,7 @@ class PhoneVerifyController extends Controller
                     }
                 }
             } else {
+
                 $response = Http::post('https://quicksms.advantasms.com/api/services/sendsms', [
                     'apikey' => Config::get('sms.apikey'),
                     'partnerID' => Config::get('sms.partnerID'),
@@ -61,8 +72,7 @@ class PhoneVerifyController extends Controller
                     'mobile' => $request->phone,
                 ]);
 
-                if ($response->json()['responses'][0]['response-code'] == 200) {
-
+                if ( $response->json()['responses'][0]['response-code'] == 200 ) {
 
                 $mobileValidation = new MobileValidation();
                 $mobileValidation->phone_number = $request->phone;

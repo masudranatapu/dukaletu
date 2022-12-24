@@ -181,6 +181,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Knox\Pesapal\PesapalServiceProvider::class,
 
+
     ],
 
     /*
@@ -236,6 +237,8 @@ return [
         'Rave' => KingFlamez\Rave\Facades\Rave::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'Pesapal' => Knox\Pesapal\Facades\Pesapal::class,
+        'FastExcel' => Rap2hpoutre\FastExcel\Facades\FastExcel::class,
+
     ],
 
 ];

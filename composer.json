@@ -8,7 +8,7 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^7.3|^8.0",
+        "php": "^7.4|^8.1",
         "amrshawky/laravel-currency": "^5.0",
         "anhskohbo/no-captcha": "^3.4",
         "arcanedev/log-viewer": "^8.0",
@@ -32,7 +32,9 @@
         "mollie/laravel-mollie": "^2.19",
         "msztorc/laravel-env": "^1.2",
         "nwidart/laravel-modules": "8.2.*",
+        "phpoffice/phpspreadsheet": "^1.25",
         "pusher/pusher-php-server": "^7.0",
+        "rap2hpoutre/fast-excel": "^4.1",
         "razorpay/razorpay": "^2.8",
         "spatie/laravel-analytics": "^3.11",
         "spatie/laravel-permission": "^3.17",

@@ -22,7 +22,7 @@
                     <textarea required name="description" placeholder="{{ __('whats_your_thought') }}..." id="description"
                         class="@error('description') border-danger @enderror"></textarea>
                 </div>
-                <div class="input-field--textarea">
+                {{-- <div class="input-field--textarea">
                     <label for="">Features</label>
                     <div id="multiple_feature_part">
                         <div class="row">
@@ -38,7 +38,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 <div class="upload-wrapper">
                     <h3>{{ __('upload_photos') }}</h3>
                     <div class="alert alert-danger" role="alert">

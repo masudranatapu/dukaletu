@@ -49,6 +49,8 @@
         <!-- Main Sidebar Container -->
         @if (request()->is('admin/settings/*'))
             @include('admin.layouts.partials.setting-sidebar')
+        @elseif (request()->is('admin/sms*'))
+            @include('admin.layouts.partials.sms-sidebar')
         @else
             @include('admin.layouts.partials.default-sidebar')
         @endif

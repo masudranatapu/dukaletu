@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use Modules\Ad\Entities\Ad;
 use Modules\Brand\Entities\Brand;
 use App\Http\Traits\AdCreateTrait;
+use App\Models\Admin\Location;
 use App\Models\Setting;
 use Illuminate\Routing\Controller;
 use Modules\Category\Entities\Category;
@@ -16,6 +17,7 @@ use App\Notifications\AdCreateNotification;
 use Modules\Ad\Http\Requests\AdFormRequest;
 use App\Notifications\AdApprovedNotification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Modules\CustomField\Entities\CustomField;
 use Modules\CustomField\Entities\ProductCustomField;
 use Intervention\Image\Facades\Image;
@@ -40,6 +42,7 @@ class AdController extends Controller
         $brands = Brand::get(['id', 'name', 'slug']);
         $query = Ad::query();
 
+
         // keyword search
         if (request()->has('keyword') && request()->keyword != null) {
             $query->where('title', "LIKE", "%" . request('keyword') . "%");
@@ -62,7 +65,41 @@ class AdController extends Controller
                 $q->where('slug', $brand);
             });
         }
+        if ($request->ad_status) {
+            if ($request->adsid) {
 
+                $adsid = explode(",", $request->adsid);
+
+                if ($request->ad_status == 'active') {
+
+                    Ad::whereIn('id', $adsid)->update([
+                        'status' => 'active',
+                    ]);
+
+                    flashSuccess('Ad Status Successfully Active.');
+                    return redirect()->back();
+                } elseif ($request->ad_status == 'sold') {
+
+                    Ad::whereIn('id', $adsid)->update([
+                        'status' => 'sold',
+                    ]);
+
+                    flashSuccess('Ad Status Successfully Sold.');
+                    return redirect()->back();
+                } else {
+
+                    Ad::whereIn('id', $adsid)->update([
+                        'status' => 'inactive',
+                    ]);
+
+                    flashSuccess('Ad Status Successfully Inactive.');
+                    return redirect()->back();
+                }
+            } else {
+                flashWarning('First select ads to change status');
+                return redirect()->back();
+            }
+        };
         // filtering
         if (request()->has('filter_by') && request()->filter_by != null) {
             switch (request()->filter_by) {
@@ -71,6 +108,9 @@ class AdController extends Controller
                     break;
                 case 'active':
                     $query->where('status', 'active');
+                    break;
+                case 'inactive':
+                    $query->where('status', 'inactive');
                     break;
                 case 'pending':
                     $query->where('status', 'pending');
@@ -90,12 +130,14 @@ class AdController extends Controller
             }
         }
 
-        $ads = $query->latest()->paginate(10)->withQueryString();
+        $ads = $query->with('country')->latest()->paginate(10)->withQueryString();
+        // dd($ads);
 
         return view('ad::index', compact(
             'ads',
             'categories',
             'brands'
+
         ));
     }
 
@@ -112,6 +154,8 @@ class AdController extends Controller
 
         $brands = Brand::all();
         $customers = User::all();
+        $countries = Location::where('status', true)->get();
+
         $categories = Category::active()->with('subcategories', function ($q) {
             $q->where('status', 1);
         })->get();
@@ -134,7 +178,8 @@ class AdController extends Controller
         return view('ad::create', [
 
             'brands' => $brands,
-            'customers' => $customers
+            'customers' => $customers,
+            'countries' => $countries,
         ]);
     }
 
@@ -155,27 +200,36 @@ class AdController extends Controller
         if (!userCan('ad.create')) {
             return abort(403);
         }
+        // session()->put('location', $request->location);
 
-        $location = session()->get('location');
-        if (!$location) {
+        // // $location = session()->get('location');
+        // // if (!$location) {
 
-            $request->validate([
-                'location' => 'required',
-            ]);
+        // //     $request->validate([
+        // //         'location' => 'required|array',
+        // //     ]);
+        // // }
+
+        $slug = Str::slug($request->title);
+
+        $check = DB::table('ads')->where('slug', $slug)->first();
+        $lastAD = Ad::orderBy('id', 'desc')->first();
+        if ($check) {
+            $slug = $slug . '-' . (int)$lastAD->id + 1;
         }
 
         $ad = new Ad();
         $ad->title = $request->title;
-        $ad->slug = Str::slug($request->title);
+        $ad->slug = $slug;
         $ad->user_id = $request->user_id;
         $ad->category_id = $request->category_id;
         $ad->subcategory_id = $request->subcategory_id;
-        $ad->brand_id = $request->brand_id;
+        // $ad->brand_id = $request->brand_id;
         $ad->price = $request->price;
         $ad->description = $request->description;
         $ad->show_phone = $request->show_phone;
         $ad->phone = $request->phone;
-        $ad->phone_2 = $request->phone_2;
+        // $ad->phone_2 = $request->phone_2;
         $ad->whatsapp = $request->whatsapp ?? '';
         $ad->featured = $request->featured ? $request->featured : 0;
         $ad->status = setting('ads_admin_approval') ? 'pending' : 'active';
@@ -189,35 +243,35 @@ class AdController extends Controller
         }
 
         // feature inserting
-        foreach ($request->features as $feature) {
-            if ($feature) {
-                $ad->adFeatures()->create(['name' => $feature]);
-            }
-        }
+        // foreach ($request->features as $feature) {
+        //     if ($feature) {
+        //         $ad->adFeatures()->create(['name' => $feature]);
+        //     }
+        // }
 
         !setting('ads_admin_approval') ? $this->userPlanInfoUpdate($ad->featured, $request->user_id) : '';
 
         // <!--  location  -->
-        $location = session()->get('location');
 
-        $region = array_key_exists("region", $location) ? $location['region'] : '';
-        $country = array_key_exists("country", $location) ? $location['country'] : '';
-        $address = Str::slug($region . '-' . $country);
+
+        // $region = array_key_exists("region", $location) ? $location['region'] : '';
+        // $country = array_key_exists("country", $location) ? $location['country'] : '';
+        // $address = Str::slug($region . '-' . $country);
 
         $ad->update([
-            'address' => $address,
-            'neighborhood' => array_key_exists("neighborhood", $location) ? $location['neighborhood'] : '',
-            'locality' => array_key_exists("locality", $location) ? $location['locality'] : '',
-            'place' => array_key_exists("place", $location) ? $location['place'] : '',
-            'district' => array_key_exists("district", $location) ? $location['district'] : '',
-            'postcode' => array_key_exists("postcode", $location) ? $location['postcode'] : '',
-            'region' => array_key_exists("region", $location) ? $location['region'] : '',
-            'country' => array_key_exists("country", $location) ? $location['country'] : '',
-            'long' => array_key_exists("lng", $location) ? $location['lng'] : '',
-            'lat' => array_key_exists("lat", $location) ? $location['lat'] : '',
+            // 'neighborhood' => array_key_exists("neighborhood", $location) ? $location['neighborhood'] : '',
+            // 'locality' => array_key_exists("locality", $location) ? $location['locality'] : '',
+            // 'place' => array_key_exists("place", $location) ? $location['place'] : '',
+            // 'postcode' => array_key_exists("postcode", $location) ? $location['postcode'] : '',
+            // 'region' => array_key_exists("region", $location) ? $location['region'] : '',
+            'address' => $request->address ?? '',
+            'district' => $request->district ?? '',
+            'country_id' => $request->country ?? '',
+            'long' => 0,
+            'lat' => 0,
         ]);
 
-        session()->forget('location');
+
 
         flashSuccess('Ad Created Successfully. Please add category custom field values .');
 
@@ -246,7 +300,7 @@ class AdController extends Controller
     {
         $data['brands'] = Brand::get();
         $data['customers'] = User::get();
-
+        $data['countries'] = Location::where('status', true)->get();
         $data['categories'] = Category::get();
         $data['subcategories'] = SubCategory::where('category_id', $ad->category->id)->get();
 
@@ -259,18 +313,20 @@ class AdController extends Controller
             return abort(403);
         }
 
+
+
         $ad->update([
             'title' => $request->title,
-            'slug' => Str::slug($request->title),
+            // 'slug' => Str::slug($request->title),
             'user_id' => $request->user_id,
             'category_id' => $request->category_id,
             'subcategory_id' => $request->subcategory_id,
-            'brand_id' => $request->brand_id,
+            // 'brand_id' => $request->brand_id,
             'price' => $request->price,
             'description' => $request->description,
             'phone' => $request->phone,
             'show_phone' => $request->show_phone,
-            'phone_2' => $request->phone_2,
+            // 'phone_2' => $request->phone_2,
             'whatsapp' => $request->whatsapp ?? '',
             'featured' => $request->featured ? $request->featured : 0,
         ]);
@@ -284,36 +340,31 @@ class AdController extends Controller
         }
 
         // feature inserting
-        $ad->adFeatures()->delete();
-        foreach ($request->features as $feature) {
-            if ($feature) {
-                $ad->adFeatures()->create(['name' => $feature]);
-            }
-        }
+        // $ad->adFeatures()->delete();
+        // foreach ($request->features as $feature) {
+        //     if ($feature) {
+        //         $ad->adFeatures()->create(['name' => $feature]);
+        //     }
+        // }
 
         // <!--  location  -->
-        $location = session()->get('location');
-        if ($location) {
 
-            $region = array_key_exists("region", $location) ? $location['region'] : '';
-            $country = array_key_exists("country", $location) ? $location['country'] : '';
-            $address = Str::slug($region . '-' . $country);
 
-            $ad->update([
-                'address' => $address,
-                'neighborhood' => array_key_exists("neighborhood", $location) ? $location['neighborhood'] : '',
-                'locality' => array_key_exists("locality", $location) ? $location['locality'] : '',
-                'place' => array_key_exists("place", $location) ? $location['place'] : '',
-                'district' => array_key_exists("district", $location) ? $location['district'] : '',
-                'postcode' => array_key_exists("postcode", $location) ? $location['postcode'] : '',
-                'region' => array_key_exists("region", $location) ? $location['region'] : '',
-                'country' => array_key_exists("country", $location) ? $location['country'] : '',
-                'long' => array_key_exists("lng", $location) ? $location['lng'] : '',
-                'lat' => array_key_exists("lat", $location) ? $location['lat'] : '',
-            ]);
+        $ad->update([
+            // 'neighborhood' => array_key_exists("neighborhood", $location) ? $location['neighborhood'] : '',
+            // 'locality' => array_key_exists("locality", $location) ? $location['locality'] : '',
+            // 'place' => array_key_exists("place", $location) ? $location['place'] : '',
+            // 'postcode' => array_key_exists("postcode", $location) ? $location['postcode'] : '',
+            // 'region' => array_key_exists("region", $location) ? $location['region'] : '',
+            'address' => $request->address ?? '',
+            'district' => $request->district ?? '',
+            'country_id' => $request->country ?? '',
+            'long' => 0,
+            'lat' => 0,
+        ]);
 
-            session()->forget('location');
-        }
+
+
 
 
         flashSuccess('Ad Updated Successfully. Please update category custom field values .');
