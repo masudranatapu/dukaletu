@@ -100,7 +100,7 @@
                     </x-admin.sidebar-list>
 
                     <x-admin.sidebar-list :linkActive="Route::is('admin.sms.*') ? true : false" route="admin.sms.dashboard" icon="fas fa-sms">
-                        {{ __('Sms') }}</x-admin.sidebar-list>
+                        {{ __('SMS') }}</x-admin.sidebar-list>
 
 
 
