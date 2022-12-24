@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
 
 @section('title')
-    {{ __('Sms Package') }}
+    {{ __('SMS Package') }}
 @endsection
 
 @section('breadcrumbs')
@@ -19,7 +19,7 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="d-flex align-items-center justify-content-between">
-                            <h3 class="card-title" style="line-height: 36px;">{{ __('Sms Purchased Transaction History') }}
+                            <h3 class="card-title" style="line-height: 36px;">{{ __('SMS Purchased Transaction History') }}
                             </h3>
                         </div>
                     </div>

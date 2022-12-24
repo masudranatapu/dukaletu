@@ -11,6 +11,15 @@
             <nav class="sidebar-main-nav mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview" role="menu"
                     data-accordion="false">
+
+                    <li class="nav-item">
+
+
+                        <x-admin.sidebar-list :linkActive="Route::is('admin.sms.dashboard.*') ? true : false" route="admin.sms.dashboard"
+                            icon="fas fa-tachometer-alt">
+                            {{ __('SMS Dashboard') }}</x-admin.sidebar-list>
+                    </li>
+
                     <li class="nav-item">
 
                         <x-admin.sidebar-list :linkActive="Route::is('admin.sms.package.*') ? true : false" route="admin.sms.package.index" icon="fas fa-sms">

@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
 
 @section('title')
-    {{ __('User Sms History') }}
+    {{ __('User SMS History') }}
 @endsection
 
 @section('breadcrumbs')

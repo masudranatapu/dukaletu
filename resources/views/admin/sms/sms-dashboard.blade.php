@@ -13,7 +13,7 @@
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-header">
-                        Sms Balance
+                        SMS Balance
                     </div>
                     <div class="card-body">
                         <h3 class="text-center"><strong>Balance : </strong>{{ $balence }} Unit</h3>

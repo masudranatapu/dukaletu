@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
 
 @section('title')
-    {{ __('Sms Package') }}
+    {{ __('SMS Package') }}
 @endsection
 
 @section('breadcrumbs')
@@ -35,7 +35,7 @@
                                 <th>#</th>
                                 <th>Name</th>
                                 <th>Price</th>
-                                <th>Amount of Sms</th>
+                                <th>Amount of SMS</th>
                                 <th>Validity(in Days)</th>
                                 <th>Status</th>
                                 <th>Action</th>
