@@ -40,10 +40,10 @@
     <!-- price-plan section start  -->
     <section class="section price-plan">
         <div class="container">
-            <h2 class="price-plan__title text--heading-1">{{ __('get_membership_right_now') }}</h2>
-            <p class="price-plan__brief text--body-3">
+            <h2 class="price-plan__title text--heading-1">{{ __('get_sms_right_now') }}</h2>
+            {{-- <p class="price-plan__brief text--body-3">
                 Lorem ipsum dolor sit amet consectetur
-            </p>
+            </p> --}}
             <div class="tab-content" id="nav-tabContent">
                 <!-- Monthly -->
                 <div class="tab-pane fade show active" id="nav-monthly" role="tabpanel" aria-labelledby="nav-monthly-tab">
