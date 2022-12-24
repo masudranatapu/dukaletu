@@ -43,7 +43,6 @@
                                         <td>{{ $user->username ?? '' }}</td>
                                         <td>{{ $user->smsPlan->name ?? '' }}</td>
                                         <td>{{ $user->user_sms_stock ?? '' }}</td>
-                                        {{-- <td>{{ (int) $user->smsPlan - (int) $user->user_sms_stock }} --}}
                                         <td>{{ ($user->smsPlan->amount_of_sms ?? 0) - ($user->user_sms_stock ?? 0) }}</td>
                                         </td>
                                     </tr>
