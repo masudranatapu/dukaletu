@@ -13,6 +13,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Modules\PushNotification\Entities\UserDeviceToken;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -142,8 +143,8 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(UserDeviceToken::class, 'user_id', 'id');
     }
 
-    public function smsPlan(): HasOne
+    public function smsPlan(): BelongsTo
     {
-        return $this->hasOne(SmsPackage::class, 'id', 'sms_plan_id');
+        return $this->belongsTo(SmsPackage::class, 'sms_plan_id');
     }
 }

@@ -13,10 +13,10 @@
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-header">
-                        Sms Balence
+                        Sms Balance
                     </div>
                     <div class="card-body">
-                        <h3 class="text-center"><strong>Balence : </strong>{{ $balence }} Unit</h3>
+                        <h3 class="text-center"><strong>Balance : </strong>{{ $balence }} Unit</h3>
                     </div>
                 </div>
             </div>

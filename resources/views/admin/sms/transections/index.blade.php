@@ -42,14 +42,14 @@
                                 @foreach ($transactions as $transaction)
                                     <tr>
 
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $transaction->transaction_id }}</td>
-                                        <td>{{ $transaction->customer->username }}</td>
-                                        <td>{{ $transaction->package->name }}</td>
-                                        <td>{{ Str::ucfirst($transaction->payment_provider) }}</td>
-                                        <td>{{ $transaction->amount }}</td>
-                                        <td>{{ $transaction->payment_status }}</td>
-                                        <td>{{ Carbon\Carbon::parse($transaction->created_at)->format('M d, Y g:i A') }}
+                                        <td>{{ $loop->iteration ?? '' }}</td>
+                                        <td>{{ $transaction->transaction_id ?? '' }}</td>
+                                        <td>{{ $transaction->customer->username ?? '' }}</td>
+                                        <td>{{ $transaction->package->name ?? '' }}</td>
+                                        <td>{{ Str::ucfirst($transaction->payment_provider) ?? '' }}</td>
+                                        <td>{{ $transaction->amount ?? '' }}</td>
+                                        <td>{{ $transaction->payment_status ?? '' }}</td>
+                                        <td>{{ Carbon\Carbon::parse($transaction->created_at)->format('M d, Y g:i A') ?? '' }}
                                         </td>
                                         {{-- <td class="text-center">
                                             <a href="#" class="btn btn-info"><i class="fas fa-eye"></i></a>
