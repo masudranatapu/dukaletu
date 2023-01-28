@@ -12,7 +12,7 @@
                 <x-svg.location-icon />
             </span>
 
-            <p class="text--body-3">{{ $ad->region }} {{ $ad->region ? ', ' : '' }} {{ $ad->country->location }}</p>
+            <p class="text--body-3">{{ $ad->region }} {{ $ad->region ? ', ' : '' }} {{ $ad->country->location ?? "" }}</p>
         </li>
         <li class="post-details__item">
             <span class="icon">
